@@ -4,61 +4,53 @@
   <meta charset="UTF-8">
   <title>LiveAtlas</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- NAV -->
-<nav>
+<nav class="nav">
   <div class="logo">LiveAtlas</div>
-  <div class="links">
-    <button onclick="showSection('home')">Home</button>
-    <button onclick="showSection('experience')">Experience</button>
-    <button onclick="showSection('book')">Book</button>
-  </div>
 </nav>
 
-<!-- HOME -->
-<section id="home" class="section active">
-  <div class="hero">
-    <h1>See the World<br>Through Humans</h1>
-    <p>Not videos. Not reels. Real people. Real places. Live.</p>
+<!-- HERO -->
+<section class="hero">
+  <h1>See the World<br>Through Humans</h1>
+</section>
+
+<!-- IMMERSIVE SCENES -->
+<section class="scene" style="background-image:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470')">
+  <div class="overlay-text">A human walks here.</div>
+</section>
+
+<section class="scene" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee')">
+  <div class="overlay-text">You are not watching.</div>
+</section>
+
+<section class="scene" style="background-image:url('https://images.unsplash.com/photo-1526772662000-3f88f10405ff')">
+  <div class="overlay-text">You are present.</div>
+</section>
+
+<!-- INTERACTIVE MOMENT -->
+<section class="choose">
+  <h2>Choose a Presence</h2>
+
+  <div class="choices">
+    <div class="choice">Mountains</div>
+    <div class="choice">City</div>
+    <div class="choice">Coast</div>
   </div>
 </section>
 
-<!-- EXPERIENCE -->
-<section id="experience" class="section">
-  <h2>Immersive Experiences</h2>
-  <div class="gallery">
-    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
-    <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470">
-    <img src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff">
-  </div>
-  <p class="hint">These are placeholders for real human-guided views.</p>
+<!-- BOOK (MINIMAL) -->
+<section class="book">
+  <p>Presence has become a privilege.</p>
 </section>
 
-<!-- BOOK -->
-<section id="book" class="section">
-  <h2>The LiveAtlas Book</h2>
-
-  <div class="book">
-    <div class="page active">
-      <h3>Chapter I</h3>
-      <p>Presence has become a privilege.</p>
-    </div>
-    <div class="page">
-      <h3>Chapter II</h3>
-      <p>Technology should extend human presence, not replace it.</p>
-    </div>
-    <div class="page">
-      <h3>Chapter III</h3>
-      <p>LiveAtlas is an experiment in shared reality.</p>
-    </div>
-  </div>
-
-  <button onclick="nextPage()">Turn Page</button>
-</section>
-
+<!-- JS -->
 <script src="app.js"></script>
+
 </body>
 </html>

@@ -1,7 +1,35 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiveAtlas | Live Virtual Tourism</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* This prevents the white flash */
+        body { background-color: #000 !important; margin: 0; overflow: hidden; }
+        #hero-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+    </style>
+</head>
+<body>
+
+    <canvas id="hero-canvas"></canvas>
+
+    <main class="glass-container">
+        <nav>
+            <div class="logo">LIVE<span>ATLAS</span></div>
+        </nav>
+
+        <section class="hero-content">
+            <h1 class="glitch-text">TELEPORT ANYWHERE</h1>
+            <p>Experience the world in Stereoscopic VR. Real-time tours.</p>
+            <button class="primary-btn">Begin Expedition</button>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <script src="script.js"></script>
+</body>
+</html>

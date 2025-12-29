@@ -7,145 +7,204 @@
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@300;600&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --neon: #00f2ff;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
         body, html {
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: #000; /* Deep Space Black */
+            background-color: #000;
             color: white;
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
+        /* The 3D Universe stays fixed in the background */
         #canvas-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            z-index: 1;
+            height: 100vh;
+            z-index: -1;
         }
 
-        .ui-layer {
-            position: relative;
-            z-index: 10;
-            height: 100vh;
+        /* Sections */
+        section {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            pointer-events: none; /* Allows mouse to pass through to the 3D globe */
-            background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+            padding: 50px;
+            box-sizing: border-box;
         }
 
-        .content-box {
-            pointer-events: auto; /* Re-enables clicking for buttons */
+        .hero-section {
+            text-align: center;
+            background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
         }
 
         h1 {
-            font-size: clamp(2rem, 8vw, 5rem);
-            letter-spacing: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 10vw, 6rem);
             margin: 0;
-            background: linear-gradient(to bottom, #fff, #00f2ff);
+            background: linear-gradient(to bottom, #fff, var(--neon));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(0, 242, 255, 0.5);
+            text-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
         }
 
-        p {
-            font-size: 1.2rem;
-            color: #888;
-            margin-bottom: 30px;
-            letter-spacing: 2px;
+        /* Modern Glass Card for Content */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 900px;
+            width: 90%;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .exp-card {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--neon);
+            padding: 20px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .exp-card:hover {
+            background: var(--neon);
+            color: #000;
+            transform: translateY(-10px);
         }
 
         .btn {
-            padding: 15px 40px;
-            border: 1px solid #00f2ff;
+            padding: 18px 50px;
+            border: 1px solid var(--neon);
             background: transparent;
-            color: #00f2ff;
+            color: var(--neon);
             font-family: 'Orbitron';
+            font-size: 1rem;
             cursor: pointer;
-            transition: 0.3s;
-            text-transform: uppercase;
+            transition: 0.4s;
+            margin-top: 20px;
+            letter-spacing: 3px;
+            pointer-events: auto;
         }
 
         .btn:hover {
-            background: #00f2ff;
+            background: var(--neon);
             color: #000;
-            box-shadow: 0 0 20px #00f2ff;
+            box-shadow: 0 0 40px var(--neon);
         }
+
+        h2 { font-family: 'Orbitron'; color: var(--neon); }
     </style>
 </head>
 <body>
 
     <div id="canvas-container"></div>
 
-    <div class="ui-layer">
-        <div class="content-box">
-            <h1>LIVE ATLAS</h1>
-            <p>BEYOND BOUNDARIES. BEYOND TIME.</p>
-            <button class="btn">Initialize Expedition</button>
+    <section class="hero-section" id="home">
+        <h1>LIVE ATLAS</h1>
+        <p style="letter-spacing: 5px; color: #aaa;">VIRTUAL TELEPORTATION INTERFACE</p>
+        <button class="btn" onclick="scrollToExplore()">Initialize Expedition</button>
+    </section>
+
+    <section id="explore">
+        <div class="glass-card">
+            <h2>Select Destination</h2>
+            <p>Connect to a live guide in high-fidelity stereoscopic 3D.</p>
+            
+            <div class="grid">
+                <div class="exp-card">
+                    <h3>ANTARCTICA</h3>
+                    <p>Live from Vostok Station</p>
+                </div>
+                <div class="exp-card">
+                    <h3>DUBAI MALL</h3>
+                    <p>Live Shopping & Personal Guide</p>
+                </div>
+                <div class="exp-card">
+                    <h3>AMAZON BASIN</h3>
+                    <p>Educational Field Trip</p>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 
     <script>
-        // --- 3D ENGINE START ---
-        const container = document.getElementById('canvas-container');
+        // --- 3D BACKGROUND ENGINE ---
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        
         renderer.setSize(window.innerWidth, window.innerHeight);
-        container.appendChild(renderer.domElement);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-        // 1. Create a Deep Space Starfield
+        // Stars
         const starGeom = new THREE.BufferGeometry();
-        const starMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.7 });
-        const starPositions = [];
-        for(let i=0; i<10000; i++) {
-            starPositions.push((Math.random()-0.5)*2000, (Math.random()-0.5)*2000, (Math.random()-0.5)*2000);
+        const starMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.8 });
+        const starPos = [];
+        for(let i=0; i<15000; i++) {
+            starPos.push((Math.random()-0.5)*2000, (Math.random()-0.5)*2000, (Math.random()-0.5)*2000);
         }
-        starGeom.setAttribute('position', new THREE.Float32BufferAttribute(starPositions, 3));
+        starGeom.setAttribute('position', new THREE.Float32BufferAttribute(starPos, 3));
         const stars = new THREE.Points(starGeom, starMat);
         scene.add(stars);
 
-        // 2. The LiveAtlas Globe (Wireframe Hologram)
-        const globeGeom = new THREE.SphereGeometry(5, 40, 40);
-        const globeMat = new THREE.MeshBasicMaterial({ 
-            color: 0x00f2ff, 
-            wireframe: true, 
-            transparent: true, 
-            opacity: 0.2 
-        });
-        const globe = new THREE.Mesh(globeGeom, globeMat);
+        // Globe
+        const globe = new THREE.Mesh(
+            new THREE.SphereGeometry(5, 50, 50),
+            new THREE.MeshBasicMaterial({ color: 0x00f2ff, wireframe: true, transparent: true, opacity: 0.15 })
+        );
         scene.add(globe);
-
         camera.position.z = 15;
 
-        // 3. Mouse Interaction (The "Parallax" Effect)
-        document.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth) - 0.5;
-            const y = (e.clientY / window.innerHeight) - 0.5;
+        // --- ANIMATION & SCROLL LOGIC ---
+        function scrollToExplore() {
+            gsap.to(window, { duration: 1.5, scrollTo: "#explore", ease: "power4.inOut" });
             
-            gsap.to(globe.rotation, { y: x * 2.5, x: y * 1.5, duration: 2 });
-            gsap.to(stars.position, { x: x * 20, y: -y * 20, duration: 4 });
-        });
+            // Cool effect: Globe "zooms in" when you initialize
+            gsap.to(camera.position, { z: 8, duration: 2 });
+            gsap.to(globe.opacity, { value: 0.05, duration: 2 });
+        }
 
-        // 4. Animation Loop
-        function renderLoop() {
-            requestAnimationFrame(renderLoop);
-            globe.rotation.y += 0.001; // Slow constant spin
+        function animate() {
+            requestAnimationFrame(animate);
+            globe.rotation.y += 0.001;
+            // Subtle globe movement based on scroll
+            const scrollPercent = window.scrollY / document.body.offsetHeight;
+            globe.position.y = scrollPercent * 10;
+            
             renderer.render(scene, camera);
         }
-        renderLoop();
+        animate();
 
-        // 5. Responsive Resize
+        // Mouse Parallax
+        window.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) - 0.5;
+            const y = (e.clientY / window.innerHeight) - 0.5;
+            gsap.to(globe.rotation, { y: globe.rotation.y + x * 0.5, x: y * 0.5, duration: 2 });
+        });
+
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();

@@ -8,79 +8,57 @@
 </head>
 <body>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="overlay"></div>
-    <div class="hero-content">
-      <h1>LiveAtlas</h1>
-      <p>Experience Earth through real humans, in real time.</p>
-      <span class="scroll">Scroll to enter ↓</span>
+<!-- NAV -->
+<nav>
+  <div class="logo">LiveAtlas</div>
+  <div class="links">
+    <button onclick="showSection('home')">Home</button>
+    <button onclick="showSection('experience')">Experience</button>
+    <button onclick="showSection('book')">Book</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="section active">
+  <div class="hero">
+    <h1>See the World<br>Through Humans</h1>
+    <p>Not videos. Not reels. Real people. Real places. Live.</p>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="section">
+  <h2>Immersive Experiences</h2>
+  <div class="gallery">
+    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
+    <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470">
+    <img src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff">
+  </div>
+  <p class="hint">These are placeholders for real human-guided views.</p>
+</section>
+
+<!-- BOOK -->
+<section id="book" class="section">
+  <h2>The LiveAtlas Book</h2>
+
+  <div class="book">
+    <div class="page active">
+      <h3>Chapter I</h3>
+      <p>Presence has become a privilege.</p>
     </div>
-  </section>
-
-  <!-- PHILOSOPHY -->
-  <section class="section">
-    <h2>Why LiveAtlas Exists</h2>
-    <p>
-      The world is vast, but human presence is restricted.
-      LiveAtlas is an experiment to dissolve distance,
-      letting people feel places through other humans — live.
-    </p>
-  </section>
-
-  <!-- IMMERSIVE IMAGE BLOCK -->
-  <section class="image-section">
-    <div class="image-text">
-      <h2>The World Is Not a Screen</h2>
-      <p>It is an experience.</p>
-    </div>
-  </section>
-
-  <!-- BOOK PAGE -->
-  <section class="book">
-    <h2>The LiveAtlas Book</h2>
-
     <div class="page">
-      <h3>Chapter I — The Problem</h3>
-      <p>
-        Humans are trapped by borders, money, time, and circumstance.
-        Presence has become a privilege.
-      </p>
+      <h3>Chapter II</h3>
+      <p>Technology should extend human presence, not replace it.</p>
     </div>
-
     <div class="page">
-      <h3>Chapter II — The Idea</h3>
-      <p>
-        What if presence could be shared?
-        What if one human could become another’s eyes?
-      </p>
+      <h3>Chapter III</h3>
+      <p>LiveAtlas is an experiment in shared reality.</p>
     </div>
+  </div>
 
-    <div class="page">
-      <h3>Chapter III — The Experiment</h3>
-      <p>
-        LiveAtlas is not a product.
-        It is a test of human connection through technology.
-      </p>
-    </div>
-  </section>
+  <button onclick="nextPage()">Turn Page</button>
+</section>
 
-  <!-- ROADMAP -->
-  <section class="section">
-    <h2>Roadmap</h2>
-    <ul class="roadmap">
-      <li><strong>Phase 1:</strong> Concept, storytelling, early presence</li>
-      <li><strong>Phase 2:</strong> Guided live human experiences</li>
-      <li><strong>Phase 3:</strong> Global participation & sustainability</li>
-    </ul>
-  </section>
-
-  <!-- FINAL MESSAGE -->
-  <section class="final">
-    <h2>This Is Only The Beginning</h2>
-    <p>LiveAtlas is under construction. The world is watching.</p>
-  </section>
-
-  <script src="script.js"></script>
+<script src="app.js"></script>
 </body>
 </html>

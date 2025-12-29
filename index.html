@@ -1,56 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>LiveAtlas</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>LiveAtlas — Live World Experiences</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="logo">LiveAtlas</div>
-</nav>
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="nav-left">
+    <img src="logo.png" alt="LiveAtlas Logo" class="logo">
+    <span class="brand">LiveAtlas</span>
+  </div>
+  <nav class="nav-links">
+    <a href="#product">Product</a>
+    <a href="#world">World</a>
+    <a href="#usecases">Use Cases</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
 
 <!-- HERO -->
 <section class="hero">
-  <h1>See the World<br>Through Humans</h1>
-</section>
-
-<!-- IMMERSIVE SCENES -->
-<section class="scene" style="background-image:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470')">
-  <div class="overlay-text">A human walks here.</div>
-</section>
-
-<section class="scene" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee')">
-  <div class="overlay-text">You are not watching.</div>
-</section>
-
-<section class="scene" style="background-image:url('https://images.unsplash.com/photo-1526772662000-3f88f10405ff')">
-  <div class="overlay-text">You are present.</div>
-</section>
-
-<!-- INTERACTIVE MOMENT -->
-<section class="choose">
-  <h2>Choose a Presence</h2>
-
-  <div class="choices">
-    <div class="choice">Mountains</div>
-    <div class="choice">City</div>
-    <div class="choice">Coast</div>
+  <div class="hero-content">
+    <h1>Experience the World<br>Live Through Humans</h1>
+    <p>Real people. Real places. Live presence — not recordings.</p>
+    <button class="primary-btn">Explore Live Experiences</button>
   </div>
 </section>
 
-<!-- BOOK (MINIMAL) -->
-<section class="book">
-  <p>Presence has become a privilege.</p>
+<!-- PRODUCT -->
+<section id="product" class="section">
+  <h2>What is LiveAtlas?</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Live Human Guides</h3>
+      <p>Connect with people on the ground who guide you live through cities, nature, and culture.</p>
+    </div>
+    <div class="card">
+      <h3>Virtual Tourism</h3>
+      <p>Travel without borders — explore places you cannot physically reach.</p>
+    </div>
+    <div class="card">
+      <h3>Live Shopping</h3>
+      <p>See products live from local markets with real human interaction.</p>
+    </div>
+  </div>
 </section>
 
-<!-- JS -->
-<script src="app.js"></script>
+<!-- WORLD MAP -->
+<section id="world" class="section world">
+  <h2>Live Presence Across the World</h2>
+  <p class="subtext">Hover over regions to imagine live human access.</p>
 
+  <div class="map-container">
+    <svg viewBox="0 0 2000 1001" class="world-map">
+      <image href="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg"
+             width="2000" height="1001" />
+    </svg>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section id="usecases" class="section gray">
+  <h2>How People Use LiveAtlas</h2>
+
+  <div class="usecases">
+    <div class="usecase">
+      <h3>🌍 Travelers</h3>
+      <p>Preview destinations live before visiting.</p>
+    </div>
+    <div class="usecase">
+      <h3>🏪 Shoppers</h3>
+      <p>Buy from real markets with live inspection.</p>
+    </div>
+    <div class="usecase">
+      <h3>🎓 Learners</h3>
+      <p>Explore history and geography through locals.</p>
+    </div>
+    <div class="usecase">
+      <h3>🧭 Explorers</h3>
+      <p>Experience remote places in real time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="section">
+  <h2>Built on Human Presence</h2>
+  <p class="center-text">
+    LiveAtlas is not about automation.  
+    It is about extending human reach through technology.
+  </p>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section contact">
+  <h2>LiveAtlas</h2>
+  <p>Building the future of live world access.</p>
+  <p class="small">© 2025 LiveAtlas. All rights reserved.</p>
+</section>
+
+<script src="app.js"></script>
 </body>
 </html>

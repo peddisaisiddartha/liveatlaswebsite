@@ -3,207 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiveAtlas | The Future of Presence</title>
+    <title>LiveAtlas | Neural Interface Active</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        :root { --neon: #00f2ff; --accent: #7000ff; --glass: rgba(255, 255, 255, 0.03); }
-        * { box-sizing: border-box; cursor: crosshair; }
-        body, html { margin: 0; background: #000; color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+        :root { --neon: #00f2ff; --accent: #bc00ff; --glass: rgba(255, 255, 255, 0.03); }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        body, html { background-color: #000; color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
 
-        /* The Engine Container */
-        #main-canvas { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
-
-        /* HUD & Cyberpunk Elements */
-        .hud-line { position: fixed; background: var(--neon); opacity: 0.3; z-index: 5; }
-        .h-line { width: 100%; height: 1px; left: 0; }
-        .v-line { height: 100%; width: 1px; top: 0; }
-
-        .ui-overlay {
-            position: fixed; padding: 20px; z-index: 10; pointer-events: none;
-            text-transform: uppercase; font-family: 'Orbitron'; font-size: 10px; color: var(--neon);
-        }
-        .top-left { top: 0; left: 0; border-left: 2px solid var(--neon); border-top: 2px solid var(--neon); margin: 20px; padding: 10px; }
-        .bottom-right { bottom: 0; right: 0; border-right: 2px solid var(--neon); border-bottom: 2px solid var(--neon); margin: 20px; padding: 10px; text-align: right; }
-
-        /* Layout */
-        .content { position: relative; z-index: 2; }
-        section { min-height: 110vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 60px 20px; }
-
-        .hero-block { text-align: center; }
-        .main-title { 
-            font-family: 'Orbitron'; font-size: clamp(3.5rem, 15vw, 9rem); font-weight: 900; 
-            letter-spacing: -5px; line-height: 0.8; margin: 0;
-            background: linear-gradient(to bottom, #fff 40%, var(--neon));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 30px rgba(0, 242, 255, 0.5));
+        /* --- BACKGROUND & HUD --- */
+        #webgl-engine { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
+        #custom-cursor { position: fixed; width: 15px; height: 15px; border: 1px solid var(--neon); border-radius: 50%; pointer-events: none; z-index: 9999; box-shadow: 0 0 15px var(--neon); }
+        
+        /* --- NOTIFICATION POPUP --- */
+        #status-popup {
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
+            background: rgba(0, 242, 255, 0.1); border: 1px solid var(--neon);
+            padding: 15px 40px; border-radius: 50px; backdrop-filter: blur(10px);
+            font-family: 'Orbitron'; color: var(--neon); z-index: 1000; transition: 0.5s; opacity: 0;
         }
 
-        .glass-panel {
-            background: var(--glass); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 40px;
-            padding: 60px; width: 95%; max-width: 1200px; margin-top: 50px;
-        }
+        /* --- UI LAYOUT --- */
+        .wrapper { position: relative; z-index: 10; }
+        header { position: fixed; top: 0; width: 100%; padding: 30px 60px; display: flex; justify-content: space-between; z-index: 100; font-family: 'Orbitron'; }
+        
+        section { min-height: 100vh; display: flex; align-items: center; padding: 0 10%; }
+        .hero-title { font-family: 'Orbitron'; font-size: clamp(4rem, 12vw, 8rem); font-weight: 900; line-height: 0.85; background: linear-gradient(180deg, #fff, var(--neon)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* Engagement Grid */
-        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
-        .card { 
-            padding: 40px; background: rgba(255,255,255,0.02); border-radius: 20px; 
-            border: 1px solid rgba(0,242,255,0.1); transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1);
-        }
-        .card:hover { 
-            background: rgba(0, 242, 255, 0.05); border-color: var(--neon); 
-            transform: translateY(-15px) scale(1.02); box-shadow: 0 20px 50px rgba(0, 242, 255, 0.1);
-        }
+        .glass-panel { background: var(--glass); backdrop-filter: blur(40px); border: 1px solid rgba(0, 242, 255, 0.2); border-radius: 30px; padding: 60px; width: 100%; }
+        
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
+        .service-card { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); padding: 30px; border-radius: 20px; transition: 0.4s; }
+        .service-card:hover { border-color: var(--neon); transform: translateY(-10px); }
 
+        /* --- FUNCTIONAL BUTTONS --- */
         .btn-action {
-            margin-top: 40px; padding: 25px 60px; background: transparent; 
-            border: 2px solid var(--neon); color: var(--neon); font-family: 'Orbitron';
-            font-weight: 900; letter-spacing: 5px; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
-            transition: 0.4s; cursor: pointer;
+            padding: 20px 45px; background: transparent; border: 2px solid var(--neon);
+            color: var(--neon); font-family: 'Orbitron'; font-weight: 900; letter-spacing: 5px;
+            cursor: pointer; transition: 0.4s; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
         }
-        .btn-action:hover { background: var(--neon); color: #000; box-shadow: 0 0 50px var(--neon); }
+        .btn-action:hover { background: var(--neon); color: #000; box-shadow: 0 0 40px var(--neon); }
 
-        /* Smooth scrolling Ticker */
-        .ticker { width: 100%; overflow: hidden; background: rgba(0, 242, 255, 0.05); padding: 10px 0; position: absolute; bottom: 0; }
-        .ticker-text { display: flex; white-space: nowrap; animation: moveTicker 30s linear infinite; font-family: 'Orbitron'; font-size: 12px; color: var(--neon); }
-        @keyframes moveTicker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .form-group input, .form-group select {
+            width: 100%; background: rgba(255,255,255,0.05); border: 1px solid #333;
+            padding: 18px; color: #fff; font-family: 'Rajdhani'; font-size: 1.1rem; border-radius: 8px; margin-bottom: 15px; outline: none;
+        }
     </style>
 </head>
 <body>
 
-    <canvas id="main-canvas"></canvas>
+    <div id="custom-cursor"></div>
+    <div id="status-popup">SYSTEM INITIALIZING...</div>
+    <canvas id="webgl-engine"></canvas>
 
-    <div class="hud-line h-line" style="top: 15%;"></div>
-    <div class="hud-line v-line" style="left: 10%;"></div>
-    <div class="ui-overlay top-left">LiveAtlas System v2.4<br>Status: Neural Link Active<br>Uplink: Stable</div>
-    <div class="ui-overlay bottom-right">Target Acquired: 42.36° N, 71.05° W<br>Presence: Verified</div>
+    <header>
+        <div style="font-weight: 900; letter-spacing: 5px;">LIVE<span style="color: var(--neon);">ATLAS</span></div>
+        <div style="font-size: 10px; color: var(--neon);">ENCRYPTED UPLINK: ACTIVE</div>
+    </header>
 
-    <div class="content">
+    <div class="wrapper">
         <section id="hero">
-            <div class="hero-block">
-                <h1 class="main-title">LIVE<br>ATLAS</h1>
-                <p style="letter-spacing: 15px; margin-top: 20px; color: var(--neon); font-weight: 700;">WORLD ACCESS GRANTED</p>
-                <button class="btn-action" onclick="gsap.to(window, {duration: 2, scrollTo:'#vision', ease:'expo.inOut'})">Initialize Link</button>
-            </div>
-            <div class="ticker">
-                <div class="ticker-text">
-                    • SYSTEM STATUS: ACTIVE • CURRENT LOCATION: VOSTOK STATION, ANTARCTICA • LIVE SHOPPING: DUBAI MALL OPEN • ACADEMIC UPLINK: UNIVERSITY OF TOKYO ONLINE • 
-                </div>
+            <div style="max-width: 800px;">
+                <h1 class="hero-title">ACCESS<br>EVERYWHERE.</h1>
+                <p style="font-size: 1.5rem; color: #aaa; margin: 30px 0;">Teleport your presence to any coordinate on Earth instantly.</p>
+                <button class="btn-action" onclick="navigateTo('#services')">EXPLORE NODES</button>
             </div>
         </section>
 
-        <section id="vision">
+        <section id="services">
             <div class="glass-panel">
-                <h2 style="font-family: 'Orbitron'; font-size: 3rem; margin-bottom: 20px;">REDEFINING REALITY</h2>
-                <p style="font-size: 1.5rem; color: #aaa; max-width: 800px; line-height: 1.6;">
-                    Financial and time constraints no longer exist. We don't just show you the world; we <b>teleport</b> your presence there.
-                </p>
-                
-                <div class="features">
-                    <div class="card">
-                        <h3 style="color: var(--neon);">THE STEREO-PIPELINE</h3>
-                        <p>Our proprietary 3D streaming technology delivers a depth of vision so real, your brain forgets the distance.</p>
+                <h2 style="font-family: 'Orbitron'; font-size: 2rem; margin-bottom: 30px;">ACTIVE PORTALS</h2>
+                <div class="services-grid">
+                    <div class="service-card" onclick="triggerAlert('Connecting to Vostok Base...')">
+                        <h3 style="color: var(--neon);">ANTARCTICA</h3>
+                        <p>Live stereoscopic research feed.</p>
                     </div>
-                    <div class="card">
-                        <h3 style="color: var(--neon);">LUXURY PROCUREMENT</h3>
-                        <p>Shop at the world's most exclusive boutiques via your live human avatar. We handle the shipping; you handle the style.</p>
+                    <div class="service-card" onclick="triggerAlert('Routing to Dubai Logistics...')">
+                        <h3 style="color: var(--neon);">DUBAI MALL</h3>
+                        <p>Luxury shopping avatar standby.</p>
                     </div>
-                    <div class="card">
-                        <h3 style="color: var(--neon);">GLOBAL CLASSROOM</h3>
-                        <p>Schools can now take students into live volcanic craters or polar expeditions without leaving the room.</p>
+                    <div class="service-card" onclick="triggerAlert('Opening Academic Portal...')">
+                        <h3 style="color: var(--neon);">EDUCATION</h3>
+                        <p>Virtual field trip protocols.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="book">
-            <div class="glass-panel" style="text-align: center;">
-                <h2 style="font-family: 'Orbitron'; color: var(--neon);">READY FOR DEPLOYMENT?</h2>
-                <p>Reserve your stereoscopic guide for a personalized global session.</p>
-                <div style="max-width: 500px; margin: 40px auto;">
-                    <input type="text" placeholder="DESTINATION" style="width:100%; padding:20px; background:rgba(255,255,255,0.05); border:1px solid #444; color:white; margin-bottom:20px;">
-                    <button class="btn-action" style="width: 100%;">CONFIRM UPLINK</button>
+        <section id="booking">
+            <div class="glass-panel" style="max-width: 700px;">
+                <h2 style="font-family: 'Orbitron'; margin-bottom: 30px;">RESERVE SESSION</h2>
+                <div class="form-group">
+                    <input type="text" id="dest-input" placeholder="ENTER COORDINATES (e.g. Tokyo)">
+                    <select id="type-input">
+                        <option>TOURISM</option>
+                        <option>SHOPPING</option>
+                        <option>ACADEMIC</option>
+                    </select>
+                    <button class="btn-action" style="width: 100%;" onclick="processBooking()">ESTABLISH LINK</button>
                 </div>
             </div>
         </section>
     </div>
 
     <script>
-        // --- REALISTIC 3D ENGINE ---
+        // --- 1. THE ACTION LOGIC (MAKING IT WORK) ---
+        
+        function navigateTo(id) {
+            gsap.to(window, { duration: 1.5, scrollTo: id, ease: "power4.inOut" });
+            triggerAlert("Navigating to " + id.replace('#', '').toUpperCase());
+        }
+
+        function triggerAlert(message) {
+            const popup = document.getElementById('status-popup');
+            popup.innerText = message;
+            gsap.to(popup, { y: -50, opacity: 1, duration: 0.5 });
+            
+            // Hide it after 3 seconds
+            setTimeout(() => {
+                gsap.to(popup, { y: 100, opacity: 0, duration: 0.5 });
+            }, 3000);
+        }
+
+        function processBooking() {
+            const dest = document.getElementById('dest-input').value;
+            if(!dest) {
+                triggerAlert("ERROR: COORDINATES MISSING");
+                return;
+            }
+            
+            triggerAlert("CALCULATING TRAJECTORY...");
+            
+            setTimeout(() => {
+                triggerAlert("SUCCESS: UPLINK RESERVED FOR " + dest.toUpperCase());
+                document.getElementById('dest-input').value = ""; // Clear form
+            }, 2000);
+        }
+
+        // --- 2. THE 3D ENGINE ---
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('main-canvas'), antialias: true, alpha: true });
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('webgl-engine'), antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
 
-        // 1. Better Starfield (Varying sizes)
-        const starGeom = new THREE.BufferGeometry();
-        const starPos = [];
-        for(let i=0; i<8000; i++) starPos.push((Math.random()-0.5)*2000, (Math.random()-0.5)*2000, (Math.random()-0.5)*2000);
-        starGeom.setAttribute('position', new THREE.Float32BufferAttribute(starPos, 3));
-        const stars = new THREE.Points(starGeom, new THREE.PointsMaterial({color: 0xffffff, size: 0.8, transparent: true}));
-        scene.add(stars);
-
-        // 2. Realistic Globe (Atmosphere + Solid Core)
         const globeGroup = new THREE.Group();
-        
-        // Inner Core (Solid feeling)
-        const core = new THREE.Mesh(
+        const globe = new THREE.Mesh(
             new THREE.SphereGeometry(5, 50, 50),
-            new THREE.MeshBasicMaterial({ color: 0x000810, transparent: true, opacity: 0.9 })
-        );
-        globeGroup.add(core);
-
-        // Neon Grid (The "Map")
-        const grid = new THREE.Mesh(
-            new THREE.SphereGeometry(5.05, 50, 50),
             new THREE.MeshBasicMaterial({ color: 0x00f2ff, wireframe: true, transparent: true, opacity: 0.15 })
         );
-        globeGroup.add(grid);
-
-        // Atmosphere Glow (The "Realistic" Light)
-        const atmosphere = new THREE.Mesh(
-            new THREE.SphereGeometry(5.4, 50, 50),
-            new THREE.MeshBasicMaterial({ color: 0x00f2ff, transparent: true, opacity: 0.05, side: THREE.BackSide })
-        );
-        globeGroup.add(atmosphere);
-
+        globeGroup.add(globe);
         scene.add(globeGroup);
+
+        const starGeom = new THREE.BufferGeometry();
+        const starPos = [];
+        for(let i=0; i<6000; i++) starPos.push((Math.random()-0.5)*1500, (Math.random()-0.5)*1500, (Math.random()-0.5)*1500);
+        starGeom.setAttribute('position', new THREE.Float32BufferAttribute(starPos, 3));
+        scene.add(new THREE.Points(starGeom, new THREE.PointsMaterial({color: 0xffffff, size: 0.7})));
+
         camera.position.z = 15;
 
-        // --- INTERACTION & MOTION ---
-        window.addEventListener('scroll', () => {
-            const scroll = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-            globeGroup.position.y = scroll * 15;
-            globeGroup.rotation.x = scroll * 1.5;
-            // Globe grows as you scroll to "landing" sections
-            const scale = 1 + (scroll * 0.8);
-            globeGroup.scale.set(scale, scale, scale);
-        });
-
+        // Cursor Follow
         window.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth) - 0.5;
-            const y = (e.clientY / window.innerHeight) - 0.5;
-            gsap.to(globeGroup.rotation, { y: globeGroup.rotation.y + x * 0.5, x: y * 0.3, duration: 2 });
+            gsap.to('#custom-cursor', { x: e.clientX, y: e.clientY, duration: 0.1 });
+            globeGroup.rotation.y += 0.005;
         });
 
         function animate() {
             requestAnimationFrame(animate);
-            grid.rotation.y += 0.002;
-            stars.rotation.y += 0.0003;
+            globe.rotation.y += 0.002;
             renderer.render(scene, camera);
         }
         animate();
-
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
     </script>
 </body>
 </html>

@@ -3,194 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiveAtlas | The Future of Presence</title>
+    <title>LiveAtlas | The Universal Exchange</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@300;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
 
     <style>
-        :root { --neon: #00f2ff; --accent: #7000ff; --glass: rgba(255, 255, 255, 0.03); }
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
-        body, html { background: #000; color: #fff; font-family: 'Rajdhani', sans-serif; overflow: hidden; height: 100vh; }
+        :root { --neon: #00f2ff; --accent: #7000ff; --glass: rgba(255, 255, 255, 0.05); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #000; color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
 
         /* Background Engine */
-        #bg-canvas { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
+        #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; }
 
         /* Navigation */
         nav {
-            position: fixed; top: 0; width: 100%; padding: 30px 60px;
+            position: fixed; top: 0; width: 100%; padding: 20px 50px;
             display: flex; justify-content: space-between; align-items: center;
-            z-index: 1000; background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+            z-index: 1000; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 242, 255, 0.2);
         }
-        .logo { font-family: 'Orbitron'; font-weight: 900; letter-spacing: 5px; font-size: 1.5rem; }
-        .nav-links { display: flex; gap: 40px; }
-        .nav-links a { 
-            color: #fff; text-decoration: none; font-family: 'Orbitron'; font-size: 12px; 
-            letter-spacing: 2px; transition: 0.3s; cursor: pointer;
-        }
-        .nav-links a:hover { color: var(--neon); text-shadow: 0 0 10px var(--neon); }
+        .nav-logo img { height: 50px; width: auto; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: #fff; text-decoration: none; font-family: 'Orbitron'; font-size: 11px; letter-spacing: 2px; cursor: pointer; }
+        .nav-links a:hover { color: var(--neon); }
 
-        /* Page Management System */
-        .page {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: none; flex-direction: column; justify-content: center;
-            align-items: center; padding: 100px 10%; z-index: 10;
-        }
-        .page.active { display: flex; }
+        /* Page Layout */
+        section { min-height: 100vh; padding: 100px 10%; display: flex; flex-direction: column; justify-content: center; }
+        .glass-card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 30px; padding: 50px; }
 
-        /* Hero Styling */
-        .hero-title { 
-            font-family: 'Orbitron'; font-size: clamp(3rem, 10vw, 7rem); font-weight: 900; 
-            line-height: 0.9; text-align: center; background: linear-gradient(#fff, var(--neon));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        /* Store Elements */
+        .store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 30px; }
+        .product-card { 
+            background: rgba(0,0,0,0.6); padding: 20px; border-radius: 15px; border: 1px solid rgba(0,242,255,0.1);
+            transition: 0.4s; text-align: center;
         }
-
-        /* Dubai/Antarctica Content View */
-        .node-view {
-            width: 100%; height: 100%; background-size: cover; background-position: center;
-            border-radius: 20px; border: 1px solid var(--neon); overflow: hidden;
-            display: flex; flex-direction: column; justify-content: flex-end; padding: 40px;
-            box-shadow: inset 0 -200px 100px rgba(0,0,0,0.8);
-        }
+        .product-card:hover { border-color: var(--neon); transform: translateY(-10px); }
+        .product-card img { width: 100%; height: 150px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; }
+        .price { color: var(--neon); font-family: 'Orbitron'; font-weight: bold; font-size: 1.2rem; }
 
         /* Buttons */
-        .btn-main {
-            margin-top: 30px; padding: 20px 50px; background: transparent; 
-            border: 2px solid var(--neon); color: var(--neon); font-family: 'Orbitron';
-            font-weight: 900; letter-spacing: 5px; cursor: pointer; transition: 0.4s;
-            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+        .btn-buy { 
+            width: 100%; margin-top: 15px; padding: 10px; background: transparent; 
+            border: 1px solid var(--neon); color: var(--neon); font-family: 'Orbitron'; cursor: pointer;
         }
-        .btn-main:hover { background: var(--neon); color: #000; box-shadow: 0 0 30px var(--neon); }
+        .btn-buy:hover { background: var(--neon); color: #000; }
 
-        /* Teleport Animation Overlay */
-        #teleport-overlay {
+        /* Checkout Overlay */
+        #checkout-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #fff; z-index: 9999; opacity: 0; pointer-events: none;
+            background: rgba(0,0,0,0.9); z-index: 2000; display: none;
+            justify-content: center; align-items: center;
         }
 
-        /* Booking Frame */
-        #booking-frame { width: 100%; height: 80vh; border: none; border-radius: 20px; background: #fff; }
+        /* Cart Badge */
+        .cart-count { background: var(--neon); color: #000; padding: 2px 8px; border-radius: 10px; font-weight: bold; margin-left: 5px; }
 
-        /* Location Grid */
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; margin-top: 40px; }
-        .location-card {
-            background: var(--glass); border: 1px solid rgba(255,255,255,0.1);
-            height: 300px; border-radius: 15px; cursor: pointer; overflow: hidden;
-            position: relative; transition: 0.4s;
-        }
-        .location-card:hover { border-color: var(--neon); transform: translateY(-10px); }
-        .location-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; transition: 0.4s; }
-        .location-card:hover img { opacity: 1; }
-        .location-card span { position: absolute; bottom: 20px; left: 20px; font-family: 'Orbitron'; font-size: 1.2rem; }
+        h1, h2 { font-family: 'Orbitron'; text-transform: uppercase; letter-spacing: 5px; }
+        .hero-title { font-size: clamp(3rem, 10vw, 7rem); line-height: 0.9; margin-bottom: 20px; }
+
+        /* Animations */
+        .reveal { opacity: 0; transform: translateY(50px); }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">LIVE<span style="color: var(--neon)">ATLAS</span></div>
+        <div class="nav-logo">
+            <img src="logo.png" alt="LiveAtlas Logo" onerror="this.src='https://via.placeholder.com/150x50?text=LiveAtlas+Logo'">
+        </div>
         <div class="nav-links">
-            <a onclick="showPage('home')">HOME</a>
-            <a onclick="showPage('explore')">NODES</a>
-            <a onclick="showPage('booking')">RESERVE</a>
+            <a href="#home">Home</a>
+            <a href="#nodes">Nodes</a>
+            <a href="#shop">Boutique</a>
+            <a href="#booking">Reserve</a>
+            <a onclick="openCheckout()">Cart <span class="cart-count" id="cart-val">0</span></a>
         </div>
     </nav>
 
     <canvas id="bg-canvas"></canvas>
-    <div id="teleport-overlay"></div>
 
-    <div id="page-home" class="page active">
-        <h1 class="hero-title">BEYOND<br>THE LIMITS</h1>
-        <p style="margin-top: 20px; color: var(--neon); letter-spacing: 8px;">STEREOSCOPIC GLOBAL ACCESS</p>
-        <button class="btn-main" onclick="showPage('explore')">INITIALIZE LINK</button>
+    <div class="content">
+        <section id="home">
+            <h1 class="hero-title reveal">Universal<br>Telepresence</h1>
+            <p class="reveal" style="font-size: 1.5rem; color: #aaa; max-width: 600px;">The world's first platform dedicated to real-time physical presence through stereoscopic guide links.</p>
+        </section>
+
+        <section id="nodes">
+            <h2 class="reveal">Active Gateways</h2>
+            <div class="store-grid">
+                <div class="product-card reveal" style="height: 350px;">
+                    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=400" alt="Dubai">
+                    <h3>Dubai Node</h3>
+                    <p>Luxury Shopping & High-rise Views</p>
+                </div>
+                <div class="product-card reveal" style="height: 350px;">
+                    <img src="https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?auto=format&fit=crop&w=400" alt="Antarctica">
+                    <h3>Vostok Node</h3>
+                    <p>Scientific Research & Polar Immersion</p>
+                </div>
+                <div class="product-card reveal" style="height: 350px;">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400" alt="Amazon">
+                    <h3>Amazon Node</h3>
+                    <p>Nature Conservation & Rare Sightings</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="shop">
+            <div class="glass-card reveal">
+                <h2>Impossible Artifacts</h2>
+                <p style="color: var(--neon); margin-bottom: 20px;">Curated items only available via our physical guides. Rare, authenticated, and delivered via private logistics.</p>
+                
+                <div class="store-grid" id="product-list">
+                    </div>
+            </div>
+        </section>
+
+        <section id="booking">
+            <div class="glass-card reveal" style="text-align: center;">
+                <h2>Secure Your Link</h2>
+                <div style="margin-top: 30px; height: 600px; border-radius: 20px; overflow: hidden; background: #fff;">
+                    <iframe src="https://cal.com/live-atlas" width="100%" height="100%" frameborder="0"></iframe>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <div id="page-explore" class="page">
-        <h2 style="font-family: 'Orbitron'; font-size: 2.5rem; margin-bottom: 20px;">ACTIVE DESTINATIONS</h2>
-        <div class="grid">
-            <div class="location-card" onclick="teleportTo('Dubai', 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200', 'Explore the heart of luxury with your stereoscopic guide.')">
-                <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600" alt="Dubai">
-                <span>DUBAI</span>
-            </div>
-            <div class="location-card" onclick="teleportTo('Antarctica', 'https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?auto=format&fit=crop&w=1200', 'Live feed from the edge of the world. Witness the raw ice.')">
-                <img src="https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?auto=format&fit=crop&w=600" alt="Antarctica">
-                <span>ANTARCTICA</span>
-            </div>
-            <div class="location-card" onclick="teleportTo('Amazon', 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1200', 'Immerse in the deep green canopy. 3D Audio enabled.')">
-                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600" alt="Amazon">
-                <span>AMAZON BASIN</span>
+    <div id="checkout-modal">
+        <div class="glass-card" style="width: 500px; text-align: center;">
+            <h2 style="color: var(--neon);">Secure Checkout</h2>
+            <div id="cart-items" style="margin: 20px 0; text-align: left;"></div>
+            <div style="border-top: 1px solid #333; padding-top: 20px;">
+                <p>TOTAL: <span class="price" id="total-price">$0</span></p>
+                <button class="btn-buy" style="background: var(--neon); color: #000; margin-top: 20px;" onclick="finalizePayment()">Pay with Neural-Pay</button>
+                <button class="btn-buy" onclick="closeCheckout()" style="border-color: #555; color: #555;">Back to Atlas</button>
             </div>
         </div>
-    </div>
-
-    <div id="page-location" class="page">
-        <div id="location-content" class="node-view">
-            <h1 id="loc-title" style="font-family: 'Orbitron'; font-size: 4rem;"></h1>
-            <p id="loc-desc" style="font-size: 1.5rem; max-width: 600px; margin: 20px 0;"></p>
-            <button class="btn-main" onclick="showPage('booking')">BOOK THIS VIEW</button>
-            <button onclick="showPage('explore')" style="background:none; border:none; color:#aaa; cursor:pointer; margin-top:10px;">Return to Atlas</button>
-        </div>
-    </div>
-
-    <div id="page-booking" class="page">
-        <h2 style="font-family: 'Orbitron'; margin-bottom: 20px;">RESERVE YOUR UPLINK</h2>
-        <iframe id="booking-frame" src="https://cal.com/live-atlas"></iframe>
     </div>
 
     <script>
-        // --- PAGE SWITCHING LOGIC ---
-        function showPage(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            // Show requested page
-            document.getElementById('page-' + pageId).classList.add('active');
-            
-            // Adjust globe rotation based on page
-            if(pageId === 'home') gsap.to(globe.scale, {x: 1, y: 1, z: 1, duration: 1});
-            if(pageId === 'explore') gsap.to(globe.scale, {x: 0.5, y: 0.5, z: 0.5, duration: 1});
+        // CURATED IMPOSSIBLE PRODUCTS
+        const products = [
+            { id: 1, name: "Antarctic Core Water", price: 250, origin: "Vostok", img: "https://images.unsplash.com/photo-1559839734-2b71f1e3c7e0?auto=format&fit=crop&w=300" },
+            { id: 2, name: "Dubai Gold Thread Silk", price: 1200, origin: "Hidden Souk", img: "https://images.unsplash.com/photo-1590674331320-13b35f29d936?auto=format&fit=crop&w=300" },
+            { id: 3, name: "Amazon Orchid Extract", price: 85, origin: "Manaus", img: "https://images.unsplash.com/photo-1566996694954-90b052c413c4?auto=format&fit=crop&w=300" },
+            { id: 4, name: "Sahara Glass Meteorite", price: 450, origin: "Dunes", img: "https://images.unsplash.com/photo-1511270339309-c0529883652c?auto=format&fit=crop&w=300" },
+            { id: 5, name: "Martian-Aged Shiraz", price: 3400, origin: "Orbital Cellar", img: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=300" },
+            { id: 6, name: "Himalayan Air Essence", price: 120, origin: "K2 Base", img: "https://images.unsplash.com/photo-1534067783941-51c9c23eeaec?auto=format&fit=crop&w=300" }
+        ];
+
+        let cart = [];
+
+        // LOAD PRODUCTS
+        const shopContainer = document.getElementById('product-list');
+        products.forEach(p => {
+            shopContainer.innerHTML += `
+                <div class="product-card">
+                    <img src="${p.img}">
+                    <h4>${p.name}</h4>
+                    <p style="font-size: 10px; color: #888;">ORIGIN: ${p.origin}</p>
+                    <p class="price">$${p.price}</p>
+                    <button class="btn-buy" onclick="addToCart(${p.id})">Procure</button>
+                </div>
+            `;
+        });
+
+        function addToCart(id) {
+            const item = products.find(p => p.id === id);
+            cart.push(item);
+            document.getElementById('cart-val').innerText = cart.length;
+            alert(`${item.name} added to your global shipment.`);
         }
 
-        // --- THE "TELEPORT" SEQUENCE ---
-        function teleportTo(name, image, desc) {
-            const overlay = document.getElementById('teleport-overlay');
-            
-            // 1. Flash effect
-            gsap.to(overlay, { opacity: 1, duration: 0.3, onComplete: () => {
-                // 2. Load Content
-                document.getElementById('loc-title').innerText = name;
-                document.getElementById('loc-desc').innerText = desc;
-                document.getElementById('location-content').style.backgroundImage = `url('${image}')`;
-                
-                showPage('location');
-                
-                // 3. Fade out flash
-                gsap.to(overlay, { opacity: 0, duration: 0.8, delay: 0.2 });
-            }});
+        function openCheckout() {
+            const modal = document.getElementById('checkout-modal');
+            const itemsContainer = document.getElementById('cart-items');
+            modal.style.display = 'flex';
+            itemsContainer.innerHTML = cart.map(i => `<div style="display:flex; justify-content:space-between;"><span>${i.name}</span><span>$${i.price}</span></div>`).join('');
+            const total = cart.reduce((acc, curr) => acc + curr.price, 0);
+            document.getElementById('total-price').innerText = `$${total}`;
         }
 
-        // --- BACKGROUND 3D ENGINE ---
+        function closeCheckout() { document.getElementById('checkout-modal').style.display = 'none'; }
+        function finalizePayment() { alert("Neural Uplink Successful. Shipment is being routed through our private logistics channel."); cart = []; document.getElementById('cart-val').innerText = 0; closeCheckout(); }
+
+        // --- 3D ENGINE & SCROLL LOGIC ---
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
 
         const globe = new THREE.Mesh(
             new THREE.SphereGeometry(5, 50, 50),
-            new THREE.MeshBasicMaterial({ color: 0x00f2ff, wireframe: true, transparent: true, opacity: 0.2 })
+            new THREE.MeshBasicMaterial({ color: 0x00f2ff, wireframe: true, transparent: true, opacity: 0.1 })
         );
         scene.add(globe);
 
-        const starGeom = new THREE.BufferGeometry();
-        const starPos = [];
-        for(let i=0; i<4000; i++) starPos.push((Math.random()-0.5)*1000, (Math.random()-0.5)*1000, (Math.random()-0.5)*1000);
-        starGeom.setAttribute('position', new THREE.Float32BufferAttribute(starPos, 3));
-        scene.add(new THREE.Points(starGeom, new THREE.PointsMaterial({color: 0xffffff, size: 0.5})));
+        const stars = new THREE.Points(
+            new THREE.BufferGeometry().setAttribute('position', new THREE.Float32BufferAttribute(Array.from({length: 15000}, () => (Math.random()-0.5)*2000), 3)),
+            new THREE.PointsMaterial({color: 0xffffff, size: 0.7})
+        );
+        scene.add(stars);
 
         camera.position.z = 15;
+
+        // GSAP Scroll Animations
+        gsap.registerPlugin(ScrollTrigger);
+        
+        document.querySelectorAll('.reveal').forEach(el => {
+            gsap.to(el, {
+                scrollTrigger: { trigger: el, start: "top 80%", toggleActions: "play none none reverse" },
+                opacity: 1, y: 0, duration: 1
+            });
+        });
 
         function animate() {
             requestAnimationFrame(animate);
             globe.rotation.y += 0.002;
+            stars.rotation.x += 0.0001;
+            // Globe follows scroll
+            globe.position.y = (window.scrollY / 100);
             renderer.render(scene, camera);
         }
         animate();

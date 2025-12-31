@@ -12,80 +12,73 @@
 
     <style>
         :root {
-    --neon: #bc00ff;
-    --cyan: #00f2ff;
-    --hot-pink: #ff007a;
-    --bg-dark: #020005;
-    --glass: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(188, 0, 255, 0.4);
-    --font-hdr: 'Orbitron', sans-serif;
-}
+            --neon: #bc00ff;
+            --cyan: #00f2ff;
+            --hot-pink: #ff007a;
+            --bg-dark: #020005;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(188, 0, 255, 0.4);
+            --font-hdr: 'Orbitron', sans-serif;
+        }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg-dark); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
 
-body { background: var(--bg-dark); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
+        /* Background Canvas */
+        #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; }
 
-/* Extra Background Element: Animated Gradient Nebula */
-body::before {
-    content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle at 50% 50%, rgba(188, 0, 255, 0.05) 0%, transparent 70%);
-    z-index: -2; pointer-events: none;
-}
+        /* Navigation - PERSISTENT */
+        nav {
+            position: fixed; top: 0; width: 100%; height: 90px; padding: 0 50px;
+            display: flex; justify-content: space-between; align-items: center; z-index: 1000; 
+            background: rgba(2, 0, 5, 0.9); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-border);
+        }
+        .nav-logo img { height: 50px; width: auto; }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { color: #fff; text-decoration: none; font-family: var(--font-hdr); font-size: 11px; letter-spacing: 2px; cursor: pointer; }
 
-#bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; }
+        /* Section Layout */
+        section { min-height: 100vh; padding: 150px 10% 100px 10%; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 10; }
+        
+        .hero-title { 
+            font-family: var(--font-hdr); font-size: clamp(3.5rem, 12vw, 8.5rem); font-weight: 900; line-height: 0.9;
+            background: linear-gradient(180deg, #fff, var(--cyan), var(--neon)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 40px;
+        }
 
-nav {
-    position: fixed; top: 0; width: 100%; height: 90px; padding: 0 50px;
-    display: flex; justify-content: space-between; align-items: center; z-index: 1000; 
-    background: rgba(2, 0, 5, 0.9); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-border);
-}
-.nav-logo img { height: 50px; width: auto; }
-.nav-links { display: flex; gap: 30px; align-items: center; }
-.nav-links a { color: #fff; text-decoration: none; font-family: var(--font-hdr); font-size: 11px; letter-spacing: 2px; }
+        .glass-card { 
+            background: var(--glass); backdrop-filter: blur(40px); border: 1px solid var(--glass-border); 
+            border-radius: 40px; padding: 40px; width: 100%; margin: 20px 0;
+        }
 
-section { min-height: 100vh; padding: 150px 10% 100px 10%; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 10; }
+        /* Store Grid Fix */
+        .store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
 
-.hero-title { 
-    font-family: var(--font-hdr); font-size: clamp(3.5rem, 12vw, 8.5rem); font-weight: 900; line-height: 0.9;
-    background: linear-gradient(180deg, #fff, var(--cyan), var(--neon)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 40px;
-}
+        .product-card { 
+            background: rgba(255, 255, 255, 0.02); padding: 25px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.4s; display: flex; flex-direction: column; height: 100%;
+        }
+        .product-card:hover { border-color: var(--cyan); transform: translateY(-10px); box-shadow: 0 0 30px rgba(0, 242, 255, 0.1); }
+        .product-card img { width: 100%; height: 220px; object-fit: cover; border-radius: 15px; margin-bottom: 20px; background: #111; }
 
-.glass-card { 
-    background: var(--glass); backdrop-filter: blur(40px); border: 1px solid var(--glass-border); 
-    border-radius: 40px; padding: 40px; width: 100%; margin: 20px 0;
-}
+        .price { color: var(--cyan); font-family: var(--font-hdr); font-weight: 900; font-size: 1.4rem; margin: 15px 0; }
 
-.store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
+        .btn-buy, .btn-main { 
+            background: linear-gradient(90deg, var(--neon), var(--hot-pink)); color: #fff; font-family: var(--font-hdr); 
+            padding: 15px; border: none; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
+        }
 
-.product-card { 
-    background: rgba(255, 255, 255, 0.02); padding: 25px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: 0.4s; display: flex; flex-direction: column; height: 100%;
-}
-.product-card:hover { border-color: var(--cyan); transform: translateY(-10px) scale(1.02); box-shadow: 0 0 30px rgba(0, 242, 255, 0.1); }
-
-/* Fixed Image Styling */
-.product-card img { 
-    width: 100%; height: 220px; object-fit: cover; border-radius: 15px; margin-bottom: 20px;
-    background: #111; /* Fallback color if image loads slow */
-}
-
-.price { color: var(--cyan); font-family: var(--font-hdr); font-weight: 900; font-size: 1.4rem; margin: 15px 0; }
-
-.btn-buy { 
-    background: linear-gradient(90deg, var(--neon), var(--hot-pink)); color: #fff; font-family: var(--font-hdr); 
-    padding: 15px; border: none; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
-}
-
-#checkout-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: none; justify-content: center; align-items: center; }
-.cart-count { background: var(--cyan); color: #000; padding: 2px 10px; border-radius: 5px; margin-left: 10px; font-weight: 900; }
-
+        /* Checkout Overlay */
+        #checkout-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: none; justify-content: center; align-items: center; }
+        .cart-count { background: var(--cyan); color: #000; padding: 2px 10px; border-radius: 5px; margin-left: 10px; font-weight: 900; }
     </style>
 </head>
 <body>
 
+    <canvas id="bg-canvas"></canvas>
+
     <nav>
         <div class="nav-logo">
-            <img src="logo.png" alt="LiveAtlas Logo" onerror="this.src='https://via.placeholder.com/150x50?text=LiveAtlas+Logo'">
+            <img src="logo.png" alt="LiveAtlas Logo" onerror="this.src='https://via.placeholder.com/150x50?text=LOGO'">
         </div>
         <div class="nav-links">
             <a href="#home">Home</a>
@@ -96,49 +89,40 @@ section { min-height: 100vh; padding: 150px 10% 100px 10%; display: flex; flex-d
         </div>
     </nav>
 
-    <canvas id="bg-canvas"></canvas>
-
     <div class="content">
         <section id="home">
             <h1 class="hero-title reveal">Universal<br>Telepresence</h1>
-            <p class="reveal" style="font-size: 1.5rem; color: #aaa; max-width: 600px;">The world's first platform dedicated to real-time physical presence through stereoscopic guide links.</p>
+            <p class="reveal" style="font-size: 1.5rem; color: #aaa; max-width: 600px;">Experience global presence instantly through our high-fidelity stereoscopic links.</p>
         </section>
 
         <section id="nodes">
             <h2 class="reveal">Active Gateways</h2>
             <div class="store-grid">
-                <div class="product-card reveal" style="height: 350px;">
-                    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=400" alt="Dubai">
+                <div class="product-card reveal">
+                    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600" alt="Dubai">
                     <h3>Dubai Node</h3>
-                    <p>Luxury Shopping & High-rise Views</p>
+                    <p>High-altitude vistas and city immersion.</p>
                 </div>
-                <div class="product-card reveal" style="height: 350px;">
-                    <img src="https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?auto=format&fit=crop&w=400" alt="Antarctica">
+                <div class="product-card reveal">
+                    <img src="https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?auto=format&fit=crop&w=600" alt="Antarctica">
                     <h3>Vostok Node</h3>
-                    <p>Scientific Research & Polar Immersion</p>
-                </div>
-                <div class="product-card reveal" style="height: 350px;">
-                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400" alt="Amazon">
-                    <h3>Amazon Node</h3>
-                    <p>Nature Conservation & Rare Sightings</p>
+                    <p>Real-time scientific polar exploration.</p>
                 </div>
             </div>
         </section>
 
         <section id="shop">
             <div class="glass-card reveal">
-                <h2>Impossible Artifacts</h2>
-                <p style="color: var(--neon); margin-bottom: 20px;">Curated items only available via our physical guides. Rare, authenticated, and delivered via private logistics.</p>
-                
+                <h2>The Boutique</h2>
                 <div class="store-grid" id="product-list">
                     </div>
             </div>
         </section>
 
         <section id="booking">
-            <div class="glass-card reveal" style="text-align: center;">
-                <h2>Secure Your Link</h2>
-                <div style="margin-top: 30px; height: 600px; border-radius: 20px; overflow: hidden; background: #fff;">
+            <div class="glass-card reveal">
+                <h2 style="text-align: center; margin-bottom: 30px;">Secure Booking</h2>
+                <div style="height: 600px; border-radius: 20px; overflow: hidden;">
                     <iframe src="https://cal.com/live-atlas" width="100%" height="100%" frameborder="0"></iframe>
                 </div>
             </div>
@@ -146,63 +130,63 @@ section { min-height: 100vh; padding: 150px 10% 100px 10%; display: flex; flex-d
     </div>
 
     <div id="checkout-modal">
-        <div class="glass-card" style="width: 500px; text-align: center;">
-            <h2 style="color: var(--neon);">Secure Checkout</h2>
+        <div class="glass-card" style="width: 90%; max-width: 500px; text-align: center;">
+            <h2>Your Cart</h2>
             <div id="cart-items" style="margin: 20px 0; text-align: left;"></div>
             <div style="border-top: 1px solid #333; padding-top: 20px;">
-                <p>TOTAL: <span class="price" id="total-price">$0</span></p>
-                <button class="btn-buy" style="background: var(--neon); color: #000; margin-top: 20px;" onclick="finalizePayment()">Pay with Neural-Pay</button>
-                <button class="btn-buy" onclick="closeCheckout()" style="border-color: #555; color: #555;">Back to Atlas</button>
+                <p>Total: <span class="price" id="total-price">$0</span></p>
+                <button class="btn-buy" style="width: 100%; margin-top: 20px;" onclick="finalizePayment()">Complete Transaction</button>
+                <button onclick="closeCheckout()" style="background:none; border:none; color:#888; margin-top:15px; cursor:pointer;">Close</button>
             </div>
         </div>
     </div>
 
     <script>
-        // CURATED IMPOSSIBLE PRODUCTS
+        // 1. PRODUCTS (FIXED IMAGES)
         const products = [
-    { id: 1, name: "Antarctic Core Water", price: 250, origin: "Vostok Station", img: "https://images.unsplash.com/photo-1551009175-8a68da93d5f9?auto=format&fit=crop&w=800" },
-    { id: 2, name: "Dubai Gold Thread Silk", price: 1200, origin: "Hidden Souk", img: "https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&w=800" },
-    { id: 3, name: "Amazon Orchid Extract", price: 85, origin: "Manaus Canopy", img: "https://images.unsplash.com/photo-1596436889106-be35e843f974?auto=format&fit=crop&w=800" },
-    { id: 4, name: "Sahara Glass Meteorite", price: 450, origin: "Dunes", img: "https://images.unsplash.com/photo-1511270339309-c0529883652c?auto=format&fit=crop&w=800" },
-    { id: 5, name: "Martian-Aged Shiraz", price: 3400, origin: "Orbital Cellar", img: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=800" },
-    { id: 6, name: "Himalayan Air Essence", price: 120, origin: "K2 Base", img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800" }
-];
+            { id: 1, name: "Antarctic Core Water", price: 250, origin: "Vostok", img: "https://images.unsplash.com/photo-1551009175-8a68da93d5f9?auto=format&fit=crop&w=500" },
+            { id: 2, name: "Dubai Gold Silk", price: 1200, origin: "Private Souk", img: "https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&w=500" },
+            { id: 3, name: "Amazon Orchid", price: 85, origin: "Manaus", img: "https://images.unsplash.com/photo-1596436889106-be35e843f974?auto=format&fit=crop&w=500" },
+            { id: 4, name: "Sahara Meteorite", price: 450, origin: "Dunes", img: "https://images.unsplash.com/photo-1511270339309-c0529883652c?auto=format&fit=crop&w=500" },
+            { id: 5, name: "Martian-Aged Shiraz", price: 3400, origin: "Orbital", img: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=500" },
+            { id: 6, name: "Himalayan Air", price: 120, origin: "K2", img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=500" }
+        ];
+
         let cart = [];
 
-        // LOAD PRODUCTS
-        const shopContainer = document.getElementById('product-list');
+        // Injects Products
+        const shopList = document.getElementById('product-list');
         products.forEach(p => {
-            shopContainer.innerHTML += `
+            shopList.innerHTML += `
                 <div class="product-card">
-                    <img src="${p.img}">
-                    <h4>${p.name}</h4>
-                    <p style="font-size: 10px; color: #888;">ORIGIN: ${p.origin}</p>
+                    <img src="${p.img}" alt="${p.name}">
+                    <h3>${p.name}</h3>
+                    <p style="font-size: 12px; color: #888;">ORIGIN: ${p.origin}</p>
                     <p class="price">$${p.price}</p>
-                    <button class="btn-buy" onclick="addToCart(${p.id})">Procure</button>
+                    <button class="btn-buy" onclick="addToCart(${p.id})">Add to Cart</button>
                 </div>
             `;
         });
 
+        // 2. FUNCTIONAL LOGIC (Cart & Checkout)
         function addToCart(id) {
             const item = products.find(p => p.id === id);
             cart.push(item);
             document.getElementById('cart-val').innerText = cart.length;
-            alert(`${item.name} added to your global shipment.`);
         }
 
         function openCheckout() {
-            const modal = document.getElementById('checkout-modal');
-            const itemsContainer = document.getElementById('cart-items');
-            modal.style.display = 'flex';
-            itemsContainer.innerHTML = cart.map(i => `<div style="display:flex; justify-content:space-between;"><span>${i.name}</span><span>$${i.price}</span></div>`).join('');
+            document.getElementById('checkout-modal').style.display = 'flex';
+            const itemsDiv = document.getElementById('cart-items');
+            itemsDiv.innerHTML = cart.map(i => `<div style="display:flex; justify-content:space-between;"><span>${i.name}</span><span>$${i.price}</span></div>`).join('');
             const total = cart.reduce((acc, curr) => acc + curr.price, 0);
             document.getElementById('total-price').innerText = `$${total}`;
         }
 
         function closeCheckout() { document.getElementById('checkout-modal').style.display = 'none'; }
-        function finalizePayment() { alert("Neural Uplink Successful. Shipment is being routed through our private logistics channel."); cart = []; document.getElementById('cart-val').innerText = 0; closeCheckout(); }
+        function finalizePayment() { alert("Transaction Initialized."); cart = []; document.getElementById('cart-val').innerText = 0; closeCheckout(); }
 
-        // --- 3D ENGINE & SCROLL LOGIC ---
+        // 3. 3D ENGINE (GLOBE + STARS)
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), antialias: true, alpha: true });
@@ -210,64 +194,38 @@ section { min-height: 100vh; padding: 150px 10% 100px 10%; display: flex; flex-d
 
         const globe = new THREE.Mesh(
             new THREE.SphereGeometry(5, 50, 50),
-            new THREE.MeshBasicMaterial({ color: 0x00f2ff, wireframe: true, transparent: true, opacity: 0.1 })
+            new THREE.MeshBasicMaterial({ color: 0xbc00ff, wireframe: true, transparent: true, opacity: 0.1 })
         );
         scene.add(globe);
 
-        const stars = new THREE.Points(
-            new THREE.BufferGeometry().setAttribute('position', new THREE.Float32BufferAttribute(Array.from({length: 15000}, () => (Math.random()-0.5)*2000), 3)),
-            new THREE.PointsMaterial({color: 0xffffff, size: 0.7})
-        );
+        // THE STAR SYSTEM
+        const starCount = 15000;
+        const starPos = new Float32Array(starCount * 3);
+        for(let i=0; i<starCount*3; i++) { starPos[i] = (Math.random()-0.5)*2000; }
+        const starGeom = new THREE.BufferGeometry();
+        starGeom.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+        const stars = new THREE.Points(starGeom, new THREE.PointsMaterial({color: 0xffffff, size: 0.7, transparent: true, opacity: 0.8}));
         scene.add(stars);
 
         camera.position.z = 15;
-// GSAP Scroll Animations
-gsap.registerPlugin(ScrollTrigger);
 
-document.querySelectorAll('.reveal').forEach(el => {
-    gsap.to(el, {
-        scrollTrigger: { trigger: el, start: "top 80%", toggleActions: "play none none reverse" },
-        opacity: 1, y: 0, duration: 1
-    });
-});
+        // GSAP Scroll Triggers
+        gsap.registerPlugin(ScrollTrigger);
+        document.querySelectorAll('.reveal').forEach(el => {
+            gsap.to(el, {
+                scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" },
+                opacity: 1, y: 0, duration: 1
+            });
+        });
 
-// --- NEW COSMIC STAR SYSTEM (PASTE THIS HERE) ---
-const starCount = 15000; 
-const starPositions = new Float32Array(starCount * 3);
-for(let i = 0; i < starCount * 3; i++) {
-    starPositions[i] = (Math.random() - 0.5) * 2000; 
-}
-const starGeometry = new THREE.BufferGeometry();
-starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
-const starMaterial = new THREE.PointsMaterial({
-    color: 0xffffff,
-    size: 0.7,
-    transparent: true,
-    opacity: 0.8,
-    sizeAttenuation: true 
-});
-const stars = new THREE.Points(starGeometry, starMaterial);
-scene.add(stars);
-
-// --- UPDATED ANIMATE FUNCTION ---
-function animate() {
-    requestAnimationFrame(animate);
-    
-    // Globe rotation
-    if (typeof globe !== 'undefined') globe.rotation.y += 0.002;
-    
-    // Stars rotation (The movement you wanted)
-    if (stars) {
-        stars.rotation.y += 0.0001;
-        stars.rotation.x += 0.00005;
-    }
-
-    // Globe follows scroll
-    if (typeof globe !== 'undefined') globe.position.y = (window.scrollY / 100);
-    
-    renderer.render(scene, camera);
-}
-animate();
+        function animate() {
+            requestAnimationFrame(animate);
+            globe.rotation.y += 0.002;
+            stars.rotation.y += 0.0001;
+            globe.position.y = (window.scrollY / 150);
+            renderer.render(scene, camera);
+        }
+        animate();
 
         window.onresize = () => {
             camera.aspect = window.innerWidth / window.innerHeight;

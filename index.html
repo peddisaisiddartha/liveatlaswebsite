@@ -3,62 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiveAtlas | Dimensional Telepresence</title>
+    <title>LiveAtlas | Universal Teleportation</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@300;600&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root { --neon: #00f2ff; --glass: rgba(255, 255, 255, 0.07); }
+        * { box-sizing: border-box; cursor: crosshair; }
+        body, html { margin: 0; background: #000; color: white; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+        #bg-canvas { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
+        .wrapper { position: relative; z-index: 1; }
+        section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px; }
+        .hero-title { font-family: 'Orbitron'; font-size: clamp(3rem, 10vw, 7rem); margin: 0; text-align: center; line-height: 0.9; background: linear-gradient(to bottom, #fff, var(--neon)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .glass-card { background: var(--glass); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); padding: 40px; border-radius: 20px; width: 90%; max-width: 1000px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
+        .box { padding: 20px; border: 1px solid rgba(0, 242, 255, 0.3); border-radius: 10px; background: rgba(0,0,0,0.3); transition: 0.3s; }
+        .box:hover { border-color: var(--neon); transform: translateY(-5px); }
+        .btn { padding: 15px 35px; border: 1px solid var(--neon); background: transparent; color: var(--neon); font-family: 'Orbitron'; letter-spacing: 3px; transition: 0.4s; margin-top: 20px; cursor: pointer; text-transform: uppercase; }
+        .btn:hover { background: var(--neon); color: black; box-shadow: 0 0 30px var(--neon); }
+        input, select { width: 100%; padding: 12px; margin-top: 10px; background: rgba(255,255,255,0.05); border: 1px solid #444; color: white; font-family: 'Rajdhani'; }
+    </style>
 </head>
 <body>
 
     <canvas id="bg-canvas"></canvas>
 
     <div class="wrapper">
-        <section id="hero">
+        <section>
             <h1 class="hero-title">LIVE<br>ATLAS</h1>
-            <p class="hero-subtitle">UNIVERSAL TELEPORTATION INTERFACE</p>
-            <button class="btn-portal" onclick="scrollToSection('#services')">Initialize Link</button>
+            <p style="letter-spacing: 5px; color: var(--neon);">GLOBAL TELEPRESENCE NETWORK</p>
+            <button class="btn" onclick="gsap.to(window, {duration: 1.5, scrollTo:'#next', ease:'power2.inOut'})">Enter Portal</button>
         </section>
 
-        <section id="services">
+        <section id="next">
             <div class="glass-card">
-                <h2 class="section-header">ACTIVE GATEWAYS</h2>
+                <h2 style="font-family:'Orbitron'; color: var(--neon);">ACTIVE NODES</h2>
                 <div class="grid">
-                    <div class="feature-box">
-                        <h3>ANTARCTICA</h3>
-                        <p>Real-time 3D streams from Vostok Station. Experience the extreme cold.</p>
-                    </div>
-                    <div class="feature-box">
-                        <h3>DUBAI MALL</h3>
-                        <p>Live shopping & luxury procurement. Your guide is on standby.</p>
-                    </div>
-                    <div class="feature-box">
-                        <h3>EDUCATION</h3>
-                        <p>Virtual field trips for institutions. Live global classroom access.</p>
-                    </div>
+                    <div class="box"><h3>ANTARCTICA</h3><p>Live 3D feed from Vostok.</p></div>
+                    <div class="box"><h3>DUBAI MALL</h3><p>Luxury Shopping & Delivery.</p></div>
+                    <div class="box"><h3>ACADEMIA</h3><p>Institutional Field Trips.</p></div>
                 </div>
-            </div>
-        </section>
-
-        <section id="booking">
-            <div class="glass-card">
-                <h2 class="section-header">SCHEDULE EXPEDITION</h2>
-                <div class="form-container">
-                    <input type="text" placeholder="DESTINATION COORDINATES">
+                <div style="margin-top: 40px;">
+                    <h3 style="font-family:'Orbitron';">BOOK A SESSION</h3>
+                    <input type="text" placeholder="DESTINATION (e.g. DUBAI)">
                     <select>
-                        <option>Tourism (30 min)</option>
-                        <option>Shopping (60 min)</option>
-                        <option>Academic License</option>
+                        <option>Tourism</option>
+                        <option>Shopping</option>
+                        <option>Education</option>
                     </select>
-                    <button class="btn-portal" style="width:100%;">REQUEST UPLINK</button>
+                    <button class="btn" style="width:100%;">Initialize Uplink</button>
                 </div>
             </div>
         </section>
     </div>
 
-    <script src="app.js"></script>
+    <script>
+        gsap.registerPlugin(ScrollToPlugin);
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        
+        // Stars
+        const starGeo = new THREE.BufferGeometry();
+        const starPoints = [];
+        for(let i=0; i<6000; i++) starPoints.push((Math.random()-0.5)*1500, (Math.random()-0.5)*1500, (Math.random()-0.5)*1500);
+        starGeo.setAttribute('position', new THREE.Float32BufferAttribute(starPoints, 3));
+        const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({color: 0xffffff, size: 0.8}));
+        scene.add(stars);
+
+        // Globe
+        const globe = new THREE.Mesh(
+            new THREE.SphereGeometry(5, 32, 32),
+            new THREE.MeshBasicMaterial({ color: 0x00f2ff, wireframe: true, transparent: true, opacity: 0.15 })
+        );
+        scene.add(globe);
+        camera.position.z = 15;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            globe.rotation.y += 0.002;
+            stars.rotation.y += 0.0005;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
 </body>
 </html>

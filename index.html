@@ -10,44 +10,42 @@
 
     <style>
         :root {
-            --cyan: #00f2ff; --hot-pink: #ff007a; --purple: #bc00ff;
-            --bg-dark: #010103; --font-hdr: 'Orbitron', sans-serif;
+            --cyan: #00f2ff; --hot-pink: #ff007a; --bg-dark: #010103; --font-hdr: 'Orbitron', sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         body { background-color: var(--bg-dark); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
 
-        #bg-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; }
+        /* Fallback background in case WebGL fails */
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; background: radial-gradient(circle at center, #0a0a1a 0%, #010103 100%); }
 
-        /* NAVIGATION & LOGO */
-        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 25px 50px; z-index: 1000; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); }
-        .nav-logo img { height: 50px; display: block; }
-        .nav-links a { color: white; text-decoration: none; font-family: var(--font-hdr); font-size: 10px; letter-spacing: 2px; margin-left: 25px; transition: 0.3s; }
+        /* UI ELEMENTS */
+        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; z-index: 1000; background: rgba(0,0,0,0.7); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0,242,255,0.1); }
+        .nav-logo img { height: 45px; }
+        .nav-links a { color: white; text-decoration: none; font-family: var(--font-hdr); font-size: 10px; letter-spacing: 2px; margin-left: 20px; text-transform: uppercase; }
 
-        /* CURSOR */
-        #cursor-ring { position: fixed; width: 35px; height: 35px; border: 1.5px solid var(--cyan); border-radius: 50%; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); transition: 0.08s; box-shadow: 0 0 15px var(--cyan); }
+        #cursor-ring { position: fixed; width: 30px; height: 30px; border: 1.5px solid var(--cyan); border-radius: 50%; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); transition: 0.1s; }
 
-        /* CONTENT */
-        main { height: 100vh; overflow-y: auto; scroll-behavior: smooth; }
-        section { min-height: 100vh; padding: 120px 10%; display: flex; flex-direction: column; justify-content: center; }
+        main { height: 100vh; overflow-y: auto; scroll-behavior: smooth; position: relative; z-index: 10; }
+        section { min-height: 100vh; padding: 100px 10%; display: flex; flex-direction: column; justify-content: center; }
 
-        .hero-title { font-family: var(--font-hdr); font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: 12px; font-weight: 700; margin-bottom: 15px; }
-        .hero-desc { max-width: 500px; color: #ccc; font-size: 1.1rem; line-height: 1.5; margin-bottom: 30px; }
+        .hero-title { font-family: var(--font-hdr); font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: 8px; margin-bottom: 10px; }
+        .hero-desc { max-width: 450px; color: #aaa; margin-bottom: 25px; font-size: 1.1rem; }
 
-        /* GRIDS & CARDS */
-        .spatial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .tech-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(0, 242, 255, 0.2); padding: 25px; backdrop-filter: blur(15px); transition: 0.5s; }
-        .tech-card img { width: 100%; height: 200px; object-fit: cover; margin-bottom: 15px; }
-        
-        .btn-neural { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); padding: 12px 30px; font-family: var(--font-hdr); font-size: 10px; letter-spacing: 2px; transition: 0.4s; width: fit-content; }
+        .spatial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .tech-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(0, 242, 255, 0.2); padding: 20px; transition: 0.4s; }
+        .tech-card:hover { border-color: var(--cyan); background: rgba(0,242,255,0.05); transform: translateY(-5px); }
+        .tech-card img { width: 100%; height: 180px; object-fit: cover; margin-bottom: 15px; }
+
+        .btn-neural { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); padding: 12px 25px; font-family: var(--font-hdr); font-size: 9px; letter-spacing: 2px; transition: 0.3s; cursor: pointer; }
         .btn-neural:hover { background: var(--cyan); color: #000; box-shadow: 0 0 20px var(--cyan); }
 
-        /* PORTAL / DETAILS OVERLAY */
-        #portal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #010103; z-index: 5000; display: none; padding: 80px 10%; overflow-y: auto; }
-        .close-portal { color: var(--hot-pink); border: 1px solid var(--hot-pink); padding: 10px 20px; width: fit-content; margin-bottom: 30px; cursor: pointer; }
+        /* PORTAL OVERLAY */
+        #portal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #010103; z-index: 5000; display: none; padding: 60px 10%; overflow-y: auto; }
+        .close-portal { color: var(--hot-pink); border: 1px solid var(--hot-pink); padding: 8px 15px; width: fit-content; margin-bottom: 25px; cursor: pointer; font-family: var(--font-hdr); font-size: 10px; }
 
         /* BOOKING */
-        .booking-box { height: 600px; border: 1px solid rgba(0,242,255,0.2); margin-top: 20px; }
+        .booking-box { height: 500px; border: 1px solid rgba(0,242,255,0.2); margin-top: 20px; background: #000; }
         iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
@@ -58,13 +56,13 @@
 
     <nav>
         <div class="nav-logo">
-            <img src="logo.png" alt="Atlas" onerror="this.outerHTML='<h2 style=\'font-family:var(--font-hdr); letter-spacing:4px;\'>LIVEATLAS</h2>'">
+            <img src="logo.png" alt="Atlas" onerror="this.outerHTML='<h2 style=\'font-family:var(--font-hdr); letter-spacing:3px; color:var(--cyan);\'>LIVEATLAS</h2>'">
         </div>
         <div class="nav-links">
-            <a href="#home">HOME</a>
-            <a href="#nodes">NODES</a>
-            <a href="#shop">BOUTIQUE</a>
-            <a href="#booking">BOOKING</a>
+            <a href="#home">Home</a>
+            <a href="#nodes">Nodes</a>
+            <a href="#shop">Boutique</a>
+            <a href="#booking">Booking</a>
         </div>
     </nav>
 
@@ -76,32 +74,32 @@
         </section>
 
         <section id="nodes">
-            <h2 style="font-family: var(--font-hdr); margin-bottom: 40px; color: var(--cyan);">[ ACTIVE_NODES ]</h2>
+            <h2 style="font-family: var(--font-hdr); margin-bottom: 30px; color: var(--cyan);">[ ACTIVE_NODES ]</h2>
             <div class="spatial-grid">
                 <div class="tech-card">
-                    <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800">
+                    <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600">
                     <h3>PARIS_NODE</h3>
-                    <button class="btn-neural" style="width:100%; margin-top:15px;" onclick="openPortal('PARIS', 'The City of Light. High-res neural uplink from the Eiffel Tower base.')">DETAILS</button>
+                    <button class="btn-neural" style="width:100%; margin-top:15px;" onclick="openPortal('PARIS', 'Experience the Eiffel Tower and the Seine through a high-bandwidth neural link.')">DETAILS</button>
                 </div>
                 <div class="tech-card">
-                    <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800">
+                    <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=600">
                     <h3>NYC_NODE</h3>
-                    <button class="btn-neural" style="width:100%; margin-top:15px;" onclick="openPortal('NEW YORK', 'Times Square sensory flood. Pure urban energy.')">DETAILS</button>
+                    <button class="btn-neural" style="width:100%; margin-top:15px;" onclick="openPortal('NEW YORK', 'Feel the vibration of Times Square and the scale of the Manhattan skyline.')">DETAILS</button>
                 </div>
             </div>
         </section>
 
         <section id="shop">
-            <h2 style="font-family: var(--font-hdr); margin-bottom: 40px; color: var(--hot-pink);">[ BOUTIQUE ]</h2>
+            <h2 style="font-family: var(--font-hdr); margin-bottom: 30px; color: var(--hot-pink);">[ BOUTIQUE ]</h2>
             <div class="spatial-grid">
                 <div class="tech-card">
-                    <img src="https://images.unsplash.com/photo-1551009175-8a68da93d5f9?w=800">
+                    <img src="https://images.unsplash.com/photo-1551009175-8a68da93d5f9?w=600">
                     <h3>ANTARCTIC_WATER</h3>
                     <p style="color:var(--cyan); margin: 10px 0;">$250.00</p>
                     <button class="btn-neural" style="width:100%;">PROCURE</button>
                 </div>
                 <div class="tech-card">
-                    <img src="https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?w=800">
+                    <img src="https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?w=600">
                     <h3>DUBAI_GOLD_SILK</h3>
                     <p style="color:var(--cyan); margin: 10px 0;">$1,200.00</p>
                     <button class="btn-neural" style="width:100%;">PROCURE</button>
@@ -110,7 +108,7 @@
         </section>
 
         <section id="booking">
-            <h2 style="font-family: var(--font-hdr); margin-bottom: 40px;">[ RESERVE_SESSION ]</h2>
+            <h2 style="font-family: var(--font-hdr); margin-bottom: 30px;">[ RESERVE_SESSION ]</h2>
             <div class="booking-box">
                 <iframe src="https://cal.com/live-atlas"></iframe>
             </div>
@@ -121,72 +119,82 @@
         <div class="close-portal" onclick="closePortal()">BACK TO HUB</div>
         <h1 id="p-title" class="hero-title"></h1>
         <p id="p-desc" class="hero-desc"></p>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
-            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800" style="width:100%">
-            <img src="https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?w=800" style="width:100%">
-        </div>
     </div>
 
     <script>
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 2000);
-        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        // FAIL-SAFE INITIALIZATION
+        let scene, camera, renderer, person, planet;
 
-        const light = new THREE.PointLight(0x00f2ff, 2, 200);
-        light.position.set(20, 20, 20);
-        scene.add(light);
-        scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
 
-        // 1. THE PLANET
-        const planet = new THREE.Mesh(
-            new THREE.SphereGeometry(15, 64, 64),
-            new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg') })
-        );
-        scene.add(planet);
+            // LIGHTS
+            const light = new THREE.DirectionalLight(0xffffff, 1);
+            light.position.set(5, 5, 5);
+            scene.add(light);
+            scene.add(new THREE.AmbientLight(0x404040, 2));
 
-        // 2. THE LARGE ORGANIC HUMAN (Floating with VR)
-        const person = new THREE.Group();
-        const mat = new THREE.MeshPhongMaterial({ color: 0xeeeeee });
-        
-        const body = new THREE.Mesh(new THREE.CapsuleGeometry(2.5, 5, 8, 20), mat);
-        const head = new THREE.Mesh(new THREE.SphereGeometry(1.8, 32, 32), mat);
-        head.position.y = 4.8;
-        const visor = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.9, 1.2), new THREE.MeshBasicMaterial({ color: 0x00f2ff }));
-        visor.position.set(0, 4.8, 1.4);
+            // 1. THE PLANET (With continents fallback)
+            const geo = new THREE.SphereGeometry(15, 32, 32);
+            const mat = new THREE.MeshPhongMaterial({ color: 0x111122, emissive: 0x001133 });
+            planet = new THREE.Mesh(geo, mat);
+            
+            // Try loading texture
+            new THREE.TextureLoader().load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg', (tex) => {
+                mat.map = tex;
+                mat.emissive = new THREE.Color(0x000000);
+                mat.needsUpdate = true;
+            });
+            scene.add(planet);
 
-        const createLimb = (x, y, rZ) => {
-            const l = new THREE.Mesh(new THREE.CapsuleGeometry(0.8, 4, 8, 12), mat);
-            l.position.set(x, y, 0);
-            l.rotation.z = rZ;
-            return l;
-        };
+            // 2. THE LARGE HUMAN PERSON (Organic Shapes)
+            person = new THREE.Group();
+            const skin = new THREE.MeshPhongMaterial({ color: 0xdddddd });
+            
+            const torso = new THREE.Mesh(new THREE.CapsuleGeometry(2.5, 5, 8, 16), skin);
+            const head = new THREE.Mesh(new THREE.SphereGeometry(1.8, 16, 16), skin);
+            head.position.y = 4.8;
+            
+            // THE VISOR
+            const visor = new THREE.Mesh(new THREE.BoxGeometry(2.5, 0.8, 1), new THREE.MeshBasicMaterial({ color: 0x00f2ff }));
+            visor.position.set(0, 4.8, 1.4);
 
-        person.add(body, head, visor, createLimb(-2.8, 2, 0.6), createLimb(2.8, 2, -0.6), createLimb(-1.5, -4.5, 0.2), createLimb(1.5, -4.5, -0.2));
-        
-        // Massive Scale
-        person.scale.set(1.8, 1.8, 1.8);
-        person.position.set(25, 0, -15);
-        person.rotation.y = -0.6;
-        scene.add(person);
+            person.add(torso, head, visor);
+            
+            // Add limbs
+            const armL = new THREE.Mesh(new THREE.CapsuleGeometry(0.7, 4, 4, 8), skin);
+            armL.position.set(-3, 2, 0); armL.rotation.z = 0.5;
+            person.add(armL);
+            
+            const armR = new THREE.Mesh(new THREE.CapsuleGeometry(0.7, 4, 4, 8), skin);
+            armR.position.set(3, 2, 0); armR.rotation.z = -0.5;
+            person.add(armR);
 
-        // STARS
-        const starGeom = new THREE.BufferGeometry();
-        const stars = new Float32Array(8000 * 3);
-        for(let i=0; i<24000; i++) stars[i] = (Math.random()-0.5)*1800;
-        starGeom.setAttribute('position', new THREE.BufferAttribute(stars, 3));
-        scene.add(new THREE.Points(starGeom, new THREE.PointsMaterial({color: 0xffffff, size: 0.8})));
+            person.scale.set(1.8, 1.8, 1.8);
+            person.position.set(20, 0, -10);
+            scene.add(person);
 
-        camera.position.z = 60;
+            // 3. STARS
+            const starGeo = new THREE.BufferGeometry();
+            const starPos = new Float32Array(5000 * 3);
+            for(let i=0; i<15000; i++) starPos[i] = (Math.random() - 0.5) * 1000;
+            starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+            scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.5 })));
+
+            camera.position.z = 50;
+            animate();
+        }
 
         function animate() {
             requestAnimationFrame(animate);
             planet.rotation.y += 0.001;
-            person.position.y = Math.sin(Date.now() * 0.001) * 3;
-            person.rotation.x = Math.sin(Date.now() * 0.0005) * 0.1;
+            person.position.y = Math.sin(Date.now() * 0.001) * 2;
+            person.rotation.y += 0.002;
             renderer.render(scene, camera);
         }
-        animate();
 
         function openPortal(t, d) {
             document.getElementById('portal').style.display = 'block';
@@ -198,7 +206,13 @@
         document.addEventListener('mousemove', e => {
             document.getElementById('cursor-ring').style.left = e.clientX + 'px';
             document.getElementById('cursor-ring').style.top = e.clientY + 'px';
-            scene.rotation.y = (e.clientX / window.innerWidth - 0.5) * 0.1;
+        });
+
+        window.onload = init;
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
         });
     </script>
 </body>

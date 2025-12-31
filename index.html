@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiveAtlas // Virtual Environment</title>
+    <title>LiveAtlas | VR Telepresence</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link rel="stylesheet" href="style.css">
@@ -14,24 +14,24 @@
     
     <div class="hud-overlay">
         <div class="hud-top">
-            <div class="telemetry">OCULAR_LINK: CALIBRATED<br>VR_STREAMS: READY</div>
+            <div class="telemetry">SIGNAL: 8K_READY<br>LATENCY: 12ms</div>
             <div id="clock">00:00:00 UTC</div>
         </div>
         <div class="hud-bottom">
-            <div class="telemetry">FOV: 110°<br>FPS: 90.0</div>
-            <div>© LIVEATLAS // GLOBAL TELEPRESENCE</div>
+            <div class="telemetry">X: <span id="mouse-x">0</span><br>Y: <span id="mouse-y">0</span></div>
+            <div>© LIVEATLAS // VIRTUAL_ENV</div>
         </div>
     </div>
 
     <canvas id="bg-canvas"></canvas>
 
-    <nav>
-        <div class="nav-logo" onclick="closePortal()">
+    <nav id="main-nav">
+        <div class="nav-logo">
             <img src="logo.png" alt="Atlas" onerror="this.src='https://via.placeholder.com/150x40?text=LIVEATLAS'">
         </div>
         <div class="nav-links">
             <a href="#home">HOME</a>
-            <a href="#nodes">ENVIRONMENTS</a>
+            <a href="#nodes">NODES</a>
             <a href="#shop">HARDWARE</a>
             <a onclick="toggleCart()">CART (<span id="cart-count">0</span>)</a>
         </div>
@@ -39,10 +39,10 @@
 
     <main id="content-root">
         <section id="home">
-            <div class="vr-tag">[ IMMERSIVE MODE READY ]</div>
+            <div class="vr-tag">[ SYSTEM_ACTIVE ]</div>
             <h1 class="hero-title">LIVEATLAS</h1>
-            <p class="hero-desc">The world's most advanced telepresence network. Explore the planet in real-time high-fidelity virtual reality.</p>
-            <button class="btn-neural" onclick="window.location.hash='#nodes'">INITIALIZE LINK</button>
+            <p class="hero-desc">The world's most advanced telepresence network. Step into any environment in real-time full-spectrum color.</p>
+            <button class="btn-neural" onclick="document.getElementById('nodes').scrollIntoView({behavior:'smooth'})">INITIALIZE LINK</button>
         </section>
 
         <section id="nodes">
@@ -56,6 +56,7 @@
         </section>
 
         <section id="booking">
+            <h2 class="section-hdr">RESERVE_STATION</h2>
             <div class="vr-frame">
                 <iframe src="https://cal.com/live-atlas" frameborder="0"></iframe>
             </div>
@@ -63,9 +64,17 @@
     </main>
 
     <div id="portal-overlay">
-        <div class="back-btn" onclick="closePortal()">[ DISCONNECT ]</div>
+        <div class="back-btn" onclick="closePortal()">[ DISCONNECT_LINK ]</div>
         <h1 id="portal-title" class="hero-title"></h1>
         <div class="gallery-wrap" id="portal-gallery"></div>
+    </div>
+
+    <div id="cart-modal">
+        <div class="cart-inner">
+            <h3 style="font-family: 'Orbitron'; color: var(--cyan);">SECURE_CART</h3>
+            <div id="cart-items" style="margin: 20px 0;"></div>
+            <button class="btn-neural" style="width:100%" onclick="toggleCart()">CLOSE</button>
+        </div>
     </div>
 
     <script src="app.js"></script>

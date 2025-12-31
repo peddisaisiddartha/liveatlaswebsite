@@ -3,55 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiveAtlas // Neural Telepresence</title>
+    <title>LiveAtlas // Deep Neural Telepresence</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --cyan: #00f2ff; --pink: #ff007a; --bg: #010103; --font-hdr: 'Orbitron', sans-serif;
+            --cyan: #00f2ff; 
+            --pink: #ff007a; 
+            --purple: #bc00ff;
+            --bg-deep: #000002;
+            --font-main: 'Rajdhani', sans-serif;
+            --font-hdr: 'Orbitron', sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
         
         body { 
-            background-color: var(--bg); 
-            color: #fff; font-family: 'Rajdhani', sans-serif; 
+            background-color: var(--bg-deep); 
+            color: #ffffff; 
+            font-family: var(--font-main); 
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* 3D LAYER */
-        #bg-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; }
+        /* THE PERSISTENT 3D LAYER */
+        #bg-canvas { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh; 
+            z-index: 1; /* Stays behind all content */
+            background: radial-gradient(circle at center, #050515 0%, #000000 100%);
+        }
 
-        /* NAVIGATION */
-        nav { position: fixed; top: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; z-index: 1000; background: rgba(0,0,0,0.8); border-bottom: 1px solid rgba(0,242,255,0.2); }
-        .nav-logo h2 { font-family: var(--font-hdr); letter-spacing: 4px; color: var(--cyan); font-size: 20px; }
-        .nav-links a { color: white; text-decoration: none; font-family: var(--font-hdr); font-size: 10px; letter-spacing: 2px; margin-left: 20px; }
+        /* NAVIGATION & BRANDING */
+        nav { 
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 30px 60px; 
+            z-index: 1000; 
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            backdrop-filter: blur(5px);
+        }
+        .nav-logo img { height: 55px; filter: drop-shadow(0 0 10px var(--cyan)); }
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a { 
+            color: #fff; 
+            text-decoration: none; 
+            font-family: var(--font-hdr); 
+            font-size: 11px; 
+            letter-spacing: 3px; 
+            text-transform: uppercase;
+            transition: 0.4s;
+            opacity: 0.6;
+        }
+        .nav-links a:hover { opacity: 1; color: var(--cyan); text-shadow: 0 0 15px var(--cyan); }
 
-        #cursor-ring { position: fixed; width: 30px; height: 30px; border: 1.5px solid var(--cyan); border-radius: 50%; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); transition: 0.1s; }
+        /* CUSTOM CURSOR SYSTEM */
+        #cursor-ring { 
+            position: fixed; 
+            width: 40px; 
+            height: 40px; 
+            border: 1.5px solid var(--cyan); 
+            border-radius: 50%; 
+            pointer-events: none; 
+            z-index: 99999; 
+            transform: translate(-50%, -50%); 
+            transition: 0.12s ease-out;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+        }
 
+        /* CONTENT ARCHITECTURE */
         main { position: relative; z-index: 10; width: 100%; }
-        section { min-height: 100vh; padding: 120px 10%; display: flex; flex-direction: column; justify-content: center; }
+        section { 
+            min-height: 100vh; 
+            padding: 160px 10% 100px; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center;
+        }
 
-        .hero-title { font-family: var(--font-hdr); font-size: clamp(2.5rem, 6vw, 4rem); letter-spacing: 12px; margin-bottom: 20px; }
-        
-        /* GRID */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; width: 100%; }
-        .card { background: rgba(0,0,0,0.6); border: 1px solid rgba(0, 242, 255, 0.2); padding: 20px; backdrop-filter: blur(10px); transition: 0.3s; }
-        .card:hover { border-color: var(--cyan); transform: scale(1.02); }
-        .card img { width: 100%; height: 180px; object-fit: cover; margin-bottom: 15px; background: #111; }
+        .hero-title { 
+            font-family: var(--font-hdr); 
+            font-size: clamp(3rem, 8vw, 6rem); 
+            line-height: 0.9;
+            letter-spacing: -2px;
+            font-weight: 900;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #fff, var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-desc { max-width: 600px; font-size: 1.4rem; color: #888; font-weight: 300; margin-bottom: 40px; }
 
-        .btn { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); padding: 12px 25px; font-family: var(--font-hdr); font-size: 9px; letter-spacing: 2px; cursor: pointer; width: 100%; margin-top: 10px; }
-        .btn:hover { background: var(--cyan); color: #000; box-shadow: 0 0 15px var(--cyan); }
+        /* THE NODES GRID (6 ITEMS) */
+        .section-header { 
+            font-family: var(--font-hdr); 
+            font-size: 14px; 
+            color: var(--cyan); 
+            letter-spacing: 10px; 
+            margin-bottom: 50px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .section-header::after { content: ""; height: 1px; flex-grow: 1; background: rgba(0,242,255,0.3); }
 
-        /* PORTAL OVERLAY */
-        #portal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 5000; display: none; padding: 80px 10%; overflow-y: auto; }
-        .close-portal { color: var(--pink); border: 1px solid var(--pink); padding: 10px 20px; width: fit-content; margin-bottom: 30px; cursor: pointer; font-family: var(--font-hdr); }
-        .portal-img { width: 100%; height: 400px; object-fit: cover; border: 1px solid var(--cyan); margin-bottom: 20px; }
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 40px; 
+        }
+        .card { 
+            background: rgba(255,255,255,0.02); 
+            border: 1px solid rgba(255,255,255,0.05); 
+            padding: 35px; 
+            transition: 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover { 
+            background: rgba(255,255,255,0.05); 
+            border-color: var(--cyan); 
+            transform: translateY(-20px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        .card img { 
+            width: 100%; 
+            height: 240px; 
+            object-fit: cover; 
+            margin-bottom: 25px; 
+            filter: grayscale(100%) brightness(0.8);
+            transition: 0.6s;
+        }
+        .card:hover img { filter: grayscale(0%) brightness(1); }
+        .card h3 { font-family: var(--font-hdr); font-size: 18px; margin-bottom: 10px; letter-spacing: 2px; }
+        .card p { color: #666; font-size: 0.95rem; margin-bottom: 25px; }
 
-        /* BOOKING */
-        .booking-box { height: 500px; border: 1px solid var(--cyan); margin-top: 20px; }
+        .btn-action { 
+            background: transparent; 
+            border: 1px solid var(--cyan); 
+            color: var(--cyan); 
+            padding: 16px 32px; 
+            font-family: var(--font-hdr); 
+            font-size: 10px; 
+            letter-spacing: 3px; 
+            width: 100%; 
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-action:hover { background: var(--cyan); color: #000; box-shadow: 0 0 30px var(--cyan); }
+
+        /* THE BOUTIQUE (6 ITEMS) */
+        .price-tag { color: var(--pink); font-family: var(--font-hdr); font-size: 20px; margin-bottom: 20px; display: block; }
+
+        /* MODAL PORTAL SYSTEM */
+        #portal { 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            background: #000; 
+            z-index: 10000; 
+            display: none; 
+            padding: 100px 10%;
+        }
+        .close-portal { 
+            font-family: var(--font-hdr); 
+            color: var(--pink); 
+            border: 1px solid var(--pink); 
+            padding: 10px 20px; 
+            display: inline-block; 
+            margin-bottom: 40px; 
+            cursor: pointer; 
+        }
+
+        /* CAL.COM BOOKING FRAME */
+        .booking-wrap { 
+            height: 750px; 
+            border: 1px solid rgba(0,242,255,0.2); 
+            background: rgba(0,0,0,0.4);
+            margin-top: 40px;
+        }
+        iframe { width: 100%; height: 100%; border: none; }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: var(--cyan); }
     </style>
 </head>
 <body>
@@ -61,129 +207,198 @@
 
     <nav>
         <div class="nav-logo">
-            <img src="logo.png" style="height:40px" onerror="this.outerHTML='<h2>LIVEATLAS</h2>'">
+            <img src="logo.png" alt="LiveAtlas" onerror="this.outerHTML='<h2 style=\'font-family:var(--font-hdr); color:var(--cyan); letter-spacing:5px;\'>LIVEATLAS</h2>'">
         </div>
         <div class="nav-links">
-            <a href="#home">CORE</a><a href="#nodes">NODES</a><a href="#shop">SHOP</a><a href="#booking">BOOK</a>
+            <a href="#home">Initiate</a>
+            <a href="#nodes">Neural Nodes</a>
+            <a href="#shop">Boutique</a>
+            <a href="#booking">Reserve</a>
         </div>
     </nav>
 
     <main>
         <section id="home">
-            <h1 class="hero-title">LIVEATLAS</h1>
-            <p style="max-width:500px; font-size: 1.2rem; color:#aaa">Global neural telepresence. Experience the world in 8K real-time.</p>
+            <h1 class="hero-title">Neural<br>Presence</h1>
+            <p class="hero-desc">Bypass the physical. Inhabit any corner of the globe via 8K low-latency neural uplink. Your consciousness, anywhere.</p>
+            <button class="btn-action" style="width: 250px;" onclick="document.querySelector('#nodes').scrollIntoView()">LINK TO NODE</button>
         </section>
 
         <section id="nodes">
-            <h2 style="font-family: var(--font-hdr); margin-bottom:30px; color:var(--cyan)">[ ACTIVE_NODES ]</h2>
+            <div class="section-header">ACTIVE_NEURAL_UPLINKS</div>
             <div class="grid">
                 <div class="card">
-                    <img src="https://source.unsplash.com/400x300/?paris,tower">
-                    <h3>PARIS_NODE</h3>
-                    <button class="btn" onclick="openPortal('PARIS', 'Eiffel Tower Neural Link active.', 'https://source.unsplash.com/800x600/?paris,night')">DETAILS</button>
+                    <img src="https://images.pexels.com/photos/338515/pexels-photo-338515.jpeg?auto=compress&cs=tinysrgb&w=800">
+                    <h3>PARIS_CENTER</h3>
+                    <p>Experience the atmospheric resonance of the Eiffel Tower base in real-time.</p>
+                    <button class="btn-action" onclick="showPortal('PARIS NODE', 'Uplink established. 8K Sensory stream active from Paris Node 01.')">ENGAGE DETAILS</button>
                 </div>
                 <div class="card">
-                    <img src="https://source.unsplash.com/400x300/?tokyo,neon">
-                    <h3>TOKYO_NODE</h3>
-                    <button class="btn" onclick="openPortal('TOKYO', 'Shibuya Crossing Real-time Sync.', 'https://source.unsplash.com/800x600/?tokyo,street')">DETAILS</button>
+                    <img src="https://images.pexels.com/photos/466685/pexels-photo-466685.jpeg?auto=compress&cs=tinysrgb&w=800">
+                    <h3>NYC_CORE</h3>
+                    <p>The electric vibration of Times Square. Total sensory immersion.</p>
+                    <button class="btn-action" onclick="showPortal('NYC NODE', 'Traffic and light intensity data synced at 120fps.')">ENGAGE DETAILS</button>
                 </div>
                 <div class="card">
-                    <img src="https://source.unsplash.com/400x300/?dubai,burj">
-                    <h3>DUBAI_NODE</h3>
-                    <button class="btn" onclick="openPortal('DUBAI', 'Burj Khalifa High Altitude Feed.', 'https://source.unsplash.com/800x600/?dubai,skyline')">DETAILS</button>
+                    <img src="https://images.pexels.com/photos/2048548/pexels-photo-2048548.jpeg?auto=compress&cs=tinysrgb&w=800">
+                    <h3>DUBAI_VANTAGE</h3>
+                    <p>Highest altitude neural proxy. Witness the world from the Burj peak.</p>
+                    <button class="btn-action" onclick="showPortal('DUBAI HUB', 'Desert heat simulation and panoramic optics engaged.')">ENGAGE DETAILS</button>
                 </div>
                 <div class="card">
-                    <img src="https://source.unsplash.com/400x300/?newyork,city">
-                    <h3>NYC_NODE</h3>
-                    <button class="btn" onclick="openPortal('NEW YORK', 'Times Square Sensory Flood.', 'https://source.unsplash.com/800x600/?nyc,times-square')">DETAILS</button>
+                    <img src="https://images.pexels.com/photos/2506923/pexels-photo-2506923.jpeg?auto=compress&cs=tinysrgb&w=800">
+                    <h3>TOKYO_SYNC</h3>
+                    <p>Neon flow and the Shibuya crossing. A rhythmic neural experience.</p>
+                    <button class="btn-action" onclick="showPortal('TOKYO STATION', 'Data packets synchronized with urban neon pulse.')">ENGAGE DETAILS</button>
                 </div>
                 <div class="card">
-                    <img src="https://source.unsplash.com/400x300/?london,eye">
-                    <h3>LONDON_NODE</h3>
-                    <button class="btn" onclick="openPortal('LONDON', 'Thames River Atmospheric Link.', 'https://source.unsplash.com/800x600/?london,bridge')">DETAILS</button>
+                    <img src="https://images.pexels.com/photos/672532/pexels-photo-672532.jpeg?auto=compress&cs=tinysrgb&w=800">
+                    <h3>LONDON_STREAM</h3>
+                    <p>Historic grandeur via modern proxy. The Thames river at sunset.</p>
+                    <button class="btn-action" onclick="showPortal('LONDON HUB', 'Atmospheric moisture and fog levels adjusted for realism.')">ENGAGE DETAILS</button>
                 </div>
                 <div class="card">
-                    <img src="https://source.unsplash.com/400x300/?sydney,opera">
-                    <h3>SYDNEY_NODE</h3>
-                    <button class="btn" onclick="openPortal('SYDNEY', 'Harbor Opera Live Proxy.', 'https://source.unsplash.com/800x600/?sydney,harbor')">DETAILS</button>
+                    <img src="https://images.pexels.com/photos/1878293/pexels-photo-1878293.jpeg?auto=compress&cs=tinysrgb&w=800">
+                    <h3>SYDNEY_PROXY</h3>
+                    <p>Harbor views and the Opera House. High-fidelity aquatic proxy.</p>
+                    <button class="btn-action" onclick="showPortal('SYDNEY NODE', 'Binaural audio of the harbor waves active.')">ENGAGE DETAILS</button>
                 </div>
             </div>
         </section>
 
         <section id="shop">
-            <h2 style="font-family: var(--font-hdr); margin-bottom:30px; color:var(--pink)">[ BOUTIQUE ]</h2>
+            <div class="section-header">THE_BOUTIQUE</div>
             <div class="grid">
                 <div class="card">
-                    <img src="https://source.unsplash.com/400x300/?luxury,water">
-                    <h3>ANTARCTIC WATER</h3><p>$250.00</p>
-                    <button class="btn" onclick="openPortal('PRODUCT: WATER', 'Pure melted ice from the core of Antarctica.', 'https://source.unsplash.com/800x600/?glacier,water')">PROCURE</button>
+                    <img src="https://images.pexels.com/photos/407102/pexels-photo-407102.jpeg?auto=compress&cs=tinysrgb&w=800">
+                    <h3>ANTARCTIC_WATER</h3>
+                    <span class="price-tag">$250.00</span>
+                    <button class="btn-action">PROCURE</button>
                 </div>
                 <div class="card">
-                    <img src="https://source.unsplash.com/400x300/?gold,silk">
-                    <h3>DUBAI SILK</h3><p>$1,200.00</p>
-                    <button class="btn" onclick="openPortal('PRODUCT: SILK', 'Hand-woven silk with 24k gold threads.', 'https://source.unsplash.com/800x600/?gold,fabric')">PROCURE</button>
+                    <img src="https://images.pexels.com/photos/237272/pexels-photo-237272.jpeg?auto=compress&cs=tinysrgb&w=800">
+                    <h3>DUBAI_GOLD_SILK</h3>
+                    <span class="price-tag">$1,200.00</span>
+                    <button class="btn-action">PROCURE</button>
                 </div>
                 <div class="card">
-                    <img src="https://source.unsplash.com/400x300/?swiss,air">
-                    <h3>SWISS AIR CORE</h3><p>$450.00</p>
-                    <button class="btn" onclick="openPortal('PRODUCT: AIR', 'Compressed Alpine air from 4000m altitude.', 'https://source.unsplash.com/800x600/?alps,mountain')">PROCURE</button>
+                    <img src="https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=800">
+                    <h3>SWISS_AIR_CORE</h3>
+                    <span class="price-tag">$450.00</span>
+                    <button class="btn-action">PROCURE</button>
                 </div>
                 <div class="card">
-                    <img src="https://source.unsplash.com/400x300/?tech,visor">
-                    <h3>NEURAL V1 VISOR</h3><p>$3,500.00</p>
-                    <button class="btn" onclick="openPortal('PRODUCT: VISOR', 'The latest in telepresence hardware.', 'https://source.unsplash.com/800x600/?vr,headset')">PROCURE</button>
+                    <img src="https://images.pexels.com/photos/3183183/pexels-photo-3183183.jpeg?auto=compress&cs=tinysrgb&w=800">
+                    <h3>NEURAL_AMP_V1</h3>
+                    <span class="price-tag">$3,500.00</span>
+                    <button class="btn-action">PROCURE</button>
+                </div>
+                <div class="card">
+                    <img src="https://images.pexels.com/photos/3733333/pexels-photo-3733333.jpeg?auto=compress&cs=tinysrgb&w=800">
+                    <h3>DATA_CRYSTAL</h3>
+                    <span class="price-tag">$950.00</span>
+                    <button class="btn-action">PROCURE</button>
+                </div>
+                <div class="card">
+                    <img src="https://images.pexels.com/photos/45230/vr-glasses-head-mounted-display-oculus-rift-45230.jpeg?auto=compress&cs=tinysrgb&w=800">
+                    <h3>TITANIUM_VISOR</h3>
+                    <span class="price-tag">$2,800.00</span>
+                    <button class="btn-action">PROCURE</button>
                 </div>
             </div>
         </section>
 
         <section id="booking">
-            <h2 style="font-family: var(--font-hdr); margin-bottom:30px;">[ BOOKING ]</h2>
-            <div class="booking-box"><iframe src="https://cal.com/live-atlas"></iframe></div>
+            <div class="section-header">RESERVE_UPLINK_SESSION</div>
+            <div class="booking-wrap">
+                <iframe src="https://cal.com/live-atlas"></iframe>
+            </div>
         </section>
     </main>
 
     <div id="portal">
-        <div class="close-portal" onclick="closePortal()">CLOSE_X</div>
-        <h1 id="p-title" class="hero-title" style="color:var(--cyan)"></h1>
-        <p id="p-desc" style="margin-bottom:30px; font-size:1.5rem"></p>
-        <img id="p-img" class="portal-img" src="">
+        <div class="close-portal" onclick="hidePortal()">[ BACK_TO_INTERFACE ]</div>
+        <h1 id="portal-title" class="hero-title" style="font-size: 5rem;"></h1>
+        <p id="portal-desc" style="font-size: 1.8rem; color: #666; max-width: 800px;"></p>
+        <div style="margin-top: 60px; height: 2px; background: var(--cyan); width: 100px;"></div>
     </div>
 
     <script>
         let scene, camera, renderer, globe, person;
 
-        function init() {
+        function init3D() {
             scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), alpha: true, antialias: true });
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+            
+            renderer = new THREE.WebGLRenderer({ 
+                canvas: document.getElementById('bg-canvas'), 
+                alpha: true, 
+                antialias: true 
+            });
             renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
 
-            // NEON GLOBE (No external images needed!)
-            const globeGeo = new THREE.SphereGeometry(15, 32, 32);
-            const globeMat = new THREE.MeshBasicMaterial({ color: 0x00f2ff, wireframe: true, transparent: true, opacity: 0.2 });
+            // GLOBE (Neon Wireframe)
+            const globeGeo = new THREE.SphereGeometry(18, 48, 48);
+            const globeMat = new THREE.MeshBasicMaterial({ 
+                color: 0x00f2ff, 
+                wireframe: true, 
+                transparent: true, 
+                opacity: 0.1 
+            });
             globe = new THREE.Mesh(globeGeo, globeMat);
             scene.add(globe);
 
-            // LARGE HUMAN FIGURE
+            // THE LARGE CINEMATIC HUMAN (Procedural Joints)
             person = new THREE.Group();
-            const pMat = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true });
-            const torso = new THREE.Mesh(new THREE.CapsuleGeometry(2.5, 5, 4, 8), pMat);
-            const head = new THREE.Mesh(new THREE.SphereGeometry(1.8, 8, 8), pMat);
-            head.position.y = 4.8;
-            const visor = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.8, 1.2), new THREE.MeshBasicMaterial({ color: 0x00f2ff }));
-            visor.position.set(0, 4.8, 1.4);
+            const skin = new THREE.MeshPhongMaterial({ 
+                color: 0xffffff, 
+                emissive: 0x111111,
+                specular: 0x00f2ff,
+                shininess: 100 
+            });
+
+            const torso = new THREE.Mesh(new THREE.CapsuleGeometry(2.8, 5, 10, 20), skin);
+            const head = new THREE.Mesh(new THREE.SphereGeometry(2, 24, 24), skin);
+            head.position.y = 5.2;
+
+            const visor = new THREE.Mesh(
+                new THREE.BoxGeometry(3, 0.8, 1.5), 
+                new THREE.MeshBasicMaterial({ color: 0x00f2ff }) 
+            );
+            visor.position.set(0, 5.2, 1.4);
+
+            // Limb Creator
+            const createLimb = (x, y, rZ) => {
+                const limb = new THREE.Mesh(new THREE.CapsuleGeometry(0.8, 4.5, 8, 12), skin);
+                limb.position.set(x, y, 0);
+                limb.rotation.z = rZ;
+                return limb;
+            };
+
             person.add(torso, head, visor);
-            
-            person.scale.set(2, 2, 2);
-            person.position.set(25, 0, -15);
+            person.add(createLimb(-3.8, 2, 0.5)); // Left Arm
+            person.add(createLimb(3.8, 2, -0.5)); // Right Arm
+            person.add(createLimb(-2, -5, 0.2));  // Left Leg
+            person.add(createLimb(2, -5, -0.2));  // Right Leg
+
+            person.scale.set(1.6, 1.6, 1.6);
+            person.position.set(window.innerWidth < 800 ? 0 : 30, 0, -10);
             scene.add(person);
 
-            // STARS
+            // LIGHTING
+            const pLight = new THREE.PointLight(0x00f2ff, 2.5, 100);
+            pLight.position.set(20, 10, 20);
+            scene.add(pLight);
+            scene.add(new THREE.AmbientLight(0xffffff, 0.2));
+
+            // STARFIELD ENGINE
             const starGeo = new THREE.BufferGeometry();
-            const starsArr = new Float32Array(5000 * 3);
-            for(let i=0; i<15000; i++) starsArr[i] = (Math.random() - 0.5) * 1000;
-            starGeo.setAttribute('position', new THREE.BufferAttribute(starsArr, 3));
-            scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.5 })));
+            const starPoints = new Float32Array(8000 * 3);
+            for(let i=0; i<24000; i++) starPoints[i] = (Math.random() - 0.5) * 1600;
+            starGeo.setAttribute('position', new THREE.BufferAttribute(starPoints, 3));
+            const starMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.8, transparent: true, opacity: 0.8 });
+            scene.add(new THREE.Points(starGeo, starMat));
 
             camera.position.z = 60;
             animate();
@@ -191,25 +406,51 @@
 
         function animate() {
             requestAnimationFrame(animate);
-            globe.rotation.y += 0.002;
-            person.rotation.y += 0.005;
-            person.position.y = Math.sin(Date.now() * 0.001) * 3;
+            const time = Date.now() * 0.0008;
+            
+            globe.rotation.y += 0.001;
+            globe.rotation.x += 0.0005;
+
+            // Fluid Human Movement
+            person.position.y = Math.sin(time) * 4;
+            person.rotation.y = Math.sin(time * 0.5) * 0.2;
+            person.rotation.z = Math.cos(time * 0.3) * 0.05;
+
             renderer.render(scene, camera);
         }
 
-        function openPortal(t, d, img) {
+        // INTERFACE ACTIONS
+        function showPortal(title, desc) {
             document.getElementById('portal').style.display = 'block';
-            document.getElementById('p-title').innerText = t;
-            document.getElementById('p-desc').innerText = d;
-            document.getElementById('p-img').src = img;
+            document.getElementById('portal-title').innerText = title;
+            document.getElementById('portal-desc').innerText = desc;
+            document.body.style.overflow = 'hidden';
         }
-        function closePortal() { document.getElementById('portal').style.display = 'none'; }
 
-        window.onload = init;
+        function hidePortal() {
+            document.getElementById('portal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // MOUSE AND RESIZE
         document.addEventListener('mousemove', e => {
-            document.getElementById('cursor-ring').style.left = e.clientX + 'px';
-            document.getElementById('cursor-ring').style.top = e.clientY + 'px';
+            const cursor = document.getElementById('cursor-ring');
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            if(scene) {
+                scene.rotation.y = (e.clientX / window.innerWidth - 0.5) * 0.1;
+                scene.rotation.x = (e.clientY / window.innerHeight - 0.5) * 0.1;
+            }
         });
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        window.onload = init3D;
     </script>
 </body>
 </html>

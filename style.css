@@ -1,43 +1,82 @@
 :root {
     --neon: #bc00ff; --cyan: #00f2ff; --hot-pink: #ff007a;
-    --bg-dark: #020005; --glass-border: rgba(0, 242, 255, 0.3);
+    --bg-dark: #010208; --glass-border: rgba(0, 242, 255, 0.2);
     --font-hdr: 'Orbitron', sans-serif;
 }
+
 * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
 body { background: var(--bg-dark); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
-body::after {
-    content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(rgba(18,16,16,0) 50%, rgba(0,0,0,0.1) 50%), 
-                linear-gradient(90deg, rgba(255,0,0,0.03), rgba(0,255,0,0.01), rgba(0,0,255,0.03));
-    z-index: 999; background-size: 100% 2px, 3px 100%; pointer-events: none;
+
+/* VR LENS VIGNETTE */
+.vr-lens {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.8) 100%);
+    pointer-events: none; z-index: 998;
 }
+
 #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; }
+
+/* HUD & CURSOR */
 #cursor-ring {
-    position: fixed; width: 30px; height: 30px; border: 1px solid var(--cyan);
+    position: fixed; width: 35px; height: 35px; border: 1.5px solid var(--cyan);
     border-radius: 50%; pointer-events: none; z-index: 10000;
     display: flex; justify-content: center; align-items: center;
-    transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s;
+    transform: translate(-50%, -50%); transition: 0.1s ease-out;
 }
-#cursor-dot { width: 4px; height: 4px; background: var(--hot-pink); border-radius: 50%; }
+#cursor-dot { width: 3px; height: 3px; background: #fff; border-radius: 50%; }
+
 .hud-overlay {
-    position: fixed; width: 100%; height: 100%; padding: 30px;
+    position: fixed; width: 100%; height: 100%; padding: 40px;
     z-index: 500; pointer-events: none; display: flex; flex-direction: column;
     justify-content: space-between; font-family: monospace; color: var(--cyan);
+    font-size: 10px; opacity: 0.6;
 }
-nav { position: fixed; top: 0; width: 100%; height: 80px; display: flex; justify-content: space-between; align-items: center; padding: 0 50px; z-index: 1001; }
-.nav-logo img { height: 40px; cursor: none; }
-.nav-links { display: flex; gap: 30px; }
-.nav-links a { font-family: var(--font-hdr); font-size: 12px; color: #fff; text-decoration: none; cursor: none; }
-section { min-height: 100vh; padding: 150px 10%; display: flex; flex-direction: column; justify-content: center; }
-.hero-title { font-family: var(--font-hdr); font-size: clamp(3rem, 10vw, 8rem); line-height: 0.9; margin-bottom: 20px; }
-.tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; }
-.tech-card { background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); padding: 20px; transition: 0.4s; }
-.tech-card img { width: 100%; height: 200px; object-fit: cover; filter: grayscale(1); margin-bottom: 15px; }
-.tech-card:hover img { filter: grayscale(0); }
-.btn-neural { background: transparent; border: 1px solid var(--cyan); color: var(--cyan); padding: 15px 30px; font-family: var(--font-hdr); font-size: 12px; transition: 0.3s; }
-.btn-neural:hover { background: var(--cyan); color: #000; box-shadow: 0 0 20px var(--cyan); }
-#portal-overlay, #cart-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; display: none; padding: 100px 10%; flex-direction: column; overflow-y: auto; }
-.gallery-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px; }
-.gallery-wrap img { width: 100%; height: 350px; object-fit: cover; border: 1px solid var(--cyan); }
-.booking-frame { height: 600px; border: 1px solid var(--neon); }
+
+/* CLEAN HERO SECTION */
+.hero-title { 
+    font-family: var(--font-hdr); 
+    font-size: clamp(3rem, 15vw, 9rem); 
+    letter-spacing: 15px; /* Spacing for that high-end look */
+    font-weight: 900;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+}
+
+.hero-desc {
+    max-width: 500px; 
+    color: #888; 
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+
+.vr-tag { font-family: var(--font-hdr); color: var(--hot-pink); font-size: 9px; letter-spacing: 4px; margin-bottom: 5px; opacity: 0.8; }
+
+/* GRIDS & CARDS */
+.spatial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 40px; }
+.tech-card {
+    background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border);
+    padding: 25px; backdrop-filter: blur(5px);
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.tech-card:hover { transform: translateY(-10px) scale(1.02); border-color: var(--cyan); background: rgba(0, 242, 255, 0.05); }
+.tech-card img { width: 100%; height: 220px; object-fit: cover; margin-bottom: 20px; border-radius: 4px; }
+
+.btn-neural {
+    background: transparent; border: 1px solid var(--cyan); color: var(--cyan);
+    padding: 15px 35px; font-family: var(--font-hdr); font-size: 11px; letter-spacing: 3px;
+    transition: 0.3s;
+}
+.btn-neural:hover { background: var(--cyan); color: #000; box-shadow: 0 0 25px var(--cyan); }
+
+/* SECTIONS */
+section { min-height: 100vh; padding: 100px 10%; display: flex; flex-direction: column; justify-content: center; }
+.section-hdr { font-family: var(--font-hdr); letter-spacing: 8px; font-size: 12px; margin-bottom: 20px; border-left: 3px solid var(--cyan); padding-left: 15px; }
+
+/* MODALS */
+#portal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; display: none; padding: 100px 10%; flex-direction: column; overflow-y: auto; }
+.gallery-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; margin-top: 40px; }
+.gallery-wrap img { width: 100%; height: 400px; object-fit: cover; border: 1px solid var(--glass-border); }
+.vr-frame { height: 600px; border: 1px solid var(--glass-border); }
 iframe { width: 100%; height: 100%; }

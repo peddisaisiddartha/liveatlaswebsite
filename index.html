@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
 
     <style>
-:root {
+        :root {
     --neon: #bc00ff;
     --cyan: #00f2ff;
     --hot-pink: #ff007a;
@@ -23,111 +23,62 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-body { 
-    background: var(--bg-dark); 
-    color: #fff; 
-    font-family: 'Rajdhani', sans-serif; 
-    overflow-x: hidden;
+body { background: var(--bg-dark); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
+
+/* Extra Background Element: Animated Gradient Nebula */
+body::before {
+    content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at 50% 50%, rgba(188, 0, 255, 0.05) 0%, transparent 70%);
+    z-index: -2; pointer-events: none;
 }
 
 #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; }
 
-/* --- FIXED NAVIGATION (Doesn't block content) --- */
 nav {
-    position: fixed; top: 0; width: 100%; height: 90px;
-    padding: 0 50px;
-    display: flex; justify-content: space-between; align-items: center;
-    z-index: 1000; 
-    background: rgba(2, 0, 5, 0.9);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--glass-border);
+    position: fixed; top: 0; width: 100%; height: 90px; padding: 0 50px;
+    display: flex; justify-content: space-between; align-items: center; z-index: 1000; 
+    background: rgba(2, 0, 5, 0.9); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-border);
 }
 .nav-logo img { height: 50px; width: auto; }
 .nav-links { display: flex; gap: 30px; align-items: center; }
-.nav-links a { 
-    color: #fff; text-decoration: none; font-family: var(--font-hdr); 
-    font-size: 11px; letter-spacing: 2px; transition: 0.3s;
-}
+.nav-links a { color: #fff; text-decoration: none; font-family: var(--font-hdr); font-size: 11px; letter-spacing: 2px; }
 
-/* --- SECTION SPACING (Fixes Overlapping) --- */
-section { 
-    min-height: 100vh; 
-    padding: 150px 10% 100px 10%; /* Increased top padding so nav doesn't overlap */
-    display: flex; 
-    flex-direction: column; 
-    justify-content: center; 
-    position: relative;
-    z-index: 10;
-}
+section { min-height: 100vh; padding: 150px 10% 100px 10%; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 10; }
 
 .hero-title { 
-    font-family: var(--font-hdr);
-    font-size: clamp(3.5rem, 12vw, 8.5rem); /* Slightly smaller to prevent overlap */
-    font-weight: 900;
-    line-height: 0.9;
-    background: linear-gradient(180deg, #fff, var(--cyan), var(--neon));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 40px;
+    font-family: var(--font-hdr); font-size: clamp(3.5rem, 12vw, 8.5rem); font-weight: 900; line-height: 0.9;
+    background: linear-gradient(180deg, #fff, var(--cyan), var(--neon)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 40px;
 }
 
-/* --- GLASS CARD (Auto-height to fit content) --- */
 .glass-card { 
-    background: var(--glass);
-    backdrop-filter: blur(40px); 
-    border: 1px solid var(--glass-border); 
-    border-radius: 40px; 
-    padding: clamp(20px, 5vw, 60px); /* Padding adjusts to screen size */
-    width: 100%;
-    margin: 20px 0;
+    background: var(--glass); backdrop-filter: blur(40px); border: 1px solid var(--glass-border); 
+    border-radius: 40px; padding: 40px; width: 100%; margin: 20px 0;
 }
 
-/* --- PRODUCT GRID --- */
-.store-grid { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-    gap: 30px; 
-    margin-top: 40px; 
-}
+.store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
 
 .product-card { 
-    background: rgba(255, 255, 255, 0.02); 
-    padding: 30px; 
-    border-radius: 25px; 
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: 0.4s;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.02); padding: 25px; border-radius: 25px; border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: 0.4s; display: flex; flex-direction: column; height: 100%;
 }
-.product-card:hover { border-color: var(--cyan); transform: translateY(-10px); }
-.product-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 15px; margin-bottom: 20px; }
+.product-card:hover { border-color: var(--cyan); transform: translateY(-10px) scale(1.02); box-shadow: 0 0 30px rgba(0, 242, 255, 0.1); }
 
-/* --- BUTTONS --- */
-.btn-main, .btn-buy { 
-    background: linear-gradient(90deg, var(--neon), var(--hot-pink));
-    color: #fff; 
-    font-family: var(--font-hdr); 
-    padding: 20px 40px;
-    border: none;
-    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    margin-top: 10px;
+/* Fixed Image Styling */
+.product-card img { 
+    width: 100%; height: 220px; object-fit: cover; border-radius: 15px; margin-bottom: 20px;
+    background: #111; /* Fallback color if image loads slow */
 }
 
-/* --- CHECKOUT MODAL FIX --- */
-#checkout-modal { 
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-    background: rgba(0,0,0,0.95); z-index: 2000; 
-    display: none; justify-content: center; align-items: center;
-    padding: 20px;
+.price { color: var(--cyan); font-family: var(--font-hdr); font-weight: 900; font-size: 1.4rem; margin: 15px 0; }
+
+.btn-buy { 
+    background: linear-gradient(90deg, var(--neon), var(--hot-pink)); color: #fff; font-family: var(--font-hdr); 
+    padding: 15px; border: none; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
 }
 
-.cart-count { background: var(--cyan); color: #000; padding: 2px 10px; border-radius: 5px; margin-left: 10px; }
+#checkout-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: none; justify-content: center; align-items: center; }
+.cart-count { background: var(--cyan); color: #000; padding: 2px 10px; border-radius: 5px; margin-left: 10px; font-weight: 900; }
 
-.reveal { transition: all 1s ease-out; }
     </style>
 </head>
 <body>
@@ -209,14 +160,13 @@ section {
     <script>
         // CURATED IMPOSSIBLE PRODUCTS
         const products = [
-            { id: 1, name: "Antarctic Core Water", price: 250, origin: "Vostok", img: "https://images.unsplash.com/photo-1559839734-2b71f1e3c7e0?auto=format&fit=crop&w=300" },
-            { id: 2, name: "Dubai Gold Thread Silk", price: 1200, origin: "Hidden Souk", img: "https://images.unsplash.com/photo-1590674331320-13b35f29d936?auto=format&fit=crop&w=300" },
-            { id: 3, name: "Amazon Orchid Extract", price: 85, origin: "Manaus", img: "https://images.unsplash.com/photo-1566996694954-90b052c413c4?auto=format&fit=crop&w=300" },
-            { id: 4, name: "Sahara Glass Meteorite", price: 450, origin: "Dunes", img: "https://images.unsplash.com/photo-1511270339309-c0529883652c?auto=format&fit=crop&w=300" },
-            { id: 5, name: "Martian-Aged Shiraz", price: 3400, origin: "Orbital Cellar", img: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=300" },
-            { id: 6, name: "Himalayan Air Essence", price: 120, origin: "K2 Base", img: "https://images.unsplash.com/photo-1534067783941-51c9c23eeaec?auto=format&fit=crop&w=300" }
-        ];
-
+    { id: 1, name: "Antarctic Core Water", price: 250, origin: "Vostok Station", img: "https://images.unsplash.com/photo-1551009175-8a68da93d5f9?auto=format&fit=crop&w=800" },
+    { id: 2, name: "Dubai Gold Thread Silk", price: 1200, origin: "Hidden Souk", img: "https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&w=800" },
+    { id: 3, name: "Amazon Orchid Extract", price: 85, origin: "Manaus Canopy", img: "https://images.unsplash.com/photo-1596436889106-be35e843f974?auto=format&fit=crop&w=800" },
+    { id: 4, name: "Sahara Glass Meteorite", price: 450, origin: "Dunes", img: "https://images.unsplash.com/photo-1511270339309-c0529883652c?auto=format&fit=crop&w=800" },
+    { id: 5, name: "Martian-Aged Shiraz", price: 3400, origin: "Orbital Cellar", img: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=800" },
+    { id: 6, name: "Himalayan Air Essence", price: 120, origin: "K2 Base", img: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800" }
+];
         let cart = [];
 
         // LOAD PRODUCTS

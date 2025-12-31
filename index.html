@@ -221,26 +221,53 @@ section { min-height: 100vh; padding: 150px 10% 100px 10%; display: flex; flex-d
         scene.add(stars);
 
         camera.position.z = 15;
+// GSAP Scroll Animations
+gsap.registerPlugin(ScrollTrigger);
 
-        // GSAP Scroll Animations
-        gsap.registerPlugin(ScrollTrigger);
-        
-        document.querySelectorAll('.reveal').forEach(el => {
-            gsap.to(el, {
-                scrollTrigger: { trigger: el, start: "top 80%", toggleActions: "play none none reverse" },
-                opacity: 1, y: 0, duration: 1
-            });
-        });
+document.querySelectorAll('.reveal').forEach(el => {
+    gsap.to(el, {
+        scrollTrigger: { trigger: el, start: "top 80%", toggleActions: "play none none reverse" },
+        opacity: 1, y: 0, duration: 1
+    });
+});
 
-        function animate() {
-            requestAnimationFrame(animate);
-            globe.rotation.y += 0.002;
-            stars.rotation.x += 0.0001;
-            // Globe follows scroll
-            globe.position.y = (window.scrollY / 100);
-            renderer.render(scene, camera);
-        }
-        animate();
+// --- NEW COSMIC STAR SYSTEM (PASTE THIS HERE) ---
+const starCount = 15000; 
+const starPositions = new Float32Array(starCount * 3);
+for(let i = 0; i < starCount * 3; i++) {
+    starPositions[i] = (Math.random() - 0.5) * 2000; 
+}
+const starGeometry = new THREE.BufferGeometry();
+starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+const starMaterial = new THREE.PointsMaterial({
+    color: 0xffffff,
+    size: 0.7,
+    transparent: true,
+    opacity: 0.8,
+    sizeAttenuation: true 
+});
+const stars = new THREE.Points(starGeometry, starMaterial);
+scene.add(stars);
+
+// --- UPDATED ANIMATE FUNCTION ---
+function animate() {
+    requestAnimationFrame(animate);
+    
+    // Globe rotation
+    if (typeof globe !== 'undefined') globe.rotation.y += 0.002;
+    
+    // Stars rotation (The movement you wanted)
+    if (stars) {
+        stars.rotation.y += 0.0001;
+        stars.rotation.x += 0.00005;
+    }
+
+    // Globe follows scroll
+    if (typeof globe !== 'undefined') globe.position.y = (window.scrollY / 100);
+    
+    renderer.render(scene, camera);
+}
+animate();
 
         window.onresize = () => {
             camera.aspect = window.innerWidth / window.innerHeight;

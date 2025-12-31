@@ -3,18 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiveAtlas - Explore Virtually</title>
-    <style>
-        body { margin: 0; background: black; font-family: Arial, sans-serif; }
-        h1 { color: white; text-align: center; padding: 20px; }
-        #canvas { display: block; width: 100%; height: 80vh; }
-    </style>
+    <title>LiveAtlas | Dimensional Telepresence</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@300;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Welcome to LiveAtlas - Select a Place</h1>
-    <canvas id="canvas"></canvas>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script src="app.js"></script>  <!-- Links to your app.js file -->
+
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="wrapper">
+        <section id="hero">
+            <h1 class="hero-title">LIVE<br>ATLAS</h1>
+            <p class="hero-subtitle">UNIVERSAL TELEPORTATION INTERFACE</p>
+            <button class="btn-portal" onclick="scrollToSection('#services')">Initialize Link</button>
+        </section>
+
+        <section id="services">
+            <div class="glass-card">
+                <h2 class="section-header">ACTIVE GATEWAYS</h2>
+                <div class="grid">
+                    <div class="feature-box">
+                        <h3>ANTARCTICA</h3>
+                        <p>Real-time 3D streams from Vostok Station. Experience the extreme cold.</p>
+                    </div>
+                    <div class="feature-box">
+                        <h3>DUBAI MALL</h3>
+                        <p>Live shopping & luxury procurement. Your guide is on standby.</p>
+                    </div>
+                    <div class="feature-box">
+                        <h3>EDUCATION</h3>
+                        <p>Virtual field trips for institutions. Live global classroom access.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="booking">
+            <div class="glass-card">
+                <h2 class="section-header">SCHEDULE EXPEDITION</h2>
+                <div class="form-container">
+                    <input type="text" placeholder="DESTINATION COORDINATES">
+                    <select>
+                        <option>Tourism (30 min)</option>
+                        <option>Shopping (60 min)</option>
+                        <option>Academic License</option>
+                    </select>
+                    <button class="btn-portal" style="width:100%;">REQUEST UPLINK</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>

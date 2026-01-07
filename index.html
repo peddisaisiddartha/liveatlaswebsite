@@ -3,256 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiveAtlas // Neural OS</title>
+    <title>LiveAtlas // Neural Telepresence</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --neon: #bc00ff; --cyan: #00f2ff; --hot-pink: #ff007a;
-            --bg-dark: #05050a; --glass: rgba(255, 255, 255, 0.05);
-            --font-hdr: 'Orbitron', sans-serif;
+            --cyan: #00f2ff; --pink: #ff007a; --bg: #000000; --font-hdr: 'Orbitron', sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-        body { background: var(--bg-dark); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
+        
+        body { background-color: #000; color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
 
-        /* FIXED BACKGROUND VISIBILITY */
-        #bg-canvas { 
-            position: fixed; top: 0; left: 0; z-index: -1; 
-            background: radial-gradient(circle at center, #101025 0%, #05050a 100%);
-        }
-
-        .vr-lens { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.5) 150%); 
-            pointer-events: none; z-index: 1; 
-        }
-
-        /* HUD & CURSOR */
-        #cursor-ring { 
-            position: fixed; width: 35px; height: 35px; border: 1.5px solid var(--cyan); 
-            border-radius: 50%; pointer-events: none; z-index: 10000; 
-            transform: translate(-50%, -50%); transition: 0.1s ease-out; 
-        }
-        #cursor-dot { width: 4px; height: 4px; background: var(--hot-pink); border-radius: 50%; }
-
-        .hud-overlay { 
-            position: fixed; width: 100%; height: 100%; padding: 30px; 
-            z-index: 50; pointer-events: none; display: flex; flex-direction: column; 
-            justify-content: space-between; color: var(--cyan); font-family: monospace; 
-            font-size: 10px; opacity: 0.8; 
-        }
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; }
 
         /* NAVIGATION */
         nav { 
-            position: fixed; top: 0; width: 100%; height: 90px; 
+            position: fixed; top: 0; width: 100%; 
             display: flex; justify-content: space-between; align-items: center; 
-            padding: 0 50px; z-index: 1000; 
+            padding: 25px 50px; z-index: 1000; 
+            background: rgba(0,0,0,0.85); 
+            border-bottom: 1px solid rgba(0,242,255,0.3); 
+            backdrop-filter: blur(10px);
         }
         .nav-logo img { height: 45px; }
-        .nav-links a { 
-            font-family: var(--font-hdr); font-size: 11px; color: #fff; 
-            text-decoration: none; margin-left: 30px; letter-spacing: 2px; 
+        .nav-links a { color: white; text-decoration: none; font-family: var(--font-hdr); font-size: 11px; letter-spacing: 2px; margin-left: 25px; }
+
+        #cursor-ring { 
+            position: fixed; width: 35px; height: 35px; 
+            border: 2px solid var(--cyan); border-radius: 50%; 
+            pointer-events: none; z-index: 10000; 
+            transform: translate(-50%, -50%); transition: 0.1s; 
         }
 
-        /* CONTENT SECTIONS */
-        section { min-height: 100vh; padding: 120px 10%; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 2; }
-        
-        .hero-title { 
-            font-family: var(--font-hdr); font-size: clamp(3rem, 12vw, 8.5rem); 
-            letter-spacing: 12px; font-weight: 900; margin-bottom: 20px; 
-            text-transform: uppercase;
-        }
-        
-        .hero-desc { max-width: 550px; color: #ccc; font-size: 1.2rem; line-height: 1.6; margin-bottom: 40px; }
-        .vr-tag { color: var(--hot-pink); font-family: var(--font-hdr); font-size: 9px; letter-spacing: 5px; margin-bottom: 10px; }
+        main { position: relative; z-index: 10; width: 100%; }
+        section { min-height: 100vh; padding: 140px 10% 80px; display: flex; flex-direction: column; justify-content: center; }
 
-        /* PRODUCT GRIDS (FULL COLOR) */
-        .spatial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .tech-card { 
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(0, 242, 255, 0.2); 
-            padding: 20px; transition: 0.4s; backdrop-filter: blur(5px);
-        }
-        .tech-card img { 
-            width: 100%; height: 200px; object-fit: cover; margin-bottom: 15px; 
-            border-radius: 2px;
-        }
-        .tech-card:hover { border-color: var(--cyan); background: rgba(0, 242, 255, 0.08); transform: translateY(-5px); }
+        .hero-title { font-family: var(--font-hdr); font-size: clamp(3rem, 7vw, 5rem); letter-spacing: 15px; margin-bottom: 20px; text-shadow: 0 0 20px var(--cyan); }
+        .hero-desc { max-width: 550px; color: #ddd; font-size: 1.3rem; margin-bottom: 40px; }
 
-        .btn-neural { 
+        /* GRIDS */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
+        .card { 
+            background: rgba(0, 5, 15, 0.7); border: 1px solid rgba(0, 242, 255, 0.3); 
+            padding: 25px; backdrop-filter: blur(15px); transition: 0.4s; 
+        }
+        .card:hover { border-color: var(--cyan); transform: translateY(-10px); background: rgba(0, 242, 255, 0.1); }
+        .card img { width: 100%; height: 220px; object-fit: cover; margin-bottom: 20px; }
+        .card h3 { font-family: var(--font-hdr); font-size: 16px; letter-spacing: 2px; color: var(--cyan); margin-bottom: 10px; }
+
+        .btn { 
             background: transparent; border: 1px solid var(--cyan); color: var(--cyan); 
-            padding: 12px 30px; font-family: var(--font-hdr); font-size: 10px; 
-            letter-spacing: 2px; transition: 0.3s; 
+            padding: 14px 30px; font-family: var(--font-hdr); font-size: 10px; 
+            letter-spacing: 2px; cursor: pointer; width: 100%; transition: 0.3s;
         }
-        .btn-neural:hover { background: var(--cyan); color: #000; box-shadow: 0 0 20px var(--cyan); }
+        .btn:hover { background: var(--cyan); color: #000; box-shadow: 0 0 30px var(--cyan); }
 
-        .section-hdr { font-family: var(--font-hdr); font-size: 12px; letter-spacing: 8px; margin-bottom: 40px; border-left: 4px solid var(--hot-pink); padding-left: 20px; }
-
-        /* PORTAL / MODAL */
-        #portal-overlay { 
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
-            background: #000; z-index: 5000; display: none; 
-            flex-direction: column; padding: 150px 10% 50px 10%; overflow-y: auto; 
+        /* UNIQUE NODE PORTAL */
+        #portal { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: #000; z-index: 5000; display: none; padding: 50px 5%; 
+            overflow-y: auto; border: 4px solid var(--cyan); 
         }
-        .back-btn { 
-            position: fixed; top: 40px; left: 40px; color: var(--hot-pink); 
-            font-family: var(--font-hdr); padding: 10px 20px; border: 1px solid var(--hot-pink); 
-            z-index: 5001;
+        .portal-content { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px; }
+        @media (max-width: 900px) { .portal-content { grid-template-columns: 1fr; } }
+
+        .sync-status { 
+            border: 1px solid var(--cyan); padding: 30px; background: rgba(0,242,255,0.05);
+            display: flex; flex-direction: column; justify-content: center;
         }
+        .close-portal { color: var(--pink); border: 1px solid var(--pink); padding: 10px 20px; cursor: pointer; font-family: var(--font-hdr); display: inline-block; margin-bottom: 20px; }
 
-        .gallery-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
-        .gallery-wrap img { width: 100%; height: 400px; object-fit: cover; }
-
-        .vr-frame { height: 700px; border: 1px solid var(--glass); }
-        iframe { width: 100%; height: 100%; }
+        .booking-frame { height: 600px; border: 1px solid var(--cyan); background: #000; }
+        iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
 <body>
 
-    <div class="vr-lens"></div>
-    <div id="cursor-ring"><div id="cursor-dot"></div></div>
-    
-    <div class="hud-overlay">
-        <div class="hud-top">
-            <div class="telemetry">OCULAR_LINK: ACTIVE</div>
-            <div id="clock">00:00:00 UTC</div>
-        </div>
-        <div class="hud-bottom">
-            <div class="telemetry">COORD: <span id="mouse-x">0</span>, <span id="mouse-y">0</span></div>
-            <div>© LIVEATLAS // CORE_SYSTEM</div>
-        </div>
-    </div>
-
     <canvas id="bg-canvas"></canvas>
+    <div id="cursor-ring"></div>
 
-    <nav id="main-nav">
+    <nav>
         <div class="nav-logo">
-            <img src="logo.png" alt="Atlas" onerror="this.src='https://via.placeholder.com/150x40?text=LIVEATLAS'">
+            <img src="logo.png" alt="Atlas" onerror="this.outerHTML='<h2 style=\'font-family:var(--font-hdr); letter-spacing:4px; color:var(--cyan);\'>LIVEATLAS</h2>'">
         </div>
         <div class="nav-links">
-            <a href="#home">HOME</a>
-            <a href="#nodes">NODES</a>
-            <a href="#shop">BOUTIQUE</a>
-            <a href="#booking">BOOKING</a>
+            <a href="#home">CORE</a><a href="#nodes">NODES</a><a href="#shop">BOUTIQUE</a><a href="#booking">BOOKING</a>
         </div>
     </nav>
 
-    <main id="content-root">
+    <main>
         <section id="home">
-            <div class="vr-tag">[ SYSTEM_LINK_ESTABLISHED ]</div>
             <h1 class="hero-title">LIVEATLAS</h1>
-            <p class="hero-desc">Connecting you to the world's most remote environments in real-time. Experience nature through our advanced neural telepresence network.</p>
-            <button class="btn-neural" onclick="document.getElementById('nodes').scrollIntoView({behavior:'smooth'})">INITIALIZE UPLINK</button>
+            <p class="hero-desc">Bypass geography. Our neural nodes allow you to inhabit remote locations with 99% sensory fidelity.</p>
         </section>
 
         <section id="nodes">
-            <h2 class="section-hdr">ACTIVE_GATEWAYS</h2>
-            <div class="spatial-grid" id="gateway-list"></div>
+            <h2 style="font-family: var(--font-hdr); margin-bottom: 40px; color: var(--cyan);">[ ACTIVE_NODES ]</h2>
+            <div class="grid">
+                <div class="card"><img src="https://images.pexels.com/photos/699466/pexels-photo-699466.jpeg?auto=compress&cs=tinysrgb&w=600"><h3>PARIS_01</h3><button class="btn" onclick="openNode('PARIS', 'Node 01: Eiffel Tower Uplink. Establishing 8K sensory handshake...')">BOOK UPLINK</button></div>
+                <div class="card"><img src="https://images.pexels.com/photos/1770809/pexels-photo-1770809.jpeg?auto=compress&cs=tinysrgb&w=600"><h3>NYC_02</h3><button class="btn" onclick="openNode('NEW YORK', 'Node 02: Times Square Core. High-frequency urban pulse detected.')">BOOK UPLINK</button></div>
+                <div class="card"><img src="https://images.pexels.com/photos/162031/dubai-tower-burj-khalifa-162031.jpeg?auto=compress&cs=tinysrgb&w=600"><h3>DUBAI_03</h3><button class="btn" onclick="openNode('DUBAI', 'Node 03: Burj Vantage. Peak altitude proxy synchronization.')">BOOK UPLINK</button></div>
+                <div class="card"><img src="https://images.pexels.com/photos/1440476/pexels-photo-1440476.jpeg?auto=compress&cs=tinysrgb&w=600"><h3>TOKYO_04</h3><button class="btn" onclick="openNode('TOKYO', 'Node 04: Shibuya Sync. Neon-spectrum neural adjustment required.')">BOOK UPLINK</button></div>
+                <div class="card"><img src="https://images.pexels.com/photos/427679/pexels-photo-427679.jpeg?auto=compress&cs=tinysrgb&w=600"><h3>LONDON_05</h3><button class="btn" onclick="openNode('LONDON', 'Node 05: The Shard. Atmospheric moisture levels: 64%. Ready for link.')">BOOK UPLINK</button></div>
+                <div class="card"><img src="https://images.pexels.com/photos/1450363/pexels-photo-1450363.jpeg?auto=compress&cs=tinysrgb&w=600"><h3>SYDNEY_06</h3><button class="btn" onclick="openNode('SYDNEY', 'Node 06: Harbor Proxy. Aquatic binaural feed active.')">BOOK UPLINK</button></div>
+            </div>
         </section>
 
         <section id="shop">
-            <h2 class="section-hdr">BOUTIQUE</h2>
-            <div class="spatial-grid" id="product-list"></div>
-        </section>
-
-        <section id="booking">
-            <h2 class="section-hdr">RESERVE_SESSION</h2>
-            <div class="vr-frame">
-                <iframe src="https://cal.com/live-atlas" frameborder="0"></iframe>
+            <h2 style="font-family: var(--font-hdr); margin-bottom: 40px; color: var(--pink);">[ BOUTIQUE ]</h2>
+            <div class="grid">
+                <div class="card"><img src="https://images.pexels.com/photos/407102/pexels-photo-407102.jpeg?auto=compress&cs=tinysrgb&w=600"><h3>ANTARCTIC_WATER</h3><p>$250.00</p><button class="btn">PROCURE</button></div>
+                <div class="card"><img src="https://images.pexels.com/photos/237272/pexels-photo-237272.jpeg?auto=compress&cs=tinysrgb&w=600"><h3>GOLD_SILK</h3><p>$1,200.00</p><button class="btn">PROCURE</button></div>
+                <div class="card"><img src="https://images.pexels.com/photos/842711/pexels-photo-842711.jpeg?auto=compress&cs=tinysrgb&w=600"><h3>SWISS_AIR_CORE</h3><p>$450.00</p><button class="btn">PROCURE</button></div>
+                <div class="card"><img src="https://images.pexels.com/photos/3183183/pexels-photo-3183183.jpeg?auto=compress&cs=tinysrgb&w=600"><h3>NEURAL_AMP</h3><p>$3,500.00</p><button class="btn">PROCURE</button></div>
+                <div class="card"><img src="https://images.pexels.com/photos/3733333/pexels-photo-3733333.jpeg?auto=compress&cs=tinysrgb&w=600"><h3>DATA_CRYSTAL</h3><p>$950.00</p><button class="btn">PROCURE</button></div>
+                <div class="card"><img src="https://images.pexels.com/photos/3761262/pexels-photo-3761262.jpeg?auto=compress&cs=tinysrgb&w=600"><h3>TITANIUM_VISOR</h3><p>$2,800.00</p><button class="btn">PROCURE</button></div>
             </div>
         </section>
     </main>
 
-    <div id="portal-overlay">
-        <div class="back-btn" onclick="closePortal()">[ DISCONNECT ]</div>
-        <h1 id="portal-title" class="hero-title" style="font-size: 3rem;"></h1>
-        <div class="gallery-wrap" id="portal-gallery"></div>
+    <div id="portal">
+        <div class="close-portal" onclick="closePortal()">ABORT_SYNC</div>
+        <h1 id="p-title" class="hero-title" style="font-size: 3.5rem;"></h1>
+        
+        <div class="portal-content">
+            <div class="sync-status">
+                <h2 style="color:var(--cyan); margin-bottom:20px;">NEURAL_DIAGNOSTICS</h2>
+                <p id="p-desc" style="color:#aaa; font-size:1.2rem; margin-bottom:30px;"></p>
+                <div style="height:4px; width:100%; background:#222; margin-bottom:10px;"><div style="width:85%; height:100%; background:var(--cyan); box-shadow:0 0 10px var(--cyan);"></div></div>
+                <p style="font-size:0.8rem; letter-spacing:2px;">SIGNAL STRENGTH: 98.4%</p>
+                <p style="font-size:0.8rem; letter-spacing:2px; margin-top:10px;">LATENCY: 4ms</p>
+            </div>
+            
+            <div class="booking-frame">
+                <iframe src="https://cal.com/live-atlas"></iframe>
+            </div>
+        </div>
     </div>
 
     <script>
-        // --- RESTORED ORIGINAL DATA ---
-        const gateways = [
-            { name: 'DUBAI_HUB', img: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800' },
-            { name: 'VOSTOK_STATION', img: 'https://images.unsplash.com/photo-1516738901171-8eb4fc13bd20?auto=format&fit=crop&w=800' },
-            { name: 'SHIBUYA_NODE', img: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=800' }
-        ];
+        let scene, camera, renderer, human, globe;
 
-        const products = [
-            { name: "ANTARCTIC_CORE_WATER", price: 250, img: "https://images.unsplash.com/photo-1551009175-8a68da93d5f9?auto=format&fit=crop&w=800" },
-            { name: "DUBAI_GOLD_SILK", price: 1200, img: "https://images.unsplash.com/photo-1582738411706-bfc8e691d1c2?auto=format&fit=crop&w=800" }
-        ];
-
-        // --- 3D ENGINE (IMPROVED VISIBILITY) ---
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), antialias: true, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-
-        // Brighter Globe
-        const globe = new THREE.Mesh(
-            new THREE.SphereGeometry(7, 45, 45),
-            new THREE.MeshBasicMaterial({ color: 0x00f2ff, wireframe: true, transparent: true, opacity: 0.15 })
-        );
-        scene.add(globe);
-
-        // Denser Stars
-        const starGeom = new THREE.BufferGeometry();
-        const starPos = new Float32Array(20000 * 3);
-        for(let i=0; i<60000; i++) starPos[i] = (Math.random()-0.5)*2500;
-        starGeom.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
-        const stars = new THREE.Points(starGeom, new THREE.PointsMaterial({ color: 0xffffff, size: 0.8, transparent: true, opacity: 0.6 }));
-        scene.add(stars);
-
-        camera.position.z = 20;
-
-        // --- RENDER ---
-        const gatewayList = document.getElementById('gateway-list');
-        gateways.forEach(g => {
-            gatewayList.innerHTML += `<div class="tech-card" onclick="openPortal('${g.name}')"><img src="${g.img}"><h3>${g.name}</h3><button class="btn-neural" style="margin-top:15px; width:100%;">CONNECT</button></div>`;
-        });
-
-        const shopList = document.getElementById('product-list');
-        products.forEach(p => {
-            shopList.innerHTML += `<div class="tech-card"><img src="${p.img}"><h3>${p.name}</h3><p style="color:var(--cyan);">$${p.price}</p><button class="btn-neural" style="margin-top:15px; width:100%;">BUY NOW</button></div>`;
-        });
-
-        // --- LOGIC ---
-        function openPortal(name) {
-            document.getElementById('content-root').style.display = 'none';
-            document.getElementById('main-nav').style.display = 'none';
-            const overlay = document.getElementById('portal-overlay');
-            overlay.style.display = 'flex';
-            document.getElementById('portal-title').innerText = name;
-            document.getElementById('portal-gallery').innerHTML = `<img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200"><img src="https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?auto=format&fit=crop&w=1200">`;
-            window.scrollTo(0,0);
-        }
-
-        function closePortal() {
-            document.getElementById('portal-overlay').style.display = 'none';
-            document.getElementById('content-root').style.display = 'block';
-            document.getElementById('main-nav').style.display = 'flex';
-        }
-
-        document.addEventListener('mousemove', e => {
-            const ring = document.getElementById('cursor-ring');
-            ring.style.left = e.clientX + 'px'; ring.style.top = e.clientY + 'px';
-            globe.rotation.y = e.clientX * 0.0003; globe.rotation.x = e.clientY * 0.0003;
-            document.getElementById('mouse-x').innerText = e.clientX; document.getElementById('mouse-y').innerText = e.clientY;
-        });
-
-        function updateClock() { document.getElementById('clock').innerText = new Date().toISOString().split('T')[1].split('.')[0] + " UTC"; }
-        setInterval(updateClock, 1000);
-
-        function animate() { requestAnimationFrame(animate); stars.rotation.y += 0.0001; renderer.render(scene, camera); }
-        animate();
-
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), alpha: true, antialias: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
+
+            // 3D Visuals (Human & Globe)
+            globe = new THREE.Mesh(new THREE.SphereGeometry(18, 32, 32), new THREE.MeshPhongMaterial({ color: 0x00f2ff, wireframe: true, transparent: true, opacity: 0.15 }));
+            scene.add(globe);
+
+            human = new THREE.Group();
+            const skin = new THREE.MeshPhongMaterial({ color: 0xffffff });
+            const body = new THREE.Mesh(new THREE.CapsuleGeometry(2.5, 5, 8, 16), skin);
+            const head = new THREE.Mesh(new THREE.SphereGeometry(1.8, 16, 16), skin);
+            head.position.y = 4.8;
+            const visor = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.8, 1.2), new THREE.MeshBasicMaterial({ color: 0x00f2ff }));
+            visor.position.set(0, 4.8, 1.4);
+            human.add(body, head, visor);
+            human.scale.set(2, 2, 2); human.position.set(25, 0, -10);
+            scene.add(human);
+
+            scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+            const pLight = new THREE.PointLight(0x00f2ff, 2); pLight.position.set(20, 20, 20); scene.add(pLight);
+
+            const starGeo = new THREE.BufferGeometry();
+            const stars = new Float32Array(8000 * 3);
+            for(let i=0; i<24000; i++) stars[i] = (Math.random() - 0.5) * 1500;
+            starGeo.setAttribute('position', new THREE.BufferAttribute(stars, 3));
+            scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.8 })));
+
+            camera.position.z = 65;
+            animate();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            globe.rotation.y += 0.001;
+            human.rotation.y += 0.003;
+            human.position.y = Math.sin(Date.now() * 0.001) * 4;
+            renderer.render(scene, camera);
+        }
+
+        // Logic to open Node with Unique Details + Booking
+        function openNode(title, desc) {
+            document.getElementById('portal').style.display = 'block';
+            document.getElementById('p-title').innerText = title + " SYNC";
+            document.getElementById('p-desc').innerText = desc;
+            document.body.style.overflow = 'hidden'; // Stop scrolling
+        }
+        function closePortal() { 
+            document.getElementById('portal').style.display = 'none'; 
+            document.body.style.overflow = 'auto'; 
+        }
+
+        window.onload = init;
+        document.addEventListener('mousemove', e => {
+            document.getElementById('cursor-ring').style.left = e.clientX + 'px';
+            document.getElementById('cursor-ring').style.top = e.clientY + 'px';
         });
     </script>
 </body>

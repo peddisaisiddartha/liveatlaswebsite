@@ -2,7 +2,7 @@
 
 :root {
     --primary-blue: #00f2ff;
-    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass: rgba(255, 255, 255, 0.05);
 }
 
 body {
@@ -14,7 +14,6 @@ body {
     overflow-x: hidden;
 }
 
-/* 3D Canvas Background */
 #bg {
     position: fixed;
     top: 0;
@@ -24,83 +23,82 @@ body {
 
 main {
     position: relative;
-    padding: 2rem 10%;
+    padding: 0 8%;
 }
 
-/* --- LOGO AND NAVIGATION SECTION --- */
+/* --- NAVIGATION & LOGO --- */
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
+    height: 100px;
 }
 
 .logo-container {
     display: flex;
     align-items: center;
-    gap: 12px; /* Space between logo and text */
+    gap: 15px;
 }
 
 .site-logo {
-    /* CONTROL LOGO SIZE HERE */
-    height: 40px;      /* Fixed height makes it look consistent */
-    width: auto;       /* This prevents the logo from stretching */
-    display: block;
-    filter: drop-shadow(0 0 5px rgba(0, 242, 255, 0.5)); /* Gives your logo a slight neon glow */
+    /* FORCED SIZE FIX */
+    height: 60px !important; 
+    width: auto !important;
+    max-height: 80px !important;
+    display: block !important;
+    filter: drop-shadow(0 0 8px rgba(0, 242, 255, 0.4));
 }
 
 .logo-text {
     font-family: 'Orbitron', sans-serif;
-    font-weight: bold;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
+    font-weight: 700;
     letter-spacing: 2px;
-    color: white;
 }
 
 .logo-text span {
     color: var(--primary-blue);
 }
 
-/* Navigation Links */
 ul {
     display: flex;
     list-style: none;
     gap: 30px;
 }
 
-a {
+ul li a {
     color: white;
     text-decoration: none;
     font-size: 0.8rem;
-    text-transform: uppercase;
     letter-spacing: 1px;
-    opacity: 0.8;
+    text-transform: uppercase;
     transition: 0.3s;
 }
 
-a:hover {
-    opacity: 1;
+ul li a:hover {
     color: var(--primary-blue);
+    text-shadow: 0 0 10px var(--primary-blue);
 }
 
 /* --- HERO SECTION --- */
-header {
-    margin-top: 80px;
-    max-width: 800px;
+.hero {
+    height: 60vh;
+    display: flex;
+    align-items: center;
 }
 
 h1 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 3.5rem;
+    font-size: clamp(2rem, 8vw, 4rem);
     line-height: 1.1;
-    margin-bottom: 20px;
+    margin: 0;
 }
 
 p {
+    max-width: 600px;
     font-size: 1.1rem;
-    color: #cccccc;
-    line-height: 1.6;
-    margin-bottom: 40px;
+    color: #bbb;
+    margin: 20px 0 40px 0;
 }
 
 .button-group {
@@ -109,30 +107,24 @@ p {
 }
 
 button {
-    padding: 14px 30px;
-    border-radius: 4px;
+    padding: 15px 35px;
     font-family: 'Orbitron', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     cursor: pointer;
+    border-radius: 5px;
     transition: 0.3s;
 }
 
 .primary-btn {
     background: var(--primary-blue);
     border: none;
-    color: black;
     font-weight: bold;
-    box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
-}
-
-.primary-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 20px rgba(0, 242, 255, 0.5);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
 }
 
 .secondary-btn {
     background: transparent;
-    border: 1px solid rgba(255,255,255,0.4);
+    border: 1px solid white;
     color: white;
 }
 
@@ -141,26 +133,20 @@ button {
     color: black;
 }
 
-/* --- FEATURE CARDS --- */
+/* --- CARDS --- */
 .features {
     display: flex;
     gap: 20px;
-    margin-top: 80px;
+    margin-top: 50px;
 }
 
 .card {
-    background: var(--glass-bg);
-    padding: 25px;
-    border-radius: 12px;
+    background: var(--glass);
+    padding: 30px;
+    border-radius: 15px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255,255,255,0.1);
     flex: 1;
-    transition: 0.3s;
-}
-
-.card:hover {
-    border: 1px solid var(--primary-blue);
-    transform: scale(1.02);
 }
 
 .card h3 {

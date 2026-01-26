@@ -1,26 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><title>Denmark | LiveAtlas</title><link rel="stylesheet" href="style.css"></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Denmark | LiveAtlas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
     <canvas id="bg"></canvas>
     <main>
-        <nav><div class="logo-container"><img src="logo.png" class="site-logo"><div class="logo-text">LIVE<span>ATLAS</span></div></div><a href="index.html" style="color:white; text-decoration:none;">← BACK</a></nav>
+        <nav>
+            <div class="logo-text">LIVE<span>ATLAS</span></div>
+            <a href="index.html" style="color:white; text-decoration:none; font-family:'Orbitron'; font-size: 0.8rem;">← BACK</a>
+        </nav>
         
         <h1 style="text-align:center; font-family:'Orbitron'; margin-top:40px;">DENMARK</h1>
         
-        <div class="detail-hero-img" style="background-image: url('https://images.pexels.com/photos/1484776/pexels-photo-1484776.jpeg?auto=compress&cs=tinysrgb&w=1200');"></div>
+        <div class="hero-img-box">
+            <img src="https://images.pexels.com/photos/1484776/pexels-photo-1484776.jpeg?auto=compress&cs=tinysrgb&w=1200">
+        </div>
 
         <div class="gallery-grid">
-            <div class="gallery-img" style="background-image: url('https://images.pexels.com/photos/161160/copenhagen-denmark-canal-nyhavn-161160.jpeg?auto=compress&cs=tinysrgb&w=800');"></div>
-            <div class="gallery-img" style="background-image: url('https://images.pexels.com/photos/15160863/pexels-photo-15160863.jpeg?auto=compress&cs=tinysrgb&w=800');"></div>
+            <div class="gal-img-box">
+                <img src="https://images.pexels.com/photos/161160/copenhagen-denmark-canal-nyhavn-161160.jpeg?auto=compress&cs=tinysrgb&w=800">
+            </div>
+            <div class="gal-img-box">
+                <img src="https://images.pexels.com/photos/15160863/pexels-photo-15160863.jpeg?auto=compress&cs=tinysrgb&w=800">
+            </div>
         </div>
 
-        <div style="text-align:center; padding: 50px; background: var(--glass); border-radius: 20px; margin-bottom: 50px;">
-            <h2 style="font-family:'Orbitron';">Scandinavian Luxury</h2>
-            <p>Explore the architecture and boutiques of Copenhagen live.</p><br>
-            <a href="https://cal.com/live-atlas/60min" class="primary-btn">BOOK VR SESSION</a>
+        <div style="text-align:center; padding-bottom: 50px;">
+            <a href="https://cal.com/live-atlas/60min" class="btn">BOOK VR TOUR</a>
         </div>
     </main>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><script src="app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

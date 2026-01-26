@@ -2,60 +2,41 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>LiveAtlas — Experience the World Live</title>
   <link rel="stylesheet" href="style.css">
-  <script defer src="script.js"></script>
 </head>
 <body>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-overlay"></div>
-    <h1>Experience the World.<br><span>Live.</span></h1>
-    <p>Real people. Real places. Live immersive journeys.</p>
-    <a class="cta" href="#destinations">Explore Destinations</a>
-  </section>
+<!-- HERO -->
+<section class="hero">
+  <h1>Experience the World. Live.</h1>
+  <p>Real people • Real places • Live immersive journeys</p>
+  <a href="#destinations" class="btn-primary">Explore Destinations</a>
+</section>
 
-  <!-- DESTINATIONS -->
-  <section id="destinations" class="destinations">
-    <h2>Featured Live Destinations</h2>
+<!-- DESTINATIONS -->
+<section id="destinations" class="destinations">
+  <h2>Featured Live Destinations</h2>
 
-    <div class="card-grid">
+  <div class="card-grid">
 
-      <div class="card" onclick="openPlace('india')">
-        <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da">
-        <h3>India</h3>
-      </div>
-
-      <div class="card" onclick="openPlace('denmark')">
-        <img src="https://images.unsplash.com/photo-1505765050516-f72dcac9c60b">
-        <h3>Denmark</h3>
-      </div>
-
-      <div class="card" onclick="openPlace('uae')">
-        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c">
-        <h3>UAE</h3>
-      </div>
-
-      <div class="card" onclick="openPlace('antarctica')">
-        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba">
-        <h3>Antarctica</h3>
-      </div>
-
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad" alt="Denmark">
+      <h3>Denmark</h3>
+      <p>Castles, streets & Nordic life — live.</p>
+      <a href="denmark.html" class="btn-card">View Experience</a>
     </div>
-  </section>
 
-  <!-- BOOK -->
-  <section class="book">
-    <h2>Book a Live Experience</h2>
-    <p>Step inside the world through guided live presence.</p>
-    <a class="cta" href="https://cal.com/live-atlas/60min" target="_blank">Book a Session</a>
-  </section>
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1504274066651-8d31a536b11a" alt="UAE">
+      <h3>United Arab Emirates</h3>
+      <p>City skylines & desert life — live.</p>
+      <a href="uae.html" class="btn-card">View Experience</a>
+    </div>
 
-  <footer>
-    <p>© LiveAtlas • Bringing the World Closer</p>
-  </footer>
+  </div>
+</section>
 
+<script src="script.js"></script>
 </body>
 </html>

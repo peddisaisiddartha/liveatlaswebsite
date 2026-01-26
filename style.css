@@ -2,84 +2,63 @@
 
 :root {
     --primary-blue: #00f2ff;
-    --glass: rgba(255, 255, 255, 0.05);
+    --glass: rgba(255, 255, 255, 0.08);
 }
 
 html { scroll-behavior: smooth; }
-
-body {
-    margin: 0; padding: 0;
-    background-color: #050505;
-    color: white;
-    font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
-}
-
+body { margin: 0; padding: 0; background-color: #050505; color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
 #bg { position: fixed; top: 0; left: 0; z-index: -1; }
-
 main { position: relative; padding: 0 8%; }
 
-/* --- LOGO LOCKED CODE --- */
+/* --- LOGO SECTION --- */
 nav { display: flex; justify-content: space-between; align-items: center; height: 100px; }
 .logo-container { display: flex; align-items: center; gap: 15px; }
-.site-logo {
-    height: 60px !important; 
-    width: auto !important;
-    display: block !important;
-    filter: drop-shadow(0 0 8px rgba(0, 242, 255, 0.4));
-}
-.logo-text { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; }
+.site-logo { height: 60px !important; width: auto !important; filter: drop-shadow(0 0 8px var(--primary-blue)); }
+.logo-text { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; letter-spacing: 2px; }
 .logo-text span { color: var(--primary-blue); }
 
 ul { display: flex; list-style: none; gap: 30px; }
-ul li a { color: white; text-decoration: none; font-size: 0.8rem; text-transform: uppercase; transition: 0.3s; }
-ul li a:hover { color: var(--primary-blue); }
+ul li a { color: white; text-decoration: none; font-size: 0.8rem; text-transform: uppercase; }
 
-/* --- HERO --- */
-.hero { height: 80vh; display: flex; align-items: center; }
-h1 { font-family: 'Orbitron', sans-serif; font-size: 3.5rem; line-height: 1.1; margin: 0; }
-.button-group { display: flex; gap: 20px; }
-
+/* --- BUTTONS --- */
 .primary-btn, .secondary-btn, .view-btn {
-    padding: 12px 25px;
-    font-family: 'Orbitron', sans-serif;
-    text-decoration: none;
-    font-size: 0.8rem;
-    border-radius: 4px;
-    transition: 0.3s;
-    display: inline-block;
+    padding: 12px 25px; font-family: 'Orbitron', sans-serif; text-decoration: none;
+    font-size: 0.8rem; border-radius: 4px; transition: 0.3s; display: inline-block;
 }
-
 .primary-btn { background: var(--primary-blue); color: black; font-weight: bold; }
 .secondary-btn { border: 1px solid white; color: white; }
-.view-btn { border: 1px solid var(--primary-blue); color: var(--primary-blue); margin-top: 15px; }
+.view-btn { border: 1px solid var(--primary-blue); color: var(--primary-blue); margin-top: 15px; width: 100%; text-align: center; box-sizing: border-box; }
 .view-btn:hover { background: var(--primary-blue); color: black; }
 
 /* --- DESTINATION GRID --- */
 .destination-section { padding: 100px 0; }
-.section-title { font-family: 'Orbitron', sans-serif; text-align: center; margin-bottom: 50px; letter-spacing: 5px; color: var(--primary-blue); }
+.section-title { font-family: 'Orbitron', sans-serif; text-align: center; margin-bottom: 50px; color: var(--primary-blue); text-shadow: 0 0 10px var(--primary-blue); }
 
-.destination-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-}
+.destination-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
 
 .dest-card {
     background: var(--glass);
     border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 15px;
-    padding: 40px 20px;
-    text-align: center;
-    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    overflow: hidden; /* Clips the image to the card corners */
+    backdrop-filter: blur(15px);
     transition: 0.4s;
 }
 
-.dest-card:hover {
-    transform: translateY(-10px);
-    border-color: var(--primary-blue);
-    box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+.card-thumb {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* Makes the photo look perfect without stretching */
+    transition: 0.5s;
 }
 
-.dest-card h3 { font-family: 'Orbitron', sans-serif; margin-bottom: 10px; }
-.dest-card p { font-size: 0.9rem; color: #999; }
+.dest-card:hover .card-thumb { transform: scale(1.1); }
+.dest-info { padding: 25px; }
+.dest-card h3 { font-family: 'Orbitron', sans-serif; margin: 0; color: white; }
+.dest-card p { font-size: 0.9rem; color: #ccc; margin-top: 10px; }
+
+/* --- INTERNAL PAGE STYLING --- */
+.detail-hero-img {
+    width: 100%; height: 400px; object-fit: cover; border-radius: 20px;
+    margin: 20px 0; border: 1px solid var(--primary-blue);
+}

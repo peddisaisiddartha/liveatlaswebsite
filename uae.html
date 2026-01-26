@@ -6,16 +6,32 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <canvas id="bg"></canvas>
     <main>
-        <section class="hero">
-            <div>
-                <h1>UAE VIRTUAL TOUR</h1>
-                <p>Discover the Burj Khalifa and the Arabian Desert in 4K Live VR.</p>
-                <a href="https://cal.com/live-atlas/60min" target="_blank" class="primary-btn">Book This Tour Now</a>
-                <br><br>
-                <a href="index.html" style="color:white; text-decoration:none;">← Back to Home</a>
+        <nav>
+            <div class="logo-container">
+                <img src="logo.png" alt="LiveAtlas Logo" class="site-logo">
+                <div class="logo-text">LIVE<span>ATLAS</span></div>
+            </div>
+            <a href="index.html" class="secondary-btn">← Back</a>
+        </nav>
+
+        <section style="margin-top: 50px; text-align: center;">
+            <h1 style="font-family: 'Orbitron'; font-size: 3rem;">DUBAI & BEYOND</h1>
+            <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1200&q=80" class="detail-hero-img">
+            
+            <div class="card" style="max-width: 800px; margin: 40px auto; text-align: left;">
+                <h3 style="color: var(--primary-blue); font-family: 'Orbitron';">Why Visit Virtually?</h3>
+                <p>Experience the luxury of the UAE without the heat or the crowds. Our local guides take you through the gold souks and the top of the Burj Khalifa. Using our 4K VR pipeline, you'll feel every detail of the architecture as if you were standing on the balcony yourself.</p>
+                <p><strong>Available Services:</strong> Live Tour, Real-time Luxury Shopping, Architecture Walkthrough.</p>
+                
+                <div style="margin-top: 30px;">
+                    <a href="https://cal.com/live-atlas/60min" target="_blank" class="primary-btn" style="width: 100%; text-align: center;">Secure Your Live Session</a>
+                </div>
             </div>
         </section>
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

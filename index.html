@@ -1,84 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiveAtlas | The World Without Borders</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LiveAtlas — Experience the World Live</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
 </head>
 <body>
 
-    <canvas id="bg"></canvas>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <h1>Experience the World.<br><span>Live.</span></h1>
+    <p>Real people. Real places. Live immersive journeys.</p>
+    <a class="cta" href="#destinations">Explore Destinations</a>
+  </section>
 
-    <main>
-        <nav>
-            <div class="logo-container">
-                <img src="logo.png" alt="LiveAtlas Logo" class="site-logo">
-                <div class="logo-text">LIVE<span>ATLAS</span></div>
-            </div>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="roadmap.html">Roadmap</a></li>
-                <li><a href="about.html">About</a></li>
-            </ul>
-        </nav>
+  <!-- DESTINATIONS -->
+  <section id="destinations" class="destinations">
+    <h2>Featured Live Destinations</h2>
 
-        <section class="hero">
-            <div class="hero-content">
-                <h1>THE WORLD,<br>WITHOUT BORDERS.</h1>
-                <p>Experience any destination in real-time. Live Virtual Tourism & Global Shopping powered by private VR communication pipelines. See the world through the eyes of a local guide.</p>
-                <div class="button-group">
-                    <a href="#destinations" class="primary-btn">Explore Destinations</a>
-                    <a href="https://cal.com/live-atlas/60min" target="_blank" class="secondary-btn">Quick Book</a>
-                </div>
-            </div>
-        </section>
+    <div class="card-grid">
 
-        <section id="destinations" class="destination-section">
-            <h2 class="section-title">FAMOUS DESTINATIONS</h2>
-            <div class="destination-grid">
-                
-                <div class="dest-card">
-                    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1000&auto=format&fit=crop" class="card-thumb">
-                    <div class="dest-info">
-                        <h3>UAE</h3>
-                        <p>Explore the desert dunes and Dubai skyline.</p>
-                        <a href="uae.html" class="view-btn">View Details</a>
-                    </div>
-                </div>
+      <div class="card" onclick="openPlace('india')">
+        <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da">
+        <h3>India</h3>
+      </div>
 
-                <div class="dest-card">
-                    <img src="https://images.unsplash.com/photo-1469317532191-ed35a5a2421b?q=80&w=1000&auto=format&fit=crop" class="card-thumb">
-                    <div class="dest-info">
-                        <h3>ANTARCTICA</h3>
-                        <p>The final frontier of ice and mystery.</p>
-                        <a href="antarctica.html" class="view-btn">View Details</a>
-                    </div>
-                </div>
+      <div class="card" onclick="openPlace('denmark')">
+        <img src="https://images.unsplash.com/photo-1505765050516-f72dcac9c60b">
+        <h3>Denmark</h3>
+      </div>
 
-                <div class="dest-card">
-                    <img src="https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?q=80&w=1000&auto=format&fit=crop" class="card-thumb">
-                    <div class="dest-info">
-                        <h3>DENMARK</h3>
-                        <p>Experience the cozy streets of Copenhagen.</p>
-                        <a href="denmark.html" class="view-btn">View Details</a>
-                    </div>
-                </div>
+      <div class="card" onclick="openPlace('uae')">
+        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c">
+        <h3>UAE</h3>
+      </div>
 
-                <div class="dest-card">
-                    <img src="https://images.unsplash.com/photo-1524492707947-2f85a64b67ad?q=80&w=1000&auto=format&fit=crop" class="card-thumb">
-                    <div class="dest-info">
-                        <h3>INDIA</h3>
-                        <p>A vibrant journey through color and culture.</p>
-                        <a href="india.html" class="view-btn">View Details</a>
-                    </div>
-                </div>
+      <div class="card" onclick="openPlace('antarctica')">
+        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba">
+        <h3>Antarctica</h3>
+      </div>
 
-            </div>
-        </section>
-    </main>
+    </div>
+  </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="app.js"></script>
+  <!-- BOOK -->
+  <section class="book">
+    <h2>Book a Live Experience</h2>
+    <p>Step inside the world through guided live presence.</p>
+    <a class="cta" href="https://cal.com/live-atlas/60min" target="_blank">Book a Session</a>
+  </section>
+
+  <footer>
+    <p>© LiveAtlas • Bringing the World Closer</p>
+  </footer>
+
 </body>
 </html>

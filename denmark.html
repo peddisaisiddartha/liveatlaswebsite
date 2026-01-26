@@ -1,30 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Denmark — LiveAtlas</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8"><title>LiveAtlas | Denmark Tour</title><link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <canvas id="bg"></canvas>
+    <main>
+        <nav>
+            <div class="logo-container">
+                <img src="logo.png" alt="Logo" class="site-logo">
+                <div class="logo-text">LIVE<span>ATLAS</span></div>
+            </div>
+            <a href="index.html" class="secondary-btn">← Back to Home</a>
+        </nav>
 
-<section class="hero" style="background-image:url('https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba'); background-size:cover;">
-  <h1>Denmark</h1>
-  <p>Explore Denmark live with local guides</p>
-</section>
+        <section style="text-align: center; margin-top: 50px;">
+            <h1 style="font-family: 'Orbitron'; color: var(--primary-blue);">DENMARK</h1>
+            
+            <img src="https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?auto=format&fit=crop&w=1200&q=80" class="detail-hero-img">
+            
+            <div class="gallery-grid">
+                <img src="https://images.unsplash.com/photo-1533748261301-443324c4e72e?auto=format&fit=crop&w=600&q=80" class="gallery-img">
+                <img src="https://images.unsplash.com/photo-1501931320349-2f22b826b093?auto=format&fit=crop&w=600&q=80" class="gallery-img">
+            </div>
 
-<section class="destinations">
-  <h2>What You’ll Experience</h2>
-
-  <div class="card-grid">
-    <img src="https://images.unsplash.com/photo-1549893074-6b94d0fefc30" style="width:100%; border-radius:15px;">
-    <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9" style="width:100%; border-radius:15px;">
-    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c" style="width:100%; border-radius:15px;">
-  </div>
-
-  <a href="https://cal.com/live-atlas/60min" class="btn-primary" style="display:block;text-align:center;margin:50px auto;width:250px;">
-    Book Live Session
-  </a>
-</section>
-
+            <div class="content-card">
+                <h3>Scandinavian Design & Hygge</h3>
+                <p>Walk through the colorful harbor of Nyhavn or explore the cutting-edge sustainable architecture of modern Copenhagen. Denmark is where history meets the future. Use our live guide to shop for high-end Danish furniture or designer fashion pieces.</p>
+                <p><strong>Highlights:</strong> Palace grounds tour, luxury design shopping, and urban harbor walks.</p>
+                <a href="https://cal.com/live-atlas/60min" target="_blank" class="primary-btn">Book Your Denmark Session</a>
+            </div>
+        </section>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

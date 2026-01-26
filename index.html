@@ -1,63 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>LiveAtlas | Global Destinations</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+<head><meta charset="UTF-8"><title>LiveAtlas</title><link rel="stylesheet" href="style.css"></head>
 <body>
     <canvas id="bg"></canvas>
     <main>
         <nav>
-            <div class="logo-container">
-                <img src="logo.png" alt="Logo" class="site-logo">
-                <div class="logo-text">LIVE<span>ATLAS</span></div>
-            </div>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="roadmap.html">Roadmap</a></li>
-            </ul>
+            <div class="logo-container"><img src="logo.png" class="site-logo"><div class="logo-text">LIVE<span>ATLAS</span></div></div>
+            <ul><li><a href="index.html">HOME</a></li></ul>
         </nav>
 
-        <section class="hero">
-            <div class="hero-content">
-                <h1>THE WORLD,<br>WITHOUT BORDERS.</h1>
-                <p>Virtual real-time tourism at your fingertips.</p>
-                <div class="button-group">
-                    <a href="#destinations" class="primary-btn">Start Exploring</a>
-                    <a href="https://cal.com/live-atlas/60min" target="_blank" class="secondary-btn">Quick Book</a>
-                </div>
+        <section class="destination-grid">
+            <div class="dest-card">
+                <div class="card-thumb" style="background-image: url('https://images.pexels.com/photos/325191/pexels-photo-325191.jpeg?auto=compress&cs=tinysrgb&w=800');"></div>
+                <div class="dest-info"><h3>UAE</h3><a href="uae.html" class="view-btn">View Details</a></div>
             </div>
-        </section>
-
-        <section id="destinations" class="destination-section">
-            <h2 style="font-family:'Orbitron'; text-align:center; letter-spacing:3px;">DESTINATIONS</h2>
-            <div class="destination-grid">
-                
-                <div class="dest-card">
-                    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80" class="card-thumb">
-                    <div class="dest-info"><h3>UAE</h3><a href="uae.html" class="view-btn">View Details</a></div>
-                </div>
-
-                <div class="dest-card">
-                    <img src="https://images.unsplash.com/photo-1524492707947-2f85a64b67ad?auto=format&fit=crop&w=800&q=80" class="card-thumb">
-                    <div class="dest-info"><h3>INDIA</h3><a href="india.html" class="view-btn">View Details</a></div>
-                </div>
-
-                <div class="dest-card">
-                    <img src="https://images.unsplash.com/photo-1469317532191-ed35a5a2421b?auto=format&fit=crop&w=800&q=80" class="card-thumb">
-                    <div class="dest-info"><h3>ANTARCTICA</h3><a href="antarctica.html" class="view-btn">View Details</a></div>
-                </div>
-
-                <div class="dest-card">
-                    <img src="https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?auto=format&fit=crop&w=800&q=80" class="card-thumb">
-                    <div class="dest-info"><h3>DENMARK</h3><a href="denmark.html" class="view-btn">View Details</a></div>
-                </div>
-
+            <div class="dest-card">
+                <div class="card-thumb" style="background-image: url('https://images.pexels.com/photos/1603650/pexels-photo-1603650.jpeg?auto=compress&cs=tinysrgb&w=800');"></div>
+                <div class="dest-info"><h3>INDIA</h3><a href="india.html" class="view-btn">View Details</a></div>
+            </div>
+            <div class="dest-card">
+                <div class="card-thumb" style="background-image: url('https://images.pexels.com/photos/3534924/pexels-photo-3534924.jpeg?auto=compress&cs=tinysrgb&w=800');"></div>
+                <div class="dest-info"><h3>ANTARCTICA</h3><a href="antarctica.html" class="view-btn">View Details</a></div>
+            </div>
+            <div class="dest-card">
+                <div class="card-thumb" style="background-image: url('https://images.pexels.com/photos/1484776/pexels-photo-1484776.jpeg?auto=compress&cs=tinysrgb&w=800');"></div>
+                <div class="dest-info"><h3>DENMARK</h3><a href="denmark.html" class="view-btn">View Details</a></div>
             </div>
         </section>
     </main>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><script src="app.js"></script>
 </body>
 </html>

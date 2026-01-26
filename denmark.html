@@ -1,39 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Denmark | LiveAtlas</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+<head><meta charset="UTF-8"><title>Denmark | LiveAtlas</title><link rel="stylesheet" href="style.css"></head>
 <body>
     <canvas id="bg"></canvas>
     <main>
-        <nav>
-            <div class="logo-container">
-                <img src="logo.png" alt="Logo" class="site-logo">
-                <div class="logo-text">LIVE<span>ATLAS</span></div>
-            </div>
-            <a href="index.html" class="secondary-btn">← Back</a>
-        </nav>
+        <nav><div class="logo-container"><img src="logo.png" class="site-logo"><div class="logo-text">LIVE<span>ATLAS</span></div></div><a href="index.html" style="color:white; text-decoration:none;">← BACK</a></nav>
+        
+        <h1 style="text-align:center; font-family:'Orbitron'; margin-top:40px;">DENMARK</h1>
+        
+        <div class="detail-hero-img" style="background-image: url('https://images.pexels.com/photos/1484776/pexels-photo-1484776.jpeg?auto=compress&cs=tinysrgb&w=1200');"></div>
 
-        <section style="text-align: center; margin-top: 50px;">
-            <h1 style="font-family:'Orbitron'; color: var(--primary-blue);">DENMARK</h1>
-            
-            <img src="https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?auto=format&fit=crop&w=1200&q=80" class="detail-hero-img">
-            
-            <div class="gallery-grid">
-                <img src="https://images.unsplash.com/photo-1533748261301-443324c4e72e?auto=format&fit=crop&w=600&q=80" class="gallery-img">
-                <img src="https://images.unsplash.com/photo-1501931320349-2f22b826b093?auto=format&fit=crop&w=600&q=80" class="gallery-img">
-            </div>
+        <div class="gallery-grid">
+            <div class="gallery-img" style="background-image: url('https://images.pexels.com/photos/161160/copenhagen-denmark-canal-nyhavn-161160.jpeg?auto=compress&cs=tinysrgb&w=800');"></div>
+            <div class="gallery-img" style="background-image: url('https://images.pexels.com/photos/15160863/pexels-photo-15160863.jpeg?auto=compress&cs=tinysrgb&w=800');"></div>
+        </div>
 
-            <div class="content-card">
-                <h3>Scandinavian Serenity</h3>
-                <p>From the colorful facade of Nyhavn to the cutting-edge design of Aarhus, explore the home of "Hygge." Our guides provide live tours of royal palaces and exclusive access to Danish designer boutiques.</p>
-                <a href="https://cal.com/live-atlas/60min" target="_blank" class="primary-btn">Book Cultural Session</a>
-            </div>
-        </section>
+        <div style="text-align:center; padding: 50px; background: var(--glass); border-radius: 20px; margin-bottom: 50px;">
+            <h2 style="font-family:'Orbitron';">Scandinavian Luxury</h2>
+            <p>Explore the architecture and boutiques of Copenhagen live.</p><br>
+            <a href="https://cal.com/live-atlas/60min" class="primary-btn">BOOK VR SESSION</a>
+        </div>
     </main>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><script src="app.js"></script>
 </body>
 </html>

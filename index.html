@@ -1,42 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>LiveAtlas — Experience the World Live</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>LiveAtlas | The World Without Borders</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <canvas id="bg"></canvas>
+    <main>
+        <nav>
+            <div class="logo-container">
+                <img src="logo.png" alt="Logo" class="site-logo">
+                <div class="logo-text">LIVE<span>ATLAS</span></div>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="roadmap.html">Roadmap</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+        </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <h1>Experience the World. Live.</h1>
-  <p>Real people • Real places • Live immersive journeys</p>
-  <a href="#destinations" class="btn-primary">Explore Destinations</a>
-</section>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>THE WORLD,<br>WITHOUT BORDERS.</h1>
+                <p>Experience any destination in real-time. Live Virtual Tourism & Global Shopping powered by private VR communication pipelines.</p>
+                <div class="button-group">
+                    <a href="#destinations" class="primary-btn">Explore Destinations</a>
+                    <a href="https://cal.com/live-atlas/60min" target="_blank" class="secondary-btn">Quick Book</a>
+                </div>
+            </div>
+        </section>
 
-<!-- DESTINATIONS -->
-<section id="destinations" class="destinations">
-  <h2>Featured Live Destinations</h2>
-
-  <div class="card-grid">
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad" alt="Denmark">
-      <h3>Denmark</h3>
-      <p>Castles, streets & Nordic life — live.</p>
-      <a href="denmark.html" class="btn-card">View Experience</a>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1504274066651-8d31a536b11a" alt="UAE">
-      <h3>United Arab Emirates</h3>
-      <p>City skylines & desert life — live.</p>
-      <a href="uae.html" class="btn-card">View Experience</a>
-    </div>
-
-  </div>
-</section>
-
-<script src="script.js"></script>
+        <section id="destinations" class="destination-section">
+            <h2 class="section-title">FAMOUS DESTINATIONS</h2>
+            <div class="destination-grid">
+                <div class="dest-card">
+                    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80" class="card-thumb">
+                    <div class="dest-info"><h3>UAE</h3><p>Desert dunes and future skylines.</p><a href="uae.html" class="view-btn">View Details</a></div>
+                </div>
+                <div class="dest-card">
+                    <img src="https://images.unsplash.com/photo-1469317532191-ed35a5a2421b?auto=format&fit=crop&w=800&q=80" class="card-thumb">
+                    <div class="dest-info"><h3>ANTARCTICA</h3><p>The final frozen frontier.</p><a href="antarctica.html" class="view-btn">View Details</a></div>
+                </div>
+                <div class="dest-card">
+                    <img src="https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?auto=format&fit=crop&w=800&q=80" class="card-thumb">
+                    <div class="dest-info"><h3>DENMARK</h3><p>Scandinavian culture and comfort.</p><a href="denmark.html" class="view-btn">View Details</a></div>
+                </div>
+                <div class="dest-card">
+                    <img src="https://images.unsplash.com/photo-1524492707947-2f85a64b67ad?auto=format&fit=crop&w=800&q=80" class="card-thumb">
+                    <div class="dest-info"><h3>INDIA</h3><p>Vibrant colors and ancient history.</p><a href="india.html" class="view-btn">View Details</a></div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

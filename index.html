@@ -3,81 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiveAtlas | 3D Live Virtual Tourism</title>
+    <title>LiveAtlas | Destinations</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <canvas id="bg"></canvas>
-
     <main>
         <nav>
             <div class="logo-container">
-                <img src="logo.png" alt="LiveAtlas Logo" class="site-logo">
+                <img src="logo.png" alt="Logo" class="site-logo">
                 <div class="logo-text">LIVE<span>ATLAS</span></div>
             </div>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="roadmap.html">Roadmap</a></li>
-                <li><a href="about.html">About</a></li>
+                <li><a href="https://cal.com/live-atlas/60min">Book Now</a></li>
             </ul>
         </nav>
 
-        <section class="hero">
-            <div class="hero-content">
-                <h1>THE WORLD,<br>WITHOUT BORDERS.</h1>
-                <p>Experience any destination in real-time. Live Virtual Tourism & Global Shopping powered by private VR pipelines.</p>
-                <div class="button-group">
-                    <a href="#destinations" class="primary-btn">Explore Destinations</a>
-                    <a href="https://cal.com/live-atlas/60min" target="_blank" class="secondary-btn">Quick Book</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="destinations" class="destination-section">
-            <h2 class="section-title">FAMOUS DESTINATIONS</h2>
+        <section class="destination-section">
+            <h2 style="font-family: 'Orbitron'; text-align: center; color: var(--primary-blue);">EXPLORE THE WORLD</h2>
             <div class="destination-grid">
                 
                 <div class="dest-card">
-                    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=800&auto=format&fit=crop" class="card-thumb">
-                    <div class="dest-info">
-                        <h3>UAE</h3>
-                        <p>Explore the desert dunes and Dubai skyline.</p>
-                        <a href="uae.html" class="view-btn">View Details</a>
-                    </div>
+                    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1000&auto=format&fit=crop" class="card-thumb">
+                    <div class="dest-info"><h3>UAE</h3><a href="uae.html" class="view-btn">Details</a></div>
                 </div>
 
                 <div class="dest-card">
-                    <img src="https://images.unsplash.com/photo-1469317532191-ed35a5a2421b?q=80&w=800&auto=format&fit=crop" class="card-thumb">
-                    <div class="dest-info">
-                        <h3>ANTARCTICA</h3>
-                        <p>The final frontier of ice and mystery.</p>
-                        <a href="antarctica.html" class="view-btn">View Details</a>
-                    </div>
+                    <img src="https://images.unsplash.com/photo-1548013146-72479768bbaa?q=80&w=1000&auto=format&fit=crop" class="card-thumb">
+                    <div class="dest-info"><h3>INDIA</h3><a href="india.html" class="view-btn">Details</a></div>
                 </div>
 
                 <div class="dest-card">
-                    <img src="https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?q=80&w=800&auto=format&fit=crop" class="card-thumb">
-                    <div class="dest-info">
-                        <h3>DENMARK</h3>
-                        <p>Experience the cozy streets of Copenhagen.</p>
-                        <a href="denmark.html" class="view-btn">View Details</a>
-                    </div>
+                    <img src="https://images.unsplash.com/photo-1551009175-8a68da93d5f9?q=80&w=1000&auto=format&fit=crop" class="card-thumb">
+                    <div class="dest-info"><h3>ANTARCTICA</h3><a href="antarctica.html" class="view-btn">Details</a></div>
                 </div>
 
                 <div class="dest-card">
-                    <img src="https://images.unsplash.com/photo-1524492707947-2f85a64b67ad?q=80&w=800&auto=format&fit=crop" class="card-thumb">
-                    <div class="dest-info">
-                        <h3>INDIA</h3>
-                        <p>A vibrant journey through color and culture.</p>
-                        <a href="india.html" class="view-btn">View Details</a>
-                    </div>
+                    <img src="https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?q=80&w=1000&auto=format&fit=crop" class="card-thumb">
+                    <div class="dest-info"><h3>DENMARK</h3><a href="denmark.html" class="view-btn">Details</a></div>
                 </div>
 
             </div>
         </section>
     </main>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="app.js"></script>
 </body>

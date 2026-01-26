@@ -1,43 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>LiveAtlas | Antarctica</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8"><title>LiveAtlas | Antarctica Tour</title><link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <canvas id="bg"></canvas>
+    <main>
+        <nav>
+            <div class="logo-container">
+                <img src="logo.png" alt="Logo" class="site-logo">
+                <div class="logo-text">LIVE<span>ATLAS</span></div>
+            </div>
+            <a href="index.html" class="secondary-btn">← Back to Home</a>
+        </nav>
 
-<div class="page-hero" style="background-image:url('https://images.unsplash.com/photo-1516575150278-77136aed6920');">
-  <div class="overlay"></div>
-  <h1>Antarctica — LiveAtlas</h1>
-  <p>Ice • isolation • raw Earth</p>
-  <a href="https://cal.com/live-atlas/60min" target="_blank" class="btn">Book Live Session</a>
-</div>
+        <section style="text-align: center; margin-top: 50px;">
+            <h1 style="font-family: 'Orbitron'; color: var(--primary-blue);">ANTARCTICA</h1>
+            
+            <img src="https://images.unsplash.com/photo-1469317532191-ed35a5a2421b?auto=format&fit=crop&w=1200&q=80" class="detail-hero-img">
+            
+            <div class="gallery-grid">
+                <img src="https://images.unsplash.com/photo-1551009175-8a68da93d5f9?auto=format&fit=crop&w=600&q=80" class="gallery-img">
+                <img src="https://images.unsplash.com/photo-1516834193379-386f78082937?auto=format&fit=crop&w=600&q=80" class="gallery-img">
+            </div>
 
-<section class="content">
-  <h2>Live Destinations</h2>
-
-  <div class="cards">
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba">
-      <h3>Ice Landscapes</h3>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b">
-      <h3>Polar Life</h3>
-    </div>
-
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1544986581-efac024faf62">
-      <h3>Extreme Nature</h3>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <p>LiveAtlas © Antarctica Experience</p>
-</footer>
-
+            <div class="content-card">
+                <h3>The Last Frozen Frontier</h3>
+                <p>Experience the absolute silence and raw power of the South Pole. Our specialized expedition guides use satellite-linked 360-degree cameras to show you towering glaciers, deep blue icebergs, and local penguin colonies in real-time.</p>
+                <p><strong>Highlights:</strong> Extreme climate exploration, wildlife observation, and scientific outpost tours.</p>
+                <a href="https://cal.com/live-atlas/60min" target="_blank" class="primary-btn">Book Your Antarctica Session</a>
+            </div>
+        </section>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

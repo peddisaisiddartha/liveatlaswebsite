@@ -1,31 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><title>LiveAtlas | Home</title><link rel="stylesheet" href="style.css"></head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiveAtlas - Live Virtual Tourism & Global Shopping</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
 <body>
-    <canvas id="bg"></canvas>
-    <main>
-        <nav><div class="logo-text">LIVE<span>ATLAS</span></div></nav>
-        <h1 style="font-family:'Orbitron'; text-align:center; margin: 50px 0;">EXPLORE DESTINATIONS</h1>
-        
-        <section class="destination-grid">
-            <div class="dest-card">
-                <div class="card-thumb-box"><img src="https://images.pexels.com/photos/443446/pexels-photo-443446.jpeg?auto=compress&cs=tinysrgb&w=800"></div>
-                <div class="dest-info"><h3>UAE</h3><a href="uae.html" class="btn">VIEW DETAILS</a></div>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="logo.png" alt="LiveAtlas Logo">
+                <h1>LiveAtlas</h1>
             </div>
-            <div class="dest-card">
-                <div class="card-thumb-box"><img src="https://images.pexels.com/photos/1603650/pexels-photo-1603650.jpeg?auto=compress&cs=tinysrgb&w=800"></div>
-                <div class="dest-info"><h3>INDIA</h3><a href="india.html" class="btn">VIEW DETAILS</a></div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="roadmap.html">Roadmap</a></li>
+                <li><a href="india.html">India Tour</a></li>
+                <li><a href="uae.html">UAE Tour</a></li>
+                <li><a href="denmark.html">Denmark Tour</a></li>
+                <li><a href="antarctica.html">Antarctica Tour</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <div id="threejs-container"></div>
+        <div class="hero-content">
+            <h2>Explore the World in 3D with LiveAtlas</h2>
+            <p>Experience live virtual tours and shop global products in real-time through VR.</p>
+            <a href="#tours" class="btn">Start Your Tour</a>
+        </div>
+    </section>
+
+    <section id="tours">
+        <h2>Select Your Destination</h2>
+        <div class="tour-cards">
+            <div class="card">
+                <h3>India</h3>
+                <p>Discover ancient wonders and vibrant culture.</p>
+                <a href="india.html" class="btn">Book Tour</a>
             </div>
-            <div class="dest-card">
-                <div class="card-thumb-box"><img src="https://images.pexels.com/photos/3534924/pexels-photo-3534924.jpeg?auto=compress&cs=tinysrgb&w=800"></div>
-                <div class="dest-info"><h3>ANTARCTICA</h3><a href="antarctica.html" class="btn">VIEW DETAILS</a></div>
+            <div class="card">
+                <h3>UAE</h3>
+                <p>Experience luxury and modern marvels.</p>
+                <a href="uae.html" class="btn">Book Tour</a>
             </div>
-            <div class="dest-card">
-                <div class="card-thumb-box"><img src="https://images.pexels.com/photos/1484776/pexels-photo-1484776.jpeg?auto=compress&cs=tinysrgb&w=800"></div>
-                <div class="dest-info"><h3>DENMARK</h3><a href="denmark.html" class="btn">VIEW DETAILS</a></div>
+            <div class="card">
+                <h3>Denmark</h3>
+                <p>Explore fairy-tale landscapes and history.</p>
+                <a href="denmark.html" class="btn">Book Tour</a>
             </div>
-        </section>
-    </main>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><script src="app.js"></script>
+            <div class="card">
+                <h3>Antarctica</h3>
+                <p>Adventure in the icy wilderness.</p>
+                <a href="antarctica.html" class="btn">Book Tour</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 LiveAtlas. All rights reserved.</p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

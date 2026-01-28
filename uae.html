@@ -8,22 +8,33 @@
 
 <section class="hero">
   <h1>🇦🇪 UAE Live Tour</h1>
-  <p>
-    Experience the United Arab Emirates live with a real guide —
-    explore cities, culture, and shopping in real time.
-  </p>
-
+  <p>Experience the UAE live with a real guide</p>
   <a href="https://cal.com/live-atlas/60min" class="book-btn">
     Book Live Tour
   </a>
 </section>
 
-<section class="gallery">
-  <img src="images/uae.jpg" alt="UAE view 1">
-  <img src="images/uae1.jpg" alt="UAE view 2">
-  <img src="images/uae2.jpg" alt="UAE view 3">
-  <img src="images/uae3.jpg" alt="UAE view 4">
-</section>
+<div class="slider">
+  <div class="slides" id="uaeSlides">
+    <img src="images/uae.jpg">
+    <img src="images/uae1.jpg">
+    <img src="images/uae2.jpg">
+    <img src="images/uae3.jpg">
+  </div>
+
+  <button class="prev" onclick="slide('uaeSlides', -1)">‹</button>
+  <button class="next" onclick="slide('uaeSlides', 1)">›</button>
+</div>
+
+<script>
+let index = 0;
+function slide(id, direction) {
+  const slides = document.getElementById(id);
+  const total = slides.children.length;
+  index = (index + direction + total) % total;
+  slides.style.transform = `translateX(-${index * 100}%)`;
+}
+</script>
 
 </body>
 </html>

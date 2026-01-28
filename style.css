@@ -136,10 +136,11 @@ p {
 .card {
     background: rgba(20, 20, 60, 0.6);
     border-radius: 16px;
-    padding: 30px;
+    padding: 0 0 30px;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(0, 212, 255, 0.15);
     transition: all 0.4s;
+    text-align: center;
 }
 
 .card:hover {
@@ -148,9 +149,37 @@ p {
     box-shadow: 0 20px 50px rgba(0, 212, 255, 0.25);
 }
 
+.card-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 16px 16px 0 0;
+    margin-bottom: 20px;
+}
+
 .card h3 {
     color: #00eaff;
     margin-bottom: 12px;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+.gallery img {
+    width: 300px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
 }
 
 footer {

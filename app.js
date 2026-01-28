@@ -51,21 +51,44 @@ document.addEventListener('DOMContentLoaded', () => {
         earth.position.set(-3, 0, 0); // Positioned to the side
         scene.add(earth);
 
-        // Load realistic astronaut GLTF model
+        // Load realistic astronaut GLTF model (using GLB version for reliability)
         const gltfLoader = new THREE.GLTFLoader();
         let astronautGroup;
         gltfLoader.load(
-            'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/Astronaut/glTF/Astronaut.gltf',
+            'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/Astronaut/glTF-Binary/Astronaut.glb',
             (gltf) => {
                 astronautGroup = gltf.scene;
-                astronautGroup.scale.set(2, 2, 2); // Scale up for visibility
-                astronautGroup.position.set(3, -1, 0); // Position in scene
-                astronautGroup.rotation.y = Math.PI / 2; // Rotate to face camera
+                astronautGroup.scale.set(1.5, 1.5, 1.5); // Adjusted scale for visibility
+                astronautGroup.position.set(3, 0, 0); // Adjusted position
+                astronautGroup.rotation.y = Math.PI; // Rotate to face camera
                 scene.add(astronautGroup);
             },
             undefined,
             (error) => {
                 console.error('Error loading astronaut model:', error);
+                // Fallback to simple model if load fails
+                const fallbackAstronaut = new THREE.Group();
+                const bodyGeometry = new THREE.CylinderGeometry(0.5, 0.5, 1.5, 32);
+                const bodyMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
+                const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+                body.position.y = -1;
+                fallbackAstronaut.add(body);
+
+                const headGeometry = new THREE.SphereGeometry(0.6, 32, 32);
+                const headMaterial = new THREE.MeshPhongMaterial({ color: 0xffd700 });
+                const head = new THREE.Mesh(headGeometry, headMaterial);
+                fallbackAstronaut.add(head);
+
+                const vrGeometry = new THREE.BoxGeometry(0.8, 0.4, 0.3);
+                const vrMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
+                const vrHeadset = new THREE.Mesh(vrGeometry, vrMaterial);
+                vrHeadset.position.set(0, 0.3, 0.6);
+                fallbackAstronaut.add(vrHeadset);
+
+                fallbackAstronaut.position.set(3, 0, 0);
+                fallbackAstronaut.rotation.y = Math.PI / 4;
+                scene.add(fallbackAstronaut);
+                astronautGroup = fallbackAstronaut; // For animation
             }
         );
 
@@ -89,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Float astronaut with subtle motion if loaded
             if (astronautGroup) {
-                astronautGroup.position.y = Math.sin(time) * 0.5 - 1; // Adjust base y
+                astronautGroup.position.y = Math.sin(time) * 0.5;
                 astronautGroup.rotation.z = Math.sin(time * 0.5) * 0.1;
             }
 

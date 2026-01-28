@@ -11,50 +11,60 @@ body {
   overflow-x: hidden;
 }
 
-/* ===== SPACE BACKGROUND ===== */
+/* ===== SPACE ===== */
 .space {
   position: fixed;
   inset: 0;
   z-index: -3;
-  background: radial-gradient(circle at bottom, #020111, #000);
+  background: radial-gradient(circle at bottom, #020111 0%, #000 70%);
 }
 
+/* STARS (PURE CSS) */
 .stars {
   position: absolute;
   inset: 0;
-  background: url("https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-dashboard-pro/assets/img/stars.png");
-  animation: moveStars 200s linear infinite;
+  background:
+    radial-gradient(1px 1px at 10% 20%, white, transparent),
+    radial-gradient(1px 1px at 30% 80%, white, transparent),
+    radial-gradient(1px 1px at 50% 50%, white, transparent),
+    radial-gradient(1px 1px at 70% 30%, white, transparent),
+    radial-gradient(1px 1px at 90% 60%, white, transparent);
+  background-size: 200px 200px;
+  animation: drift 120s linear infinite;
 }
 
-@keyframes moveStars {
+@keyframes drift {
   from { background-position: 0 0; }
-  to { background-position: -10000px 5000px; }
+  to { background-position: -1000px 1000px; }
 }
 
+/* NEBULA */
 .nebula {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 30% 40%, rgba(0,229,255,0.25), transparent 60%),
-              radial-gradient(circle at 70% 60%, rgba(255,0,255,0.2), transparent 60%);
-  filter: blur(60px);
+  background:
+    radial-gradient(circle at 30% 40%, rgba(0,229,255,0.25), transparent 60%),
+    radial-gradient(circle at 70% 60%, rgba(255,0,255,0.25), transparent 60%);
+  filter: blur(80px);
 }
 
-.shooting-stars {
+/* SHOOTING STARS */
+.shooting {
   position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    120deg,
-    transparent,
-    transparent 98%,
-    rgba(255,255,255,0.8) 99%,
-    transparent 100%
-  );
+  width: 150px;
+  height: 2px;
+  background: linear-gradient(90deg, white, transparent);
+  opacity: 0.8;
   animation: shoot 6s linear infinite;
 }
 
+.shooting1 { top: 20%; left: -20%; animation-delay: 0s; }
+.shooting2 { top: 50%; left: -30%; animation-delay: 2s; }
+.shooting3 { top: 70%; left: -40%; animation-delay: 4s; }
+
 @keyframes shoot {
-  from { background-position: 0 0; }
-  to { background-position: -2000px 2000px; }
+  from { transform: translateX(0) translateY(0); }
+  to { transform: translateX(120vw) translateY(60vh); }
 }
 
 /* ===== EARTH ===== */
@@ -72,11 +82,11 @@ body {
   background: url("https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg");
   background-size: cover;
   border-radius: 50%;
-  animation: rotateEarth 40s linear infinite;
+  animation: spin 40s linear infinite;
   box-shadow: 0 0 80px rgba(0,229,255,0.4);
 }
 
-@keyframes rotateEarth {
+@keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
@@ -89,9 +99,7 @@ body {
   padding: 16px 40px;
 }
 
-.logo {
-  height: 42px;
-}
+.logo { height: 42px; }
 
 .nav-links a {
   color: white;
@@ -100,7 +108,7 @@ body {
   font-weight: 600;
 }
 
-/* ===== HERO ===== */
+/* HERO */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -115,21 +123,15 @@ body {
   text-shadow: 0 0 40px cyan;
 }
 
-.hero p {
-  margin-top: 10px;
-}
-
 .hero button {
   margin-top: 20px;
   padding: 14px 36px;
   border-radius: 30px;
   border: none;
   background: cyan;
-  font-size: 1.1rem;
-  cursor: pointer;
 }
 
-/* ===== CARDS ===== */
+/* CARDS */
 .cards {
   padding: 80px 60px;
   display: grid;

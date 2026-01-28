@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Antarctica Tour - LiveAtlas</title>
+    <title>Antarctica Virtual Tour – LiveAtlas</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
@@ -27,31 +27,26 @@
         </nav>
     </header>
 
-    <section id="tour">
-        <h2>Antarctica Virtual Tour</h2>
-        <p>Experience penguins and icebergs up close.</p>
-        <div id="threejs-container" style="height: 400px; margin: 20px auto;"></div>
-        <form id="booking-form">
-            <h3>Book Your Tour</h3>
-            <label for="name">Name:</label>
-            <input type="text" id="name" required>
-            <label for="date">Date:</label>
-            <input type="date" id="date" required>
-            <button type="submit" class="btn">Book Now</button>
-        </form>
+    <section id="tour" style="padding: 140px 40px 80px; text-align: center;">
+        <h2>Antarctica Live Virtual Tour</h2>
+        <p style="font-size: 1.4rem; max-width: 800px; margin: 0 auto 40px;">
+            Witness emperor penguins, massive icebergs, polar landscapes, research stations and untouched wilderness — live with a real guide through VR
+        </p>
+        <div id="threejs-container" style="height: 500px; max-width: 1100px; margin: 0 auto 60px;"></div>
+
+        <div style="margin: 60px 0;">
+            <h3 style="font-size: 2.2rem; color: #00eaff; margin-bottom: 20px;">Ready to Experience Antarctica Live?</h3>
+            <a href="https://cal.com/live-atlas/60min" target="_blank" class="btn" style="font-size: 1.4rem; padding: 20px 60px;">
+                Book Your 60-min Live Session
+            </a>
+        </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 LiveAtlas. All rights reserved.</p>
+        <p>© 2026 LiveAtlas • Live Virtual Tourism & Global Shopping</p>
     </footer>
 
     <script src="app.js"></script>
     <script src="script.js"></script>
-    <script>
-        document.getElementById('booking-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Tour booked successfully!');
-        });
-    </script>
 </body>
 </html>

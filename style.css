@@ -97,7 +97,7 @@ nav a {
   perspective: 1200px;
 }
 
-/* 🎬 CINEMATIC CARD */
+/* Cinematic Card */
 .card {
   background: rgba(255, 255, 255, 0.08);
   border-radius: 22px;
@@ -109,7 +109,7 @@ nav a {
   overflow: hidden;
 }
 
-/* Glow effect */
+/* Glow overlay (CLICK SAFE) */
 .card::before {
   content: "";
   position: absolute;
@@ -122,13 +122,13 @@ nav a {
   );
   opacity: 0;
   transition: opacity 0.5s;
+  pointer-events: none; /* ✅ FIX: cards stay clickable */
 }
 
 .card:hover::before {
   opacity: 1;
 }
 
-/* Hover motion */
 .card:hover {
   transform: translateY(-18px) scale(1.05);
   box-shadow: 0 25px 60px rgba(0, 255, 255, 0.35);
@@ -160,21 +160,6 @@ nav a {
   font-weight: bold;
 }
 
-/* Gallery (destination pages) */
-.gallery {
-  padding: 60px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 25px;
-}
-
-.gallery img {
-  width: 100%;
-  height: 260px;
-  object-fit: cover;
-  border-radius: 22px;
-}
-
 /* Booking Button */
 .book-btn {
   display: inline-block;
@@ -186,6 +171,7 @@ nav a {
   border-radius: 30px;
   font-size: 1.1rem;
 }
+
 /* ===== IMAGE SLIDER ===== */
 
 .slider {

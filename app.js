@@ -1,39 +1,55 @@
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#bg'), antialias: true });
+// Initialize Three.js for 3D globe in hero section
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('threejs-container');
+    const width = container.clientWidth;
+    const height = container.clientHeight;
 
-renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(window.innerWidth, window.innerHeight);
-camera.position.setZ(30);
+    // Scene
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x000000);
 
-function addParticle() {
-    const geometry = new THREE.SphereGeometry(0.12, 24, 24);
-    const material = new THREE.MeshStandardMaterial({ color: 0x00f2ff });
-    const particle = new THREE.Mesh(geometry, material);
-    const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
-    particle.position.set(x, y, z);
-    scene.add(particle);
-}
-Array(200).fill().map(addParticle);
+    // Camera
+    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+    camera.position.z = 5;
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-const pointLight = new THREE.PointLight(0xffffff, 1);
-pointLight.position.set(10, 10, 10);
-scene.add(ambientLight, pointLight);
+    // Renderer
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(width, height);
+    container.appendChild(renderer.domElement);
 
-function animate() {
-    requestAnimationFrame(animate);
-    scene.children.forEach((obj) => {
-        if (obj instanceof THREE.Mesh) {
-            obj.position.z += 0.05;
-            if (obj.position.z > 35) obj.position.z = -50;
-        }
+    // Globe
+    const geometry = new THREE.SphereGeometry(2, 32, 32);
+    const material = new THREE.MeshBasicMaterial({
+        color: 0x00bfff,
+        wireframe: true
     });
-    renderer.render(scene, camera);
-}
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    const globe = new THREE.Mesh(geometry, material);
+    scene.add(globe);
+
+    // Lights
+    const light = new THREE.PointLight(0xffffff, 1, 100);
+    light.position.set(10, 10, 10);
+    scene.add(light);
+
+    // Controls
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableZoom = true;
+
+    // Animation loop
+    function animate() {
+        requestAnimationFrame(animate);
+        globe.rotation.y += 0.005;
+        controls.update();
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    // Resize handler
+    window.addEventListener('resize', () => {
+        const newWidth = container.clientWidth;
+        const newHeight = container.clientHeight;
+        camera.aspect = newWidth / newHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(newWidth, newHeight);
+    });
 });
-animate();

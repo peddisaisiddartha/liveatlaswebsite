@@ -1,53 +1,65 @@
-body {
+* {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    overflow-x: hidden;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #0a0a1f;
+    color: #e0e0ff;
+    line-height: 1.6;
 }
 
 header {
-    background-color: #1a1a1a;
-    color: white;
-    padding: 10px 20px;
+    background: rgba(10, 10, 31, 0.9);
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
+    padding: 15px 40px;
+    backdrop-filter: blur(10px);
 }
 
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .logo {
     display: flex;
     align-items: center;
+    gap: 12px;
 }
 
 .logo img {
-    height: 50px;
-    margin-right: 10px;
+    height: 54px;
+    width: auto;
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    color: #00d4ff;
 }
 
 ul {
     list-style: none;
     display: flex;
-}
-
-ul li {
-    margin-left: 20px;
+    gap: 28px;
 }
 
 ul li a {
-    color: white;
+    color: #d0d0ff;
     text-decoration: none;
+    font-weight: 500;
     transition: color 0.3s;
 }
 
 ul li a:hover {
-    color: #00bfff;
+    color: #00d4ff;
 }
 
 #hero {
@@ -56,109 +68,95 @@ ul li a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
     text-align: center;
+    color: white;
 }
 
 #threejs-container {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     z-index: -1;
 }
 
 .hero-content {
-    z-index: 1;
-    animation: fadeIn 2s ease-in;
+    max-width: 900px;
+    padding: 0 20px;
+    animation: fadeUp 1.5s ease-out;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(50px); }
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(60px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 h2 {
-    font-size: 3em;
+    font-size: 3.8rem;
     margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    color: #00eaff;
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
 }
 
 p {
-    font-size: 1.5em;
-    margin-bottom: 30px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    font-size: 1.4rem;
+    margin-bottom: 35px;
+    opacity: 0.9;
 }
 
 .btn {
-    background-color: #00bfff;
+    background: linear-gradient(135deg, #00d4ff, #0077ff);
     color: white;
-    padding: 15px 30px;
+    padding: 16px 42px;
     text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s, transform 0.3s;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: inline-block;
+    transition: all 0.3s;
+    box-shadow: 0 10px 30px rgba(0, 116, 255, 0.4);
 }
 
 .btn:hover {
-    background-color: #008cff;
-    transform: scale(1.05);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px rgba(0, 116, 255, 0.6);
 }
 
 #tours {
-    padding: 60px 20px;
+    padding: 120px 40px 80px;
     text-align: center;
-    background-color: white;
 }
 
 .tour-cards {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    max-width: 1400px;
+    margin: 60px auto 0;
 }
 
 .card {
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    margin: 20px;
-    padding: 20px;
-    width: 300px;
-    transition: transform 0.3s, box-shadow 0.3s;
-    animation: cardAppear 1s ease-out;
+    background: rgba(20, 20, 60, 0.6);
+    border-radius: 16px;
+    padding: 30px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 212, 255, 0.15);
+    transition: all 0.4s;
 }
 
 .card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    transform: translateY(-12px);
+    border-color: #00d4ff;
+    box-shadow: 0 20px 50px rgba(0, 212, 255, 0.25);
 }
 
-@keyframes cardAppear {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
+.card h3 {
+    color: #00eaff;
+    margin-bottom: 12px;
 }
 
 footer {
-    background-color: #1a1a1a;
-    color: white;
+    background: #0a0a1f;
     text-align: center;
-    padding: 20px;
-    position: relative;
-}
-
-/* Motion graphics for parallax effect */
-.parallax {
-    perspective: 1px;
-    height: 100vh;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
-.layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    transform: translateZ(-1px) scale(2);
+    padding: 40px 20px;
+    color: #8888aa;
+    font-size: 0.95rem;
 }

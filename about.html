@@ -1,34 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>About – LiveAtlas</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About LiveAtlas</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 <body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="logo.png" alt="LiveAtlas Logo">
+                <h1>LiveAtlas</h1>
+            </div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="roadmap.html">Roadmap</a></li>
+                <li><a href="india.html">India Tour</a></li>
+                <li><a href="uae.html">UAE Tour</a></li>
+                <li><a href="denmark.html">Denmark Tour</a></li>
+                <li><a href="antarctica.html">Antarctica Tour</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <div class="container">
+    <section id="about">
+        <h2>About Us</h2>
+        <p>LiveAtlas is a futuristic startup offering live virtual tourism and global shopping. Users can explore destinations through VR with live guides and purchase products in real-time.</p>
+        <div id="threejs-container" style="height: 400px; margin: 20px auto;"></div>
+    </section>
 
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="roadmap.html">Roadmap</a>
-    </nav>
+    <footer>
+        <p>&copy; 2026 LiveAtlas. All rights reserved.</p>
+    </footer>
 
-    <h1>About LiveAtlas</h1>
-
-    <p>
-      LiveAtlas was born from a simple idea:
-      people should be able to experience the world even when they cannot be there physically.
-    </p>
-
-    <p>
-      The platform explores live presence, guided experiences,
-      and human connection through technology — without replacing reality.
-    </p>
-
-  </div>
-
+    <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

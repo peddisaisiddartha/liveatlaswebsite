@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 body {
@@ -11,7 +11,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Canvas */
 #bg {
   position: fixed;
   top: 0;
@@ -19,14 +18,19 @@ body {
   z-index: -1;
 }
 
-/* Navbar */
 nav {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 20px 50px;
   position: fixed;
   width: 100%;
   backdrop-filter: blur(10px);
+}
+
+.logo {
+  height: 45px;
+  width: auto;
 }
 
 nav ul {
@@ -38,10 +42,9 @@ nav ul {
 nav a {
   color: white;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: bold;
 }
 
-/* Hero */
 .hero {
   height: 100vh;
   display: flex;
@@ -53,12 +56,7 @@ nav a {
 
 .hero h1 {
   font-size: 4rem;
-  animation: glow 3s infinite alternate;
-}
-
-@keyframes glow {
-  from { text-shadow: 0 0 10px cyan; }
-  to { text-shadow: 0 0 40px blue; }
+  text-shadow: 0 0 30px cyan;
 }
 
 .hero button {
@@ -66,32 +64,70 @@ nav a {
   padding: 15px 40px;
   background: cyan;
   border: none;
+  font-size: 1.1rem;
   cursor: pointer;
-  font-size: 1.2rem;
 }
 
-/* Places */
 #places {
-  padding: 100px;
+  padding: 100px 60px;
   text-align: center;
 }
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 30px;
 }
 
 .card {
-  padding: 60px;
   background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(20px);
+  padding: 20px;
   border-radius: 20px;
-  transition: transform 0.4s;
-  text-decoration: none;
-  color: white;
+  backdrop-filter: blur(20px);
 }
 
-.card:hover {
-  transform: scale(1.1) rotateY(10deg);
+.card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.card h3 {
+  margin: 15px 0;
+}
+
+.card a {
+  display: inline-block;
+  padding: 10px 25px;
+  background: cyan;
+  color: black;
+  text-decoration: none;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.gallery {
+  padding: 60px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.gallery img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.book-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 15px 40px;
+  background: cyan;
+  color: black;
+  text-decoration: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
 }

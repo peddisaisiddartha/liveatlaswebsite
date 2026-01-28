@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(width, height);
+        renderer.xr.enabled = true; // Enable WebXR
         container.appendChild(renderer.domElement);
 
         // Add ambient light
@@ -78,17 +79,19 @@ document.addEventListener('DOMContentLoaded', () => {
         astronautGroup.rotation.y = Math.PI / 4;
         scene.add(astronautGroup);
 
-        // Controls
+        // Controls for non-VR mode
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.enableZoom = true;
         controls.enablePan = false;
         controls.autoRotate = true;
         controls.autoRotateSpeed = 0.8;
 
+        // Add VR button to enter VR mode
+        document.body.appendChild(THREE.VRButton.createButton(renderer));
+
         // Animation loop with motion
         let time = 0;
-        function animate() {
-            requestAnimationFrame(animate);
+        renderer.setAnimationLoop(() => {
             time += 0.01;
 
             // Rotate Earth
@@ -103,8 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             controls.update();
             renderer.render(scene, camera);
-        }
-        animate();
+        });
 
         // Resize handler
         window.addEventListener('resize', () => {

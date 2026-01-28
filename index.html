@@ -1,78 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiveAtlas - Live Virtual Tourism & Global Shopping</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-    <script src="https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://threejs.org/examples/js/webxr/VRButton.js"></script>
+  <meta charset="UTF-8" />
+  <title>LiveAtlas – Explore the World Live</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <img src="logo.png" alt="LiveAtlas Logo">
-                <h1>LiveAtlas</h1>
-            </div>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="roadmap.html">Roadmap</a></li>
-                <li><a href="india.html">India Tour</a></li>
-                <li><a href="uae.html">UAE Tour</a></li>
-                <li><a href="denmark.html">Denmark Tour</a></li>
-                <li><a href="antarctica.html">Antarctica Tour</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <section id="hero">
-        <div id="threejs-container"></div>
-        <div class="hero-content">
-            <h2>Explore the World Live in VR</h2>
-            <p>Live virtual tourism with real guides + global shopping in real-time</p>
-            <a href="https://cal.com/live-atlas/60min" target="_blank" class="btn">Book Your Live Experience Now</a>
-        </div>
-    </section>
+  <!-- 3D Canvas -->
+  <canvas id="bg"></canvas>
 
-    <section id="tours">
-        <h2>Choose Your Destination</h2>
-        <div class="tour-cards">
-            <div class="card">
-                <img src="https://images.pexels.com/photos/3881106/pexels-photo-3881106.jpeg" alt="Taj Mahal, India" class="card-img">
-                <h3>India</h3>
-                <p>Taj Mahal, vibrant markets, Himalayas</p>
-                <a href="india.html" class="btn">Explore & Book Tour</a>
-            </div>
-            <div class="card">
-                <img src="https://images.pexels.com/photos/5671019/pexels-photo-5671019.jpeg" alt="Palm Canal, Dubai UAE" class="card-img">
-                <h3>UAE</h3>
-                <p>Burj Khalifa, desert safari, luxury</p>
-                <a href="uae.html" class="btn">Explore & Book Tour</a>
-            </div>
-            <div class="card">
-                <img src="https://get.pxhere.com/photo/water-architecture-boat-house-town-view-old-river-canal-cityscape-travel-reflection-vehicle-scenic-landmark-sightseeing-historic-colorful-waterfront-tourism-waterway-body-of-water-buildings-denmark-copenhagen-channel-famous-entertainment-scandinavia-facades-nyhavn-district-850232.jpg" alt="Nyhavn, Copenhagen Denmark" class="card-img">
-                <h3>Denmark</h3>
-                <p>Copenhagen, castles, Nordic design</p>
-                <a href="denmark.html" class="btn">Explore & Book Tour</a>
-            </div>
-            <div class="card">
-                <img src="https://images.pexels.com/photos/48814/penguins-emperor-antarctic-life-48814.jpeg" alt="Penguins on Ice, Antarctica" class="card-img">
-                <h3>Antarctica</h3>
-                <p>Penguins, icebergs, polar adventure</p>
-                <a href="antarctica.html" class="btn">Explore & Book Tour</a>
-            </div>
-        </div>
-    </section>
+  <!-- Navbar -->
+  <nav>
+    <img src="logo.png" class="logo" />
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="roadmap.html">Roadmap</a></li>
+    </ul>
+  </nav>
 
-    <footer>
-        <p>© 2026 LiveAtlas • Live Virtual Tourism & Global Shopping</p>
-    </footer>
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>LiveAtlas</h1>
+    <p>Live Virtual Tourism & Global Shopping</p>
+    <button onclick="scrollToPlaces()">Start Exploring</button>
+  </section>
 
-    <script src="app.js"></script>
-    <script src="script.js"></script>
+  <!-- Places -->
+  <section id="places">
+    <h2>Select Your Destination</h2>
+
+    <div class="cards">
+      <a href="india.html" class="card">🇮🇳 India</a>
+      <a href="denmark.html" class="card">🇩🇰 Denmark</a>
+      <a href="uae.html" class="card">🇦🇪 UAE</a>
+      <a href="antarctica.html" class="card">❄ Antarctica</a>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

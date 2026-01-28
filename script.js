@@ -1,7 +1,8 @@
-// Scene
+// =======================
+// SCENE SETUP
+// =======================
 const scene = new THREE.Scene();
 
-// Camera
 const camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight,
@@ -9,7 +10,6 @@ const camera = new THREE.PerspectiveCamera(
   1000
 );
 
-// Renderer
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector("#bg"),
   antialias: true,
@@ -18,60 +18,112 @@ const renderer = new THREE.WebGLRenderer({
 
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
-camera.position.z = 30;
+camera.position.z = 32;
 
-// Light
+// =======================
+// LIGHTING
+// =======================
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
 scene.add(ambientLight);
 
-const pointLight = new THREE.PointLight(0xffffff, 1);
-pointLight.position.set(20, 20, 20);
+const pointLight = new THREE.PointLight(0xffffff, 1.2);
+pointLight.position.set(25, 15, 25);
 scene.add(pointLight);
 
-// Earth Texture Loader
-const textureLoader = new THREE.TextureLoader();
+// =======================
+// EARTH (REALISTIC)
+// =======================
+const loader = new THREE.TextureLoader();
 
-// Real Earth textures (stable CDN)
-const earthTexture = textureLoader.load(
+const earthTexture = loader.load(
   "https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg"
 );
-
-const earthNormal = textureLoader.load(
+const earthNormal = loader.load(
   "https://threejs.org/examples/textures/planets/earth_normal_2048.jpg"
 );
-
-const earthSpecular = textureLoader.load(
+const earthSpecular = loader.load(
   "https://threejs.org/examples/textures/planets/earth_specular_2048.jpg"
 );
 
-// Earth Geometry
 const earthGeometry = new THREE.SphereGeometry(10, 64, 64);
-
-// Earth Material (REALISTIC)
 const earthMaterial = new THREE.MeshPhongMaterial({
   map: earthTexture,
   normalMap: earthNormal,
   specularMap: earthSpecular,
-  specular: new THREE.Color("grey")
+  specular: new THREE.Color("grey"),
+  shininess: 10
 });
 
-// Earth Mesh
 const earth = new THREE.Mesh(earthGeometry, earthMaterial);
 scene.add(earth);
 
-// Animation Loop
+// =======================
+// SPACE BACKGROUND (NEBULA)
+// =======================
+const spaceTexture = loader.load(
+  "https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/space.jpg"
+);
+
+const spaceGeometry = new THREE.SphereGeometry(300, 64, 64);
+const spaceMaterial = new THREE.MeshBasicMaterial({
+  map: spaceTexture,
+  side: THREE.BackSide
+});
+
+const space = new THREE.Mesh(spaceGeometry, spaceMaterial);
+scene.add(space);
+
+// =======================
+// STARFIELD (SOFT & CINEMATIC)
+// =======================
+const starsGeometry = new THREE.BufferGeometry();
+const starCount = 3000;
+const positions = [];
+
+for (let i = 0; i < starCount; i++) {
+  positions.push(
+    (Math.random() - 0.5) * 600,
+    (Math.random() - 0.5) * 600,
+    (Math.random() - 0.5) * 600
+  );
+}
+
+starsGeometry.setAttribute(
+  "position",
+  new THREE.Float32BufferAttribute(positions, 3)
+);
+
+const starsMaterial = new THREE.PointsMaterial({
+  color: 0xffffff,
+  size: 0.7,
+  transparent: true,
+  opacity: 0.8
+});
+
+const stars = new THREE.Points(starsGeometry, starsMaterial);
+scene.add(stars);
+
+// =======================
+// ANIMATION LOOP
+// =======================
 function animate() {
   requestAnimationFrame(animate);
 
-  // Slow realistic rotation
+  // Earth rotation
   earth.rotation.y += 0.0015;
+
+  // Subtle space motion
+  stars.rotation.y += 0.0002;
+  space.rotation.y += 0.00005;
 
   renderer.render(scene, camera);
 }
 
 animate();
 
-// Resize handling
+// =======================
+// RESIZE HANDLING
+// =======================
 window.addEventListener("resize", () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();

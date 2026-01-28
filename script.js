@@ -1,3 +1,4 @@
+alert("NEW SCRIPT IS RUNNING");  
 // =======================
 // SCENE SETUP
 // =======================

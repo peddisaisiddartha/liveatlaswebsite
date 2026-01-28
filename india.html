@@ -14,12 +14,27 @@
   </a>
 </section>
 
-<section class="gallery">
-  <img src="images/india.jpg">
-  <img src="images/india1.jpg">
-  <img src="images/india2.jpg">
-  <img src="images/india3.jpg">
-</section>
+<div class="slider">
+  <div class="slides" id="indiaSlides">
+    <img src="images/india.jpg">
+    <img src="images/india1.jpg">
+    <img src="images/india2.jpg">
+    <img src="images/india3.jpg">
+  </div>
+
+  <button class="prev" onclick="slide('indiaSlides', -1)">‹</button>
+  <button class="next" onclick="slide('indiaSlides', 1)">›</button>
+</div>
+
+<script>
+let index = 0;
+function slide(id, direction) {
+  const slides = document.getElementById(id);
+  const total = slides.children.length;
+  index = (index + direction + total) % total;
+  slides.style.transform = `translateX(-${index * 100}%)`;
+}
+</script>
 
 </body>
 </html>

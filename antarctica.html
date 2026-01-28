@@ -8,18 +8,33 @@
 
 <section class="hero">
   <h1>❄ Antarctica Live Tour</h1>
-  <p>Explore Antarctica with expert scientific guides</p>
+  <p>Explore Antarctica with expert guides</p>
   <a href="https://cal.com/live-atlas/60min" class="book-btn">
     Book Live Tour
   </a>
 </section>
 
-<section class="gallery">
-  <img src="images/antarctica.jpg">
-  <img src="images/antarctica1.jpg">
-  <img src="images/antarctica2.jpg">
-  <img src="images/antarctica3.jpg">
-</section>
+<div class="slider">
+  <div class="slides" id="antarcticaSlides">
+    <img src="images/antarctica.jpg">
+    <img src="images/antarctica1.jpg">
+    <img src="images/antarctica2.jpg">
+    <img src="images/antarctica3.jpg">
+  </div>
+
+  <button class="prev" onclick="slide('antarcticaSlides', -1)">‹</button>
+  <button class="next" onclick="slide('antarcticaSlides', 1)">›</button>
+</div>
+
+<script>
+let index = 0;
+function slide(id, direction) {
+  const slides = document.getElementById(id);
+  const total = slides.children.length;
+  index = (index + direction + total) % total;
+  slides.style.transform = `translateX(-${index * 100}%)`;
+}
+</script>
 
 </body>
 </html>

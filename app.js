@@ -51,33 +51,23 @@ document.addEventListener('DOMContentLoaded', () => {
         earth.position.set(-3, 0, 0); // Positioned to the side
         scene.add(earth);
 
-        // Simple floating astronaut (sphere head + cylinder body + VR headset)
-        const astronautGroup = new THREE.Group();
-
-        // Body
-        const bodyGeometry = new THREE.CylinderGeometry(0.5, 0.5, 1.5, 32);
-        const bodyMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
-        const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
-        body.position.y = -1;
-        astronautGroup.add(body);
-
-        // Head
-        const headGeometry = new THREE.SphereGeometry(0.6, 32, 32);
-        const headMaterial = new THREE.MeshPhongMaterial({ color: 0xffd700 });
-        const head = new THREE.Mesh(headGeometry, headMaterial);
-        astronautGroup.add(head);
-
-        // VR Headset (simple box on head)
-        const vrGeometry = new THREE.BoxGeometry(0.8, 0.4, 0.3);
-        const vrMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
-        const vrHeadset = new THREE.Mesh(vrGeometry, vrMaterial);
-        vrHeadset.position.set(0, 0.3, 0.6);
-        astronautGroup.add(vrHeadset);
-
-        // Position astronaut floating in space
-        astronautGroup.position.set(3, 0, 0);
-        astronautGroup.rotation.y = Math.PI / 4;
-        scene.add(astronautGroup);
+        // Load realistic astronaut GLTF model
+        const gltfLoader = new THREE.GLTFLoader();
+        let astronautGroup;
+        gltfLoader.load(
+            'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/Astronaut/glTF/Astronaut.gltf',
+            (gltf) => {
+                astronautGroup = gltf.scene;
+                astronautGroup.scale.set(2, 2, 2); // Scale up for visibility
+                astronautGroup.position.set(3, -1, 0); // Position in scene
+                astronautGroup.rotation.y = Math.PI / 2; // Rotate to face camera
+                scene.add(astronautGroup);
+            },
+            undefined,
+            (error) => {
+                console.error('Error loading astronaut model:', error);
+            }
+        );
 
         // Controls for non-VR mode
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -97,9 +87,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Rotate Earth
             earth.rotation.y += 0.002;
 
-            // Float astronaut with subtle motion
-            astronautGroup.position.y = Math.sin(time) * 0.5;
-            astronautGroup.rotation.z = Math.sin(time * 0.5) * 0.1;
+            // Float astronaut with subtle motion if loaded
+            if (astronautGroup) {
+                astronautGroup.position.y = Math.sin(time) * 0.5 - 1; // Adjust base y
+                astronautGroup.rotation.z = Math.sin(time * 0.5) * 0.1;
+            }
 
             // Twinkle stars (subtle scale)
             starField.rotation.y += 0.0005;

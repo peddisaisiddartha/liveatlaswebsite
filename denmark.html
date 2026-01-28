@@ -8,18 +8,33 @@
 
 <section class="hero">
   <h1>🇩🇰 Denmark Live Tour</h1>
-  <p>Experience Denmark with a real-time guide</p>
+  <p>Explore Denmark with a live guide</p>
   <a href="https://cal.com/live-atlas/60min" class="book-btn">
     Book Live Tour
   </a>
 </section>
 
-<section class="gallery">
-  <img src="images/denmark.jpg">
-  <img src="images/denmark1.jpg">
-  <img src="images/denmark2.jpg">
-  <img src="images/denmark3.jpg">
-</section>
+<div class="slider">
+  <div class="slides" id="denmarkSlides">
+    <img src="images/denmark.jpg">
+    <img src="images/denmark1.jpg">
+    <img src="images/denmark2.jpg">
+    <img src="images/denmark3.jpg">
+  </div>
+
+  <button class="prev" onclick="slide('denmarkSlides', -1)">‹</button>
+  <button class="next" onclick="slide('denmarkSlides', 1)">›</button>
+</div>
+
+<script>
+let index = 0;
+function slide(id, direction) {
+  const slides = document.getElementById(id);
+  const total = slides.children.length;
+  index = (index + direction + total) % total;
+  slides.style.transform = `translateX(-${index * 100}%)`;
+}
+</script>
 
 </body>
 </html>

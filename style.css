@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
 html, body {
@@ -11,36 +12,46 @@ html, body {
   overflow-x: hidden;
 }
 
-/* FORCE CANVAS VISIBILITY */
+/* THREE.JS CANVAS */
 #bg {
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  pointer-events: none;
 }
 
-/* NAV */
-nav {
+/* NAVBAR */
+.navbar {
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 20px 40px;
+  padding: 16px 40px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   z-index: 10;
+  backdrop-filter: blur(10px);
 }
 
-nav a {
+.nav-left img {
+  height: 42px;          /* ✅ LOGO SIZE FIXED HERE */
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+}
+
+.nav-right a {
   color: white;
   text-decoration: none;
-  margin-left: 20px;
+  margin-left: 24px;
+  font-weight: 600;
 }
 
 /* HERO */
 .hero {
   min-height: 100vh;
+  padding-top: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -50,15 +61,62 @@ nav a {
 }
 
 .hero h1 {
-  font-size: 3.5rem;
+  font-size: 4rem;
   text-shadow: 0 0 40px cyan;
 }
 
+.hero p {
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
 .hero button {
-  margin-top: 20px;
-  padding: 14px 36px;
+  margin-top: 25px;
+  padding: 14px 38px;
   background: cyan;
   border: none;
   border-radius: 30px;
   font-size: 1.1rem;
+  cursor: pointer;
+}
+
+/* DESTINATION CARDS */
+.cards {
+  padding: 100px 60px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 40px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+  padding: 20px;
+  backdrop-filter: blur(20px);
+  transition: transform 0.4s ease;
+}
+
+.card:hover {
+  transform: translateY(-15px);
+}
+
+.card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.card h3 {
+  margin: 15px 0 10px;
+}
+
+.card a {
+  display: inline-block;
+  padding: 10px 26px;
+  background: cyan;
+  color: black;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
 }

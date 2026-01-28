@@ -1,20 +1,50 @@
-// Additional interactivity, like smooth scrolling and animations
-document.addEventListener('DOMContentLoaded', () => {
-    // Smooth scroll to sections
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-    });
+const scene = new THREE.Scene();
 
-    // Parallax effect (basic)
-    window.addEventListener('scroll', () => {
-        const scroll = window.pageYOffset;
-        document.querySelectorAll('.layer').forEach(layer => {
-            layer.style.transform = `translateY(${scroll * 0.5}px)`;
-        });
-    });
+const camera = new THREE.PerspectiveCamera(
+  75,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
+
+const renderer = new THREE.WebGLRenderer({
+  canvas: document.querySelector('#bg'),
+  antialias: true
 });
+
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setSize(window.innerWidth, window.innerHeight);
+camera.position.z = 30;
+
+// Globe
+const geometry = new THREE.SphereGeometry(10, 64, 64);
+const material = new THREE.MeshStandardMaterial({
+  color: 0x00ffff,
+  wireframe: true
+});
+const globe = new THREE.Mesh(geometry, material);
+scene.add(globe);
+
+// Light
+const pointLight = new THREE.PointLight(0xffffff);
+pointLight.position.set(20, 20, 20);
+scene.add(pointLight);
+
+// Animate
+function animate() {
+  requestAnimationFrame(animate);
+  globe.rotation.y += 0.002;
+  renderer.render(scene, camera);
+}
+animate();
+
+// Resize
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+function scrollToPlaces() {
+  document.getElementById('places').scrollIntoView({ behavior: 'smooth' });
+}

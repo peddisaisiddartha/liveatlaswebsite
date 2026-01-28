@@ -82,6 +82,7 @@ ul li a:hover {
     max-width: 900px;
     padding: 0 20px;
     animation: fadeUp 1.5s ease-out;
+    z-index: 1; /* Ensure content is above 3D scene */
 }
 
 @keyframes fadeUp {

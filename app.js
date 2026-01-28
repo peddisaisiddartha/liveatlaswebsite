@@ -1,55 +1,53 @@
-// Initialize Three.js for 3D globe in hero section
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('threejs-container');
+    if (!container) return;
+
     const width = container.clientWidth;
     const height = container.clientHeight;
 
-    // Scene
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000000);
+    scene.background = new THREE.Color(0x000022);
 
-    // Camera
-    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
     camera.position.z = 5;
 
-    // Renderer
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(width, height);
     container.appendChild(renderer.domElement);
 
-    // Globe
-    const geometry = new THREE.SphereGeometry(2, 32, 32);
+    const geometry = new THREE.SphereGeometry(1.8, 64, 64);
     const material = new THREE.MeshBasicMaterial({
-        color: 0x00bfff,
-        wireframe: true
+        color: 0x00aaff,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.7
     });
     const globe = new THREE.Mesh(geometry, material);
     scene.add(globe);
 
-    // Lights
-    const light = new THREE.PointLight(0xffffff, 1, 100);
-    light.position.set(10, 10, 10);
+    const light = new THREE.PointLight(0xffffff, 1.2, 100);
+    light.position.set(5, 5, 5);
     scene.add(light);
 
-    // Controls
     const controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableZoom = true;
+    controls.enablePan = false;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 1.2;
 
-    // Animation loop
     function animate() {
         requestAnimationFrame(animate);
-        globe.rotation.y += 0.005;
+        globe.rotation.y += 0.002;
         controls.update();
         renderer.render(scene, camera);
     }
     animate();
 
-    // Resize handler
     window.addEventListener('resize', () => {
-        const newWidth = container.clientWidth;
-        const newHeight = container.clientHeight;
-        camera.aspect = newWidth / newHeight;
+        const w = container.clientWidth;
+        const h = container.clientHeight;
+        camera.aspect = w / h;
         camera.updateProjectionMatrix();
-        renderer.setSize(newWidth, newHeight);
+        renderer.setSize(w, h);
     });
 });

@@ -1,174 +1,243 @@
-// ================================
-// LiveAtlas app.js (CLEAN & SAFE)
-// ================================
+// Mobile Menu Toggle
+const hamburger = document.querySelector('.hamburger');
+const navMenu = document.querySelector('.nav-menu');
 
-// 🔗 SINGLE SOURCE OF TRUTH FOR BOOKING
-function openBooking() {
-    window.open('https://cal.com/live-atlas/60min', '_blank');
+if (hamburger) {
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+    });
+
+    // Close menu when clicking on a link
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+        });
+    });
 }
 
-// --------------------------------
-// Particle Background Animation
-// --------------------------------
-class ParticleSystem {
-    constructor(canvas) {
-        this.canvas = canvas;
-        this.ctx = canvas.getContext('2d');
-        this.particles = [];
-        this.particleCount = 100;
-        this.mouse = { x: null, y: null, radius: 150 };
-        this.init();
-        this.animate();
-        this.setupEventListeners();
+// Navbar Scroll Effect
+window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
     }
+});
 
-    init() {
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
-        this.particles = [];
+// 3D Hero Canvas Animation
+const canvas = document.getElementById('hero-canvas');
+if (canvas) {
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-        for (let i = 0; i < this.particleCount; i++) {
-            this.particles.push({
-                x: Math.random() * this.canvas.width,
-                y: Math.random() * this.canvas.height,
-                size: Math.random() * 3 + 1,
-                speedX: Math.random() * 0.5 - 0.25,
-                speedY: Math.random() * 0.5 - 0.25,
-                color: `rgba(0, 212, 255, ${Math.random() * 0.5 + 0.3})`
-            });
+    // Particle system
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.z = Math.random() * 1000;
+            this.size = Math.random() * 2 + 1;
+            this.speedX = Math.random() * 0.5 - 0.25;
+            this.speedY = Math.random() * 0.5 - 0.25;
+            this.speedZ = Math.random() * 2 + 1;
+        }
+
+        update() {
+            this.z -= this.speedZ;
+            
+            if (this.z <= 0) {
+                this.z = 1000;
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+            }
+
+            this.x += this.speedX;
+            this.y += this.speedY;
+
+            if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+        }
+
+        draw() {
+            const x = (this.x - canvas.width / 2) * (1000 / this.z) + canvas.width / 2;
+            const y = (this.y - canvas.height / 2) * (1000 / this.z) + canvas.height / 2;
+            const size = this.size * (1000 / this.z);
+
+            ctx.beginPath();
+            ctx.arc(x, y, size, 0, Math.PI * 2);
+            
+            const opacity = 1 - this.z / 1000;
+            const gradient = ctx.createRadialGradient(x, y, 0, x, y, size);
+            gradient.addColorStop(0, `rgba(0, 212, 255, ${opacity})`);
+            gradient.addColorStop(1, `rgba(0, 212, 255, 0)`);
+            
+            ctx.fillStyle = gradient;
+            ctx.fill();
         }
     }
 
-    animate() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    // Create particles
+    const particles = [];
+    const particleCount = 150;
+    
+    for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+    }
 
-        this.particles.forEach((p, i) => {
-            p.x += p.speedX;
-            p.y += p.speedY;
+    // Animation loop
+    function animate() {
+        ctx.fillStyle = 'rgba(10, 10, 10, 0.1)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            if (p.x < 0 || p.x > this.canvas.width) p.speedX *= -1;
-            if (p.y < 0 || p.y > this.canvas.height) p.speedY *= -1;
+        particles.forEach(particle => {
+            particle.update();
+            particle.draw();
+        });
 
-            if (this.mouse.x !== null) {
-                const dx = this.mouse.x - p.x;
-                const dy = this.mouse.y - p.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
+        // Draw connections
+        particles.forEach((p1, i) => {
+            particles.slice(i + 1).forEach(p2 => {
+                const dx = p1.x - p2.x;
+                const dy = p1.y - p2.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
 
-                if (dist < this.mouse.radius) {
-                    const angle = Math.atan2(dy, dx);
-                    p.x -= Math.cos(angle) * 2;
-                    p.y -= Math.sin(angle) * 2;
-                }
-            }
-
-            this.ctx.beginPath();
-            this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-            this.ctx.fillStyle = p.color;
-            this.ctx.fill();
-
-            this.particles.forEach((op, j) => {
-                if (i !== j) {
-                    const d = Math.hypot(p.x - op.x, p.y - op.y);
-                    if (d < 100) {
-                        this.ctx.beginPath();
-                        this.ctx.strokeStyle = `rgba(0,212,255,${0.15})`;
-                        this.ctx.moveTo(p.x, p.y);
-                        this.ctx.lineTo(op.x, op.y);
-                        this.ctx.stroke();
-                    }
+                if (distance < 150) {
+                    ctx.beginPath();
+                    ctx.moveTo(
+                        (p1.x - canvas.width / 2) * (1000 / p1.z) + canvas.width / 2,
+                        (p1.y - canvas.height / 2) * (1000 / p1.z) + canvas.height / 2
+                    );
+                    ctx.lineTo(
+                        (p2.x - canvas.width / 2) * (1000 / p2.z) + canvas.width / 2,
+                        (p2.y - canvas.height / 2) * (1000 / p2.z) + canvas.height / 2
+                    );
+                    ctx.strokeStyle = `rgba(0, 212, 255, ${0.2 * (1 - distance / 150)})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
                 }
             });
         });
 
-        requestAnimationFrame(() => this.animate());
+        requestAnimationFrame(animate);
     }
 
-    setupEventListeners() {
-        window.addEventListener('resize', () => this.init());
-        window.addEventListener('mousemove', e => {
-            this.mouse.x = e.x;
-            this.mouse.y = e.y;
-        });
-        window.addEventListener('mouseout', () => {
-            this.mouse.x = null;
-            this.mouse.y = null;
-        });
-    }
-}
+    animate();
 
-// Init particles
-document.addEventListener('DOMContentLoaded', () => {
-    const canvas = document.getElementById('particles');
-    if (canvas) new ParticleSystem(canvas);
-});
-
-// --------------------------------
-// Navbar scroll
-// --------------------------------
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-    navbar?.classList.toggle('scrolled', window.scrollY > 100);
-});
-
-// --------------------------------
-// Mobile menu
-// --------------------------------
-const hamburger = document.getElementById('hamburger');
-const navMenu = document.getElementById('navMenu');
-
-hamburger?.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
-
-// --------------------------------
-// Video modal
-// --------------------------------
-function playVideo() {
-    const modal = document.getElementById('videoModal');
-    if (modal) {
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-document.querySelector('.close-modal')?.addEventListener('click', () => {
-    const modal = document.getElementById('videoModal');
-    modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
-    const iframe = modal.querySelector('iframe');
-    if (iframe) iframe.src = iframe.src;
-});
-
-// --------------------------------
-// 3D Card tilt
-// --------------------------------
-document.querySelectorAll('.card-3d').forEach(card => {
-    card.addEventListener('mousemove', e => {
-        const r = card.getBoundingClientRect();
-        const x = e.clientX - r.left;
-        const y = e.clientY - r.top;
-        const rx = (y - r.height / 2) / 10;
-        const ry = (r.width / 2 - x) / 10;
-        card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+    // Resize handler
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
     });
+}
+
+// Tilt effect for feature cards
+const featureCards = document.querySelectorAll('[data-tilt]');
+
+featureCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = (y - centerY) / 10;
+        const rotateY = (centerX - x) / 10;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+    });
+    
     card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px)';
+        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
     });
 });
 
-// --------------------------------
-// Back to top
-// --------------------------------
-const backToTop = document.createElement('button');
-backToTop.className = 'back-to-top';
-backToTop.innerHTML = '<i class="fas fa-arrow-up"></i>';
-document.body.appendChild(backToTop);
+// Scroll animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+};
 
-window.addEventListener('scroll', () => {
-    backToTop.style.display = window.scrollY > 400 ? 'block' : 'none';
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+// Observe all sections and cards
+document.querySelectorAll('.feature-card, .destination-card, .timeline-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
 });
 
-backToTop.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href !== '#' && href !== '') {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+    });
+});
 
-console.log('✅ LiveAtlas app.js loaded cleanly');
+// Mouse trail effect
+const trail = [];
+const trailLength = 20;
+
+document.addEventListener('mousemove', (e) => {
+    trail.push({ x: e.clientX, y: e.clientY, time: Date.now() });
+    
+    if (trail.length > trailLength) {
+        trail.shift();
+    }
+});
+
+// Parallax effect
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const parallaxElements = document.querySelectorAll('.hero-content');
+    
+    parallaxElements.forEach(el => {
+        const speed = 0.5;
+        el.style.transform = `translateY(${scrolled * speed}px)`;
+    });
+});
+
+// Loading animation
+window.addEventListener('load', () => {
+    document.body.style.opacity = '0';
+    setTimeout(() => {
+        document.body.style.transition = 'opacity 0.5s ease';
+        document.body.style.opacity = '1';
+    }, 100);
+});
+
+// Add dynamic gradient background to CTA section
+const ctaSection = document.querySelector('.cta-section');
+if (ctaSection) {
+    let hue = 0;
+    setInterval(() => {
+        hue = (hue + 1) % 360;
+        ctaSection.style.background = `linear-gradient(135deg, hsl(${hue}, 70%, 60%) 0%, hsl(${hue + 30}, 70%, 50%) 100%)`;
+    }, 50);
+}
+
+console.log('LiveAtlas - Website Loaded Successfully! 🌍✨');

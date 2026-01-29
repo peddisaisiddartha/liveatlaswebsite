@@ -1,4 +1,15 @@
+// ================================
+// LiveAtlas app.js (CLEAN & SAFE)
+// ================================
+
+// 🔗 SINGLE SOURCE OF TRUTH FOR BOOKING
+function openBooking() {
+    window.open('https://cal.com/live-atlas/60min', '_blank');
+}
+
+// --------------------------------
 // Particle Background Animation
+// --------------------------------
 class ParticleSystem {
     constructor(canvas) {
         this.canvas = canvas;
@@ -6,16 +17,16 @@ class ParticleSystem {
         this.particles = [];
         this.particleCount = 100;
         this.mouse = { x: null, y: null, radius: 150 };
-        
         this.init();
         this.animate();
         this.setupEventListeners();
     }
-    
+
     init() {
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
-        
+        this.particles = [];
+
         for (let i = 0; i < this.particleCount; i++) {
             this.particles.push({
                 x: Math.random() * this.canvas.width,
@@ -23,74 +34,61 @@ class ParticleSystem {
                 size: Math.random() * 3 + 1,
                 speedX: Math.random() * 0.5 - 0.25,
                 speedY: Math.random() * 0.5 - 0.25,
-                color: `rgba(${Math.random() > 0.5 ? '0, 212, 255' : '123, 44, 191'}, ${Math.random() * 0.5 + 0.3})`
+                color: `rgba(0, 212, 255, ${Math.random() * 0.5 + 0.3})`
             });
         }
     }
-    
+
     animate() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        
-        this.particles.forEach((particle, index) => {
-            // Update position
-            particle.x += particle.speedX;
-            particle.y += particle.speedY;
-            
-            // Boundary check
-            if (particle.x < 0 || particle.x > this.canvas.width) particle.speedX *= -1;
-            if (particle.y < 0 || particle.y > this.canvas.height) particle.speedY *= -1;
-            
-            // Mouse interaction
-            const dx = this.mouse.x - particle.x;
-            const dy = this.mouse.y - particle.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            
-            if (distance < this.mouse.radius) {
-                const force = (this.mouse.radius - distance) / this.mouse.radius;
-                const angle = Math.atan2(dy, dx);
-                particle.x -= Math.cos(angle) * force * 2;
-                particle.y -= Math.sin(angle) * force * 2;
+
+        this.particles.forEach((p, i) => {
+            p.x += p.speedX;
+            p.y += p.speedY;
+
+            if (p.x < 0 || p.x > this.canvas.width) p.speedX *= -1;
+            if (p.y < 0 || p.y > this.canvas.height) p.speedY *= -1;
+
+            if (this.mouse.x !== null) {
+                const dx = this.mouse.x - p.x;
+                const dy = this.mouse.y - p.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < this.mouse.radius) {
+                    const angle = Math.atan2(dy, dx);
+                    p.x -= Math.cos(angle) * 2;
+                    p.y -= Math.sin(angle) * 2;
+                }
             }
-            
-            // Draw particle
+
             this.ctx.beginPath();
-            this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-            this.ctx.fillStyle = particle.color;
+            this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            this.ctx.fillStyle = p.color;
             this.ctx.fill();
-            
-            // Connect nearby particles
-            this.particles.forEach((otherParticle, otherIndex) => {
-                if (index !== otherIndex) {
-                    const dx = particle.x - otherParticle.x;
-                    const dy = particle.y - otherParticle.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < 100) {
+
+            this.particles.forEach((op, j) => {
+                if (i !== j) {
+                    const d = Math.hypot(p.x - op.x, p.y - op.y);
+                    if (d < 100) {
                         this.ctx.beginPath();
-                        this.ctx.strokeStyle = `rgba(0, 212, 255, ${0.2 * (1 - distance / 100)})`;
-                        this.ctx.lineWidth = 0.5;
-                        this.ctx.moveTo(particle.x, particle.y);
-                        this.ctx.lineTo(otherParticle.x, otherParticle.y);
+                        this.ctx.strokeStyle = `rgba(0,212,255,${0.15})`;
+                        this.ctx.moveTo(p.x, p.y);
+                        this.ctx.lineTo(op.x, op.y);
                         this.ctx.stroke();
                     }
                 }
             });
         });
-        
+
         requestAnimationFrame(() => this.animate());
     }
-    
+
     setupEventListeners() {
-        window.addEventListener('resize', () => {
-            this.canvas.width = window.innerWidth;
-            this.canvas.height = window.innerHeight;
-        });
-        
-        window.addEventListener('mousemove', (e) => {
+        window.addEventListener('resize', () => this.init());
+        window.addEventListener('mousemove', e => {
             this.mouse.x = e.x;
             this.mouse.y = e.y;
         });
-        
         window.addEventListener('mouseout', () => {
             this.mouse.x = null;
             this.mouse.y = null;
@@ -98,72 +96,34 @@ class ParticleSystem {
     }
 }
 
-// Initialize particle system
+// Init particles
 document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('particles');
-    if (canvas) {
-        new ParticleSystem(canvas);
-    }
+    if (canvas) new ParticleSystem(canvas);
 });
 
-// Navbar scroll effect
+// --------------------------------
+// Navbar scroll
+// --------------------------------
 const navbar = document.getElementById('navbar');
-let lastScrollTop = 0;
-
 window.addEventListener('scroll', () => {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    
-    if (scrollTop > 100) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-    
-    lastScrollTop = scrollTop;
+    navbar?.classList.toggle('scrolled', window.scrollY > 100);
 });
 
-// Mobile menu toggle
+// --------------------------------
+// Mobile menu
+// --------------------------------
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
 
-if (hamburger) {
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
-}
-
-// Close mobile menu when clicking on a link
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-    });
+hamburger?.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
 });
 
-// Smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-// Scroll to booking section
-function scrollToBooking() {
-    const bookingSection = document.getElementById('booking');
-    if (bookingSection) {
-        bookingSection.scrollIntoView({ behavior: 'smooth' });
-    }
-}
-
-// Video modal functionality
+// --------------------------------
+// Video modal
+// --------------------------------
 function playVideo() {
     const modal = document.getElementById('videoModal');
     if (modal) {
@@ -172,202 +132,43 @@ function playVideo() {
     }
 }
 
-const closeModal = document.querySelector('.close-modal');
-if (closeModal) {
-    closeModal.addEventListener('click', () => {
-        const modal = document.getElementById('videoModal');
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-        // Stop video
-        const iframe = modal.querySelector('iframe');
-        if (iframe) {
-            iframe.src = iframe.src;
-        }
-    });
-}
-
-// Close modal when clicking outside
-window.addEventListener('click', (e) => {
+document.querySelector('.close-modal')?.addEventListener('click', () => {
     const modal = document.getElementById('videoModal');
-    if (e.target === modal) {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    const iframe = modal.querySelector('iframe');
+    if (iframe) iframe.src = iframe.src;
 });
 
-// Booking form submission
-const bookingForm = document.getElementById('bookingForm');
-if (bookingForm) {
-    bookingForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        // Get form data
-        const formData = {
-            destination: document.getElementById('destination').value,
-            date: document.getElementById('date').value,
-            time: document.getElementById('time').value,
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value,
-            vrDevice: document.getElementById('vr-device').value,
-            message: document.getElementById('message').value
-        };
-        
-        // Show success message
-        alert(`Thank you, ${formData.name}! Your booking request has been received.\n\nDestination: ${formData.destination}\nDate: ${formData.date}\nTime: ${formData.time}\n\nWe'll send a confirmation to ${formData.email} shortly!`);
-        
-        // Reset form
-        bookingForm.reset();
-        
-        // In a real application, you would send this data to a server
-        console.log('Booking Data:', formData);
-    });
-}
-
-// Set minimum date for booking to today
-const dateInput = document.getElementById('date');
-if (dateInput) {
-    const today = new Date().toISOString().split('T')[0];
-    dateInput.setAttribute('min', today);
-}
-
-// Intersection Observer for scroll animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('aos-animate');
-        }
-    });
-}, observerOptions);
-
-// Observe all elements with data-aos attribute
-document.addEventListener('DOMContentLoaded', () => {
-    const animatedElements = document.querySelectorAll('[data-aos]');
-    animatedElements.forEach(el => observer.observe(el));
-});
-
-// 3D Card tilt effect
+// --------------------------------
+// 3D Card tilt
+// --------------------------------
 document.querySelectorAll('.card-3d').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 10;
-        const rotateY = (centerX - x) / 10;
-        
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px)`;
+    card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = e.clientX - r.left;
+        const y = e.clientY - r.top;
+        const rx = (y - r.height / 2) / 10;
+        const ry = (r.width / 2 - x) / 10;
+        card.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg)`;
     });
-    
     card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+        card.style.transform = 'perspective(1000px)';
     });
 });
 
-// Active navigation link highlighting
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-link');
+// --------------------------------
+// Back to top
+// --------------------------------
+const backToTop = document.createElement('button');
+backToTop.className = 'back-to-top';
+backToTop.innerHTML = '<i class="fas fa-arrow-up"></i>';
+document.body.appendChild(backToTop);
 
 window.addEventListener('scroll', () => {
-    let current = '';
-    
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (pageYOffset >= (sectionTop - 200)) {
-            current = section.getAttribute('id');
-        }
-    });
-    
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}` || 
-            (current === 'home' && link.getAttribute('href') === 'index.html')) {
-            link.classList.add('active');
-        }
-    });
+    backToTop.style.display = window.scrollY > 400 ? 'block' : 'none';
 });
 
-// Add floating animation to hero elements
-document.addEventListener('DOMContentLoaded', () => {
-    const floatingElements = document.querySelectorAll('.floating-globe, .vr-headset-icon');
-    
-    floatingElements.forEach(element => {
-        const randomDelay = Math.random() * 2;
-        element.style.animationDelay = `${randomDelay}s`;
-    });
-});
+backToTop.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
-// Countdown timer for special offers (optional feature)
-function startCountdown(duration, display) {
-    let timer = duration, hours, minutes, seconds;
-    setInterval(function () {
-        hours = parseInt(timer / 3600, 10);
-        minutes = parseInt((timer % 3600) / 60, 10);
-        seconds = parseInt(timer % 60, 10);
-
-        hours = hours < 10 ? "0" + hours : hours;
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        if (display) {
-            display.textContent = hours + ":" + minutes + ":" + seconds;
-        }
-
-        if (--timer < 0) {
-            timer = duration;
-        }
-    }, 1000);
-}
-
-// Performance optimization: Lazy load images
-document.addEventListener('DOMContentLoaded', () => {
-    const images = document.querySelectorAll('img[data-src]');
-    
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-                observer.unobserve(img);
-            }
-        });
-    });
-    
-    images.forEach(img => imageObserver.observe(img));
-});
-
-// Add parallax effect to hero section
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const heroContent = document.querySelector('.hero-content');
-    const floatingGlobe = document.querySelector('.floating-globe');
-    const vrHeadset = document.querySelector('.vr-headset-icon');
-    
-    if (heroContent) {
-        heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
-        heroContent.style.opacity = 1 - (scrolled * 0.002);
-    }
-    
-    if (floatingGlobe) {
-        floatingGlobe.style.transform = `translateY(${scrolled * 0.3}px)`;
-    }
-    
-    if (vrHeadset) {
-        vrHeadset.style.transform = `translateY(${scrolled * 0.2}px)`;
-    }
-});
-
-// Console welcome message
-console.log('%c🌍 Welcome to LiveAtlas! 🌍', 'color: #00d4ff; font-size: 24px; font-weight: bold;');
-console.log('%cExperience the world through live eyes', 'color: #7b2cbf; font-size: 16px;');
-console.log('%cBuilt with cutting-edge web technologies', 'color: #a0aec0; font-size: 14px;');
+console.log('✅ LiveAtlas app.js loaded cleanly');

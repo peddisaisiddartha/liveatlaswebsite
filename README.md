@@ -1,177 +1,157 @@
-cat > /home/claude/README.md << 'EOF'
 # LiveAtlas - Virtual Tourism Platform
 
-## 🌍 Overview
-LiveAtlas is a cutting-edge virtual tourism platform that connects users with live guides around the world through VR technology. Experience real-time tours, shop globally, and explore destinations without leaving your home.
+A cutting-edge 3D interactive website for LiveAtlas, offering live virtual tourism experiences with VR integration and global shopping capabilities.
 
-## ✨ Features
-- **Live Virtual Tourism**: Real-time tours with certified local guides
-- **Global Shopping**: Purchase authentic products during tours
-- **VR Integration**: Full compatibility with Meta Quest and other VR headsets
-- **4 Featured Destinations**: India, UAE, Denmark, Antarctica
-- **Interactive Booking System**: Easy-to-use tour booking interface
-- **Responsive Design**: Works perfectly on all devices
-- **3D Animations**: Immersive particle effects and smooth transitions
+## 🌟 Features
+
+- **3D Animated Hero Section** with particle effects and interactive canvas
+- **Immersive Design** with glassmorphism, gradients, and smooth animations
+- **Fully Responsive** for all devices
+- **VR Integration Ready** for Meta Quest and other VR headsets
+- **Live Tour Booking** integrated with Cal.com
+- **Multiple Destination Pages** (India, UAE, Denmark, Antarctica)
+- **Interactive Elements** including tilt effects, parallax scrolling, and hover animations
+- **Modern Tech Stack** with vanilla JavaScript, CSS3, and HTML5
 
 ## 📁 File Structure
+
 ```
+LiveAtlas/
 ├── index.html          # Main homepage
-├── about.html          # About us page
+├── about.html          # About LiveAtlas page
+├── roadmap.html        # Company roadmap and vision
 ├── india.html          # India destination page
-├── uae.html            # UAE destination page
-├── denmark.html        # Denmark destination page
-├── antarctica.html     # Antarctica destination page
-├── roadmap.html        # Company roadmap and future plans
-├── style.css           # Main stylesheet with 3D effects
-├── app.js              # Core JavaScript with particle system
-├── script.js           # Additional interactive features
-├── logo.png            # Company logo (placeholder - add your own)
-└── README.md           # This file
+├── uae.html           # UAE destination page
+├── denmark.html       # Denmark destination page
+├── antarctica.html    # Antarctica destination page
+├── style.css          # Main stylesheet with all styles
+├── app.js            # Primary JavaScript (3D canvas, animations)
+├── script.js         # Additional interactivity and effects
+├── logo.png          # LiveAtlas logo
+└── README.md         # This file
 ```
 
-## 🚀 Quick Start
+## 🚀 Setup Instructions
 
-### Installation
-1. Clone or download this repository
-2. Replace `logo.png` with your actual logo
-3. Open `index.html` in a modern web browser
+### 1. Replace Files on GitHub
 
-### No Build Required!
-This is a pure HTML/CSS/JavaScript project. Simply open the files in your browser to see the website in action.
+Copy and paste the code into your existing GitHub files:
 
-## 📄 File Descriptions
+- **index.html** → Paste the code into your existing `index.html`
+- **style.css** → Paste the code into your existing `style.css`
+- **app.js** → Paste the code into your existing `app.js`
+- **script.js** → Paste the code into your existing `script.js`
+- **india.html** → Paste the code into your existing `india.html`
+- **uae.html** → Paste the code into your existing `uae.html`
+- **denmark.html** → Paste the code into your existing `denmark.html`
+- **antarctica.html** → Paste the code into your existing `antarctica.html`
+- **about.html** → Paste the code into your existing `about.html`
+- **roadmap.html** → Paste the code into your existing `roadmap.html`
+- **README.md** → Paste the code into your existing `README.md`
 
-### HTML Files
-- **index.html**: Main landing page with hero section, services, destinations, booking form, and testimonials
-- **about.html**: Company information, mission, team, and statistics
-- **[destination].html**: Individual destination pages with specific tours and pricing
-- **roadmap.html**: Development phases and future technology plans
+### 2. Logo File
 
-### CSS (style.css)
-- Modern glassmorphism design
-- 3D card effects with hover animations
-- Gradient backgrounds and neon glow effects
-- Fully responsive for mobile, tablet, and desktop
-- Smooth transitions and particle animations
+Make sure your `logo.png` is in the root directory. If you don't have one, you can:
+- Create a simple logo using Canva or similar tools
+- Use a placeholder until you have your official logo
+- The website will still work without it, but navigation will look better with the logo
 
-### JavaScript Files
-- **app.js**: 
-  - Particle background animation system
-  - Navbar scroll effects
-  - Mobile menu functionality
-  - Smooth scrolling
-  - Form validation and submission
-  - 3D card tilt effects
-  
-- **script.js**:
-  - Additional interactive features
-  - Wishlist functionality
-  - Social sharing
-  - Notification system
-  - Back-to-top button
-  - Currency converter
-  - Live chat widget
+### 3. Deploy
+
+Once all files are updated on GitHub:
+- Commit the changes
+- Push to your repository
+- If using GitHub Pages, enable it in repository settings
+- Your site will be live!
 
 ## 🎨 Customization
 
 ### Colors
-Edit CSS variables in `style.css`:
+Edit the CSS variables in `style.css`:
 ```css
 :root {
     --primary-color: #00d4ff;
-    --secondary-color: #7b2cbf;
-    --accent-color: #ff006e;
-    /* ... more variables */
+    --secondary-color: #ff0080;
+    --accent-color: #7b2cbf;
+    /* ... */
 }
 ```
 
-### Destinations
-To add new destinations:
-1. Duplicate any destination HTML file
-2. Update content, images, and links
-3. Add to navigation dropdown in all files
-4. Update footer links
+### Booking Link
+The booking link is currently set to: `https://cal.com/live-atlas/60min`
+To change it, search for this URL in all HTML files and replace it.
 
 ### Images
-Replace image URLs in the destination pages:
-```html
-<img src="your-image-url.jpg" alt="Description">
-```
+The destination pages use Unsplash images. You can replace them with your own images by updating the URLs in the HTML files.
 
-## 🌐 Browser Compatibility
-- Chrome/Edge (recommended)
-- Firefox
-- Safari
-- Opera
+## 🛠️ Technical Details
+
+### Technologies Used
+- HTML5 with semantic markup
+- CSS3 with modern features (Grid, Flexbox, Animations)
+- Vanilla JavaScript (no frameworks required)
+- Canvas API for 3D particle effects
+- Intersection Observer API for scroll animations
+
+### Browser Support
+- Chrome/Edge (latest 2 versions)
+- Firefox (latest 2 versions)
+- Safari (latest 2 versions)
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+### Performance
+- Optimized animations using requestAnimationFrame
+- Lazy loading for images
+- Efficient CSS with minimal repaints
+- Smooth 60fps animations
 
 ## 📱 Responsive Breakpoints
-- Desktop: 1024px+
-- Tablet: 768px - 1023px
+
+- Desktop: 1200px+
+- Tablet: 768px - 1199px
 - Mobile: < 768px
 
-## 🔧 Technologies Used
-- HTML5
-- CSS3 (with advanced animations)
-- Vanilla JavaScript (ES6+)
-- Font Awesome icons
-- Canvas API for particles
-- CSS Grid & Flexbox
+## 🔗 Key Links
 
-## 🎯 Key Features
+All "Book Now" and "Book Tour" buttons link to:
+`https://cal.com/live-atlas/60min`
 
-### Particle Background
-Interactive particle system that responds to mouse movement, creating an immersive 3D effect.
+## 💡 Features Explained
 
-### Booking System
-Fully functional booking form with:
-- Destination selection
-- Date/time picker
-- VR device selection
-- Form validation
-- Email confirmation (simulated)
+### 3D Canvas Animation
+The hero section features a dynamic 3D particle system that creates an immersive starfield effect.
 
-### 3D Card Effects
-Cards with perspective transforms that tilt on hover for a premium feel.
+### Glassmorphism
+Modern frosted-glass effect used throughout cards and navigation for a premium feel.
 
-### Smooth Animations
-Scroll-triggered animations using Intersection Observer API.
+### Tilt Effect
+Feature cards respond to mouse movement with realistic 3D tilt.
 
-## 📝 Future Enhancements
-See `roadmap.html` for detailed future plans including:
-- AI-powered personalization
-- Multi-language support
-- Mobile app development
-- Social features
-- Metaverse integration
+### Scroll Animations
+Elements fade in and animate as you scroll down the page.
 
-## 💡 Tips for Deployment
+### Mobile Menu
+Hamburger menu for mobile devices with smooth transitions.
 
-### GitHub Pages
-1. Push all files to your repository
-2. Go to Settings > Pages
-3. Select branch and root folder
-4. Your site will be live!
+## 🐛 Troubleshooting
 
-### Custom Domain
-Update all internal links if using a custom domain.
+**Issue**: Animations not working
+- **Solution**: Make sure both `app.js` and `script.js` are properly linked in HTML
 
-## 🐛 Known Issues
-- Particle animation may be intensive on low-end devices
-- Video modal YouTube link is placeholder
-- Logo image needs to be added
+**Issue**: Booking links not working
+- **Solution**: Verify the Cal.com booking URL is correct
 
-## 📞 Support
-For questions or support, contact: info@liveatlas.com
+**Issue**: Images not loading
+- **Solution**: Check internet connection (images are loaded from Unsplash CDN)
 
-## 📄 License
-© 2025 LiveAtlas. All rights reserved.
+## 📝 License
 
-## 🙏 Credits
-- Font Awesome for icons
-- Unsplash for placeholder images
-- Design inspired by modern VR platforms
+All rights reserved © 2026 LiveAtlas
+
+## 🤝 Support
+
+For questions or issues, please contact the LiveAtlas team.
 
 ---
 
-**Built with ❤️ for the future of virtual tourism**
-EOF# website
+Built with ❤️ for the future of virtual tourism

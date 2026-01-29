@@ -1,40 +1,231 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>UAE – LiveAtlas</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore UAE - LiveAtlas</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        .destination-hero {
+            height: 70vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1600') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 70px;
+        }
+        
+        .destination-content {
+            padding: 6rem 0;
+        }
+        
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .highlight-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .highlight-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+        }
+        
+        .highlight-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .experiences {
+            background: #1a1a2e;
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+        }
+        
+        .experience-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            align-items: center;
+        }
+        
+        .experience-item img {
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        
+        .book-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--gradient-1);
+            border-radius: 20px;
+            margin: 3rem 0;
+        }
+    </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="logo.png" alt="LiveAtlas Logo">
+                <span>LiveAtlas</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="index.html#destinations">Destinations</a></li>
+                <li><a href="roadmap.html">Roadmap</a></li>
+                <li><a href="https://cal.com/live-atlas/60min" class="book-btn">Book Now</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
 
-<section class="hero">
-  <h1>🇦🇪 UAE Live Tour</h1>
-  <p>Experience the UAE live with a real guide</p>
-  <a href="https://cal.com/live-atlas/60min" class="book-btn">
-    Book Live Tour
-  </a>
-</section>
+    <!-- Hero -->
+    <section class="destination-hero">
+        <div>
+            <h1 class="glitch" data-text="Discover UAE">Discover UAE</h1>
+            <p style="font-size: 1.5rem; margin-top: 1rem;">Where Modern Luxury Meets Arabian Heritage</p>
+        </div>
+    </section>
 
-<div class="slider">
-  <div class="slides" id="uaeSlides">
-    <img src="images/uae.jpg">
-    <img src="images/uae1.jpg">
-    <img src="images/uae2.jpg">
-    <img src="images/uae3.jpg">
-  </div>
+    <!-- Content -->
+    <section class="destination-content">
+        <div class="container">
+            <h2 class="section-title">Why Visit UAE?</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; font-size: 1.2rem; color: var(--gray-text);">
+                From the world's tallest building to golden desert dunes, futuristic cities to traditional souks, 
+                the UAE offers a perfect blend of innovation and tradition.
+            </p>
 
-  <button class="prev" onclick="slide('uaeSlides', -1)">‹</button>
-  <button class="next" onclick="slide('uaeSlides', 1)">›</button>
-</div>
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <div class="highlight-icon">🏙️</div>
+                    <h3>Burj Khalifa</h3>
+                    <p>Experience the world's tallest building and explore modern Dubai's architectural marvels.</p>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-icon">🏜️</div>
+                    <h3>Desert Safari</h3>
+                    <p>Virtual desert adventures including dune bashing, camel rides, and Bedouin camp experiences.</p>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-icon">🛍️</div>
+                    <h3>Gold Souk</h3>
+                    <p>Shop for gold, spices, and textiles in Dubai's traditional markets with expert guides.</p>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-icon">🕌</div>
+                    <h3>Sheikh Zayed Mosque</h3>
+                    <p>Tour Abu Dhabi's magnificent grand mosque, one of the world's largest and most beautiful.</p>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-icon">🏰</div>
+                    <h3>Cultural Heritage</h3>
+                    <p>Explore Al Fahidi Historical District and learn about Emirati culture and traditions.</p>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-icon">🎨</div>
+                    <h3>Art & Museums</h3>
+                    <p>Visit Louvre Abu Dhabi and Dubai's Museum of the Future with knowledgeable art guides.</p>
+                </div>
+            </div>
 
-<script>
-let index = 0;
-function slide(id, direction) {
-  const slides = document.getElementById(id);
-  const total = slides.children.length;
-  index = (index + direction + total) % total;
-  slides.style.transform = `translateX(-${index * 100}%)`;
-}
-</script>
+            <div class="experiences">
+                <h2 style="text-align: center; margin-bottom: 3rem; color: var(--primary-color);">Live Tour Experiences</h2>
+                
+                <div class="experience-item">
+                    <img src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?w=400" alt="Dubai Skyline">
+                    <div>
+                        <h3>Modern Dubai Tour</h3>
+                        <p>Explore Dubai Marina, Palm Jumeirah, and the iconic Burj Khalifa in a futuristic city tour.</p>
+                        <p style="color: var(--primary-color); font-weight: bold;">Duration: 2.5 hours</p>
+                    </div>
+                </div>
 
+                <div class="experience-item">
+                    <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?w=400" alt="Desert">
+                    <div>
+                        <h3>Desert & Culture Experience</h3>
+                        <p>Experience Arabian desert life, traditional camps, and authentic Emirati hospitality.</p>
+                        <p style="color: var(--primary-color); font-weight: bold;">Duration: 3 hours</p>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400" alt="Gold Souk">
+                    <div>
+                        <h3>Traditional Souk Shopping</h3>
+                        <p>Navigate the vibrant Gold, Spice, and Textile souks with expert shoppers who know the best deals.</p>
+                        <p style="color: var(--primary-color); font-weight: bold;">Duration: 2 hours</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-section">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Ready to Explore UAE?</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">
+                    Book your virtual tour now and discover the magic of the Emirates
+                </p>
+                <a href="https://cal.com/live-atlas/60min" class="cta-primary large">Book UAE Tour</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>LiveAtlas</h3>
+                    <p>Bringing the world to your home through immersive virtual experiences</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="roadmap.html">Roadmap</a></li>
+                        <li><a href="index.html#destinations">Destinations</a></li>
+                        <li><a href="https://cal.com/live-atlas/60min">Book Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                        <a href="#" aria-label="LinkedIn">💼</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 LiveAtlas. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

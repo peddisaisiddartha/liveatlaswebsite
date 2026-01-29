@@ -1,40 +1,167 @@
+cat > /home/claude/denmark.html << 'EOF'
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Denmark – LiveAtlas</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Denmark - LiveAtlas</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <div class="background-container">
+        <canvas id="particles"></canvas>
+        <div class="gradient-overlay"></div>
+    </div>
 
-<section class="hero">
-  <h1>🇩🇰 Denmark Live Tour</h1>
-  <p>Explore Denmark with a live guide</p>
-  <a href="https://cal.com/live-atlas/60min" class="book-btn">
-    Book Live Tour
-  </a>
-</section>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="logo.png" alt="LiveAtlas Logo" class="logo">
+                <span class="logo-text">LiveAtlas</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li class="dropdown">
+                    <a href="#destinations" class="nav-link active">Destinations <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="india.html">India</a></li>
+                        <li><a href="uae.html">UAE</a></li>
+                        <li><a href="denmark.html">Denmark</a></li>
+                        <li><a href="antarctica.html">Antarctica</a></li>
+                    </ul>
+                </li>
+                <li><a href="roadmap.html" class="nav-link">Roadmap</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <a href="index.html#booking"><button class="cta-button">Book Now</button></a>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
 
-<div class="slider">
-  <div class="slides" id="denmarkSlides">
-    <img src="images/denmark.jpg">
-    <img src="images/denmark1.jpg">
-    <img src="images/denmark2.jpg">
-    <img src="images/denmark3.jpg">
-  </div>
+    <section class="hero" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=1600') center/cover;">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-line">Beautiful</span>
+                <span class="title-line highlight">Denmark</span>
+            </h1>
+            <p class="hero-subtitle">Scandinavian Charm & Viking Heritage</p>
+            <div class="hero-buttons">
+                <a href="index.html#booking"><button class="btn-primary"><i class="fas fa-ticket-alt"></i> Book Your Tour</button></a>
+            </div>
+        </div>
+    </section>
 
-  <button class="prev" onclick="slide('denmarkSlides', -1)">‹</button>
-  <button class="next" onclick="slide('denmarkSlides', 1)">›</button>
-</div>
+    <section class="services">
+        <div class="container">
+            <h2 class="section-title">Experience Danish Culture</h2>
+            <div class="services-grid">
+                <div class="service-card card-3d">
+                    <div class="card-icon"><i class="fas fa-ship"></i></div>
+                    <h3>Nyhavn Harbor</h3>
+                    <p>Stroll through Copenhagen's iconic colorful waterfront lined with historic townhouses and cafes.</p>
+                    <div class="card-glow"></div>
+                </div>
+                <div class="service-card card-3d">
+                    <div class="card-icon"><i class="fas fa-crown"></i></div>
+                    <h3>Royal Palaces</h3>
+                    <p>Visit magnificent castles including Amalienborg and Rosenborg, home to centuries of Danish royalty.</p>
+                    <div class="card-glow"></div>
+                </div>
+                <div class="service-card card-3d">
+                    <div class="card-icon"><i class="fas fa-utensils"></i></div>
+                    <h3>Nordic Cuisine</h3>
+                    <p>Discover New Nordic cuisine and traditional Danish dishes. Purchase artisanal foods and design items.</p>
+                    <div class="card-glow"></div>
+                </div>
+                <div class="service-card card-3d">
+                    <div class="card-icon"><i class="fas fa-landmark"></i></div>
+                    <h3>Tivoli Gardens</h3>
+                    <p>Explore one of the world's oldest amusement parks that inspired Walt Disney himself.</p>
+                    <div class="card-glow"></div>
+                </div>
+                <div class="service-card card-3d">
+                    <div class="card-icon"><i class="fas fa-bicycle"></i></div>
+                    <h3>Bike Culture</h3>
+                    <p>Experience Copenhagen's famous cycling culture and sustainable urban living firsthand.</p>
+                    <div class="card-glow"></div>
+                </div>
+                <div class="service-card card-3d">
+                    <div class="card-icon"><i class="fas fa-chess-rook"></i></div>
+                    <h3>Viking Museums</h3>
+                    <p>Journey through Denmark's Viking past with authentic artifacts and reconstructed longships.</p>
+                    <div class="card-glow"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<script>
-let index = 0;
-function slide(id, direction) {
-  const slides = document.getElementById(id);
-  const total = slides.children.length;
-  index = (index + direction + total) % total;
-  slides.style.transform = `translateX(-${index * 100}%)`;
-}
-</script>
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Why Visit Denmark?</h2>
+            <div style="max-width: 900px; margin: 0 auto;">
+                <div class="testimonial-card" style="margin-bottom: 30px;">
+                    <h3 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-smile"></i> Hygge Lifestyle</h3>
+                    <p>Experience the Danish concept of hygge - coziness, contentment, and wellbeing. Visit cafes, design shops, and cozy neighborhoods.</p>
+                </div>
+                <div class="testimonial-card" style="margin-bottom: 30px;">
+                    <h3 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-paint-brush"></i> Design Excellence</h3>
+                    <p>Explore world-renowned Danish design from LEGO to modern furniture. Shop authentic Nordic design pieces.</p>
+                </div>
+                <div class="testimonial-card">
+                    <h3 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-leaf"></i> Sustainable Living</h3>
+                    <p>Learn from one of the world's most sustainable countries and its green initiatives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <section class="booking">
+        <div class="container">
+            <h2 class="section-title">Ready to Explore Denmark?</h2>
+            <div style="text-align: center; margin-top: 60px;">
+                <p style="font-size: 1.3rem; color: var(--gray-text); margin-bottom: 40px;">Danish cultural tours starting at $449</p>
+                <a href="index.html#booking"><button class="btn-primary" style="font-size: 1.2rem; padding: 20px 50px;"><i class="fas fa-vr-cardboard"></i> Book Your Denmark Tour</button></a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="logo.png" alt="LiveAtlas">
+                        <span>LiveAtlas</span>
+                    </div>
+                    <p>Revolutionizing travel through immersive virtual reality experiences.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Destinations</h3>
+                    <ul>
+                        <li><a href="india.html">India</a></li>
+                        <li><a href="uae.html">UAE</a></li>
+                        <li><a href="denmark.html">Denmark</a></li>
+                        <li><a href="antarctica.html">Antarctica</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@liveatlas.com</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 LiveAtlas. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

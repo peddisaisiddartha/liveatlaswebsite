@@ -3,204 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiveAtlas - Experience the World in Real-Time</title>
+    <title>LiveAtlas - Explore the World Virtually</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="logo.png">
 </head>
 <body>
-
-    <!-- Animated Background -->
-    <div class="background-container">
-        <canvas id="particles"></canvas>
-        <div class="gradient-overlay"></div>
-    </div>
-
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
+    <nav class="navbar">
         <div class="nav-container">
-            <div class="logo-container">
-                <img src="logo.png" alt="LiveAtlas Logo" class="logo">
-                <span class="logo-text">LiveAtlas</span>
+            <div class="logo">
+                <img src="logo.png" alt="LiveAtlas Logo">
+                <span>LiveAtlas</span>
             </div>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="index.html" class="nav-link active">Home</a></li>
-                <li><a href="about.html" class="nav-link">About</a></li>
-                <li class="dropdown">
-                    <a href="#destinations" class="nav-link">Destinations <i class="fas fa-chevron-down"></i></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="india.html">India</a></li>
-                        <li><a href="uae.html">UAE</a></li>
-                        <li><a href="denmark.html">Denmark</a></li>
-                        <li><a href="antarctica.html">Antarctica</a></li>
-                    </ul>
-                </li>
-                <li><a href="roadmap.html" class="nav-link">Roadmap</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="#destinations">Destinations</a></li>
+                <li><a href="roadmap.html">Roadmap</a></li>
+                <li><a href="https://cal.com/live-atlas/60min" class="book-btn">Book Now</a></li>
             </ul>
-
-            <!-- BOOK BUTTON → CAL.COM -->
-            <a class="cta-button" href="https://cal.com/live-atlas/60min" target="_blank">Book Now</a>
-
-            <div class="hamburger" id="hamburger">
-                <span></span><span></span><span></span>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
+    <!-- 3D Hero Section -->
+    <section class="hero">
+        <div class="hero-bg">
+            <canvas id="hero-canvas"></canvas>
+        </div>
         <div class="hero-content">
-            <div class="hero-3d-elements">
-                <div class="floating-globe"></div>
-                <div class="vr-headset-icon"></div>
-            </div>
-
-            <h1 class="hero-title">
-                <span class="title-line">Experience the World</span>
-                <span class="title-line highlight">Through Live Eyes</span>
-            </h1>
-
-            <p class="hero-subtitle">
-                Virtual Tourism Meets Reality — explore real places with real people, live.
-            </p>
-
+            <h1 class="glitch" data-text="Explore Without Boundaries">Explore Without Boundaries</h1>
+            <p class="hero-subtitle">Experience the world through live virtual tours with expert guides</p>
             <div class="hero-buttons">
-                <a class="btn-primary" href="https://cal.com/live-atlas/60min" target="_blank">
-                    <i class="fas fa-vr-cardboard"></i> Book Your Live Tour
-                </a>
-                <button class="btn-secondary" onclick="playVideo()">
-                    <i class="fas fa-play"></i> Watch Demo
-                </button>
+                <a href="https://cal.com/live-atlas/60min" class="cta-primary">Start Your Journey</a>
+                <a href="#how-it-works" class="cta-secondary">Learn More</a>
             </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse"></div>
+        </div>
+    </section>
 
-            <div class="scroll-indicator">
-                <div class="mouse"><div class="wheel"></div></div>
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Revolutionary Travel Experience</h2>
+            <div class="features-grid">
+                <div class="feature-card" data-tilt>
+                    <div class="feature-icon">🌍</div>
+                    <h3>Live Virtual Tours</h3>
+                    <p>Connect with expert guides in real-time and explore destinations through their eyes via VR/Meta glasses</p>
+                </div>
+                <div class="feature-card" data-tilt>
+                    <div class="feature-icon">🛍️</div>
+                    <h3>Global Shopping</h3>
+                    <p>Purchase authentic products directly during your virtual tour and have them shipped worldwide</p>
+                </div>
+                <div class="feature-card" data-tilt>
+                    <div class="feature-icon">🎥</div>
+                    <h3>HD Video Feed</h3>
+                    <p>Crystal-clear video streaming through our secure private communication pipeline</p>
+                </div>
+                <div class="feature-card" data-tilt>
+                    <div class="feature-icon">🗺️</div>
+                    <h3>Expert Guides</h3>
+                    <p>Local guides with deep knowledge of culture, history, and hidden gems</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Services -->
-    <section class="services" id="services">
+    <!-- How It Works -->
+    <section id="how-it-works" class="how-it-works">
         <div class="container">
-            <h2 class="section-title">Our Core Experiences</h2>
-            <div class="services-grid">
-                <div class="service-card card-3d">
-                    <div class="card-icon"><i class="fas fa-globe"></i></div>
-                    <h3>Live Virtual Tourism</h3>
-                    <p>Explore destinations in real-time through a local guide’s eyes.</p>
+            <h2 class="section-title">How It Works</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>1. Choose Your Destination</h3>
+                        <p>Browse our curated list of global destinations and select your dream location</p>
+                    </div>
                 </div>
-                <div class="service-card card-3d">
-                    <div class="card-icon"><i class="fas fa-shopping-bag"></i></div>
-                    <h3>Live Global Shopping</h3>
-                    <p>Buy authentic local products during your live experience.</p>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>2. Book Your Guide</h3>
+                        <p>Select a time slot and connect with an expert local guide</p>
+                    </div>
                 </div>
-                <div class="service-card card-3d">
-                    <div class="card-icon"><i class="fas fa-headset"></i></div>
-                    <h3>VR Ready</h3>
-                    <p>Fully compatible with Meta Quest and modern VR devices.</p>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>3. Put On Your VR Headset</h3>
+                        <p>Experience immersive exploration through Meta/VR glasses</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>4. Explore & Shop</h3>
+                        <p>Tour, interact, and purchase authentic products on the go</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Destinations -->
-    <section class="destinations" id="destinations">
+    <section id="destinations" class="destinations">
         <div class="container">
-            <h2 class="section-title">Featured Destinations</h2>
-            <p class="section-subtitle">Choose a destination and book a live experience</p>
-
+            <h2 class="section-title">Popular Destinations</h2>
             <div class="destinations-grid">
-
-                <!-- INDIA -->
                 <div class="destination-card">
                     <div class="destination-image">
-                        <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800">
+                        <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800" alt="India">
                         <div class="destination-overlay">
-                            <a href="india.html" class="explore-btn">Explore India</a>
+                            <h3>India</h3>
+                            <p>Temples, Markets & Culture</p>
+                            <a href="india.html" class="explore-btn">Explore</a>
                         </div>
                     </div>
-                    <div class="destination-info">
-                        <h3>India</h3>
-                        <p>Taj Mahal • Kerala • Mumbai</p>
-                    </div>
                 </div>
-
-                <!-- UAE -->
                 <div class="destination-card">
                     <div class="destination-image">
-                        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800">
+                        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800" alt="UAE">
                         <div class="destination-overlay">
-                            <a href="uae.html" class="explore-btn">Explore UAE</a>
+                            <h3>UAE</h3>
+                            <p>Modern Marvels & Souks</p>
+                            <a href="uae.html" class="explore-btn">Explore</a>
                         </div>
                     </div>
-                    <div class="destination-info">
-                        <h3>UAE</h3>
-                        <p>Dubai • Abu Dhabi • Desert Safari</p>
-                    </div>
                 </div>
-
-                <!-- DENMARK -->
                 <div class="destination-card">
                     <div class="destination-image">
-                        <img src="https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=800">
+                        <img src="https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=800" alt="Denmark">
                         <div class="destination-overlay">
-                            <a href="denmark.html" class="explore-btn">Explore Denmark</a>
+                            <h3>Denmark</h3>
+                            <p>Nordic Beauty & Design</p>
+                            <a href="denmark.html" class="explore-btn">Explore</a>
                         </div>
                     </div>
-                    <div class="destination-info">
-                        <h3>Denmark</h3>
-                        <p>Copenhagen • Nyhavn</p>
-                    </div>
                 </div>
-
-                <!-- ANTARCTICA -->
                 <div class="destination-card">
                     <div class="destination-image">
-                        <img src="https://images.unsplash.com/photo-1516373829595-ae4fdd27e32d?w=800">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800" alt="Antarctica">
                         <div class="destination-overlay">
-                            <a href="antarctica.html" class="explore-btn">Explore Antarctica</a>
+                            <h3>Antarctica</h3>
+                            <p>Frozen Wilderness</p>
+                            <a href="antarctica.html" class="explore-btn">Explore</a>
                         </div>
                     </div>
-                    <div class="destination-info">
-                        <h3>Antarctica</h3>
-                        <p>Ice Shelves • Penguins</p>
-                    </div>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- Final CTA -->
-    <section class="hero" style="min-height:60vh">
-        <div class="hero-content">
-            <h2 class="hero-title">Ready to Travel Live?</h2>
-            <p class="hero-subtitle">Book a real-time virtual journey with a local guide.</p>
-            <a class="btn-primary" href="https://cal.com/live-atlas/60min" target="_blank">
-                Book Your Live Tour
-            </a>
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Ready to Start Your Virtual Adventure?</h2>
+            <p>Book your first live tour today and explore the world from home</p>
+            <a href="https://cal.com/live-atlas/60min" class="cta-primary large">Book a Tour Now</a>
+        </div>
+        <div class="floating-elements">
+            <div class="float-item"></div>
+            <div class="float-item"></div>
+            <div class="float-item"></div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer" id="contact">
+    <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 LiveAtlas — Experience the World Live.</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>LiveAtlas</h3>
+                    <p>Bringing the world to your home through immersive virtual experiences</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="roadmap.html">Roadmap</a></li>
+                        <li><a href="#destinations">Destinations</a></li>
+                        <li><a href="https://cal.com/live-atlas/60min">Book Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                        <a href="#" aria-label="LinkedIn">💼</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 LiveAtlas. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
-    <!-- Video Modal -->
-    <div class="video-modal" id="videoModal">
-        <div class="video-modal-content">
-            <span class="close-modal">&times;</span>
-            <iframe width="100%" height="500"
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                allowfullscreen></iframe>
-        </div>
-    </div>
-
     <script src="app.js"></script>
     <script src="script.js"></script>
-
 </body>
 </html>

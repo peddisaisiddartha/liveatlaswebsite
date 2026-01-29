@@ -1,231 +1,332 @@
-cat > /home/claude/roadmap.html << 'EOF'
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roadmap - LiveAtlas</title>
+    <title>LiveAtlas Roadmap - Our Vision</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        .roadmap-hero {
+            height: 60vh;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 70px;
+        }
+        
+        .roadmap-section {
+            padding: 6rem 2rem;
+            background: var(--dark-bg);
+        }
+        
+        .roadmap-timeline {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 0;
+        }
+        
+        .roadmap-phase {
+            margin-bottom: 4rem;
+            position: relative;
+            padding-left: 4rem;
+        }
+        
+        .phase-marker {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.5);
+        }
+        
+        .phase-content {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .phase-content:hover {
+            border-color: var(--primary-color);
+            transform: translateX(10px);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3);
+        }
+        
+        .phase-status {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .status-complete {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            border: 1px solid #00ff88;
+        }
+        
+        .status-progress {
+            background: rgba(0, 212, 255, 0.2);
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+        
+        .status-planned {
+            background: rgba(255, 0, 128, 0.2);
+            color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+        
+        .feature-list li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--gray-text);
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <div class="background-container">
-        <canvas id="particles"></canvas>
-        <div class="gradient-overlay"></div>
-    </div>
-
-    <nav class="navbar" id="navbar">
+    <!-- Navigation -->
+    <nav class="navbar">
         <div class="nav-container">
-            <div class="logo-container">
-                <img src="logo.png" alt="LiveAtlas Logo" class="logo">
-                <span class="logo-text">LiveAtlas</span>
+            <div class="logo">
+                <img src="logo.png" alt="LiveAtlas Logo">
+                <span>LiveAtlas</span>
             </div>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="about.html" class="nav-link">About</a></li>
-                <li class="dropdown">
-                    <a href="#destinations" class="nav-link">Destinations <i class="fas fa-chevron-down"></i></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="india.html">India</a></li>
-                        <li><a href="uae.html">UAE</a></li>
-                        <li><a href="denmark.html">Denmark</a></li>
-                        <li><a href="antarctica.html">Antarctica</a></li>
-                    </ul>
-                </li>
-                <li><a href="roadmap.html" class="nav-link active">Roadmap</a></li>
-                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="index.html#destinations">Destinations</a></li>
+                <li><a href="roadmap.html">Roadmap</a></li>
+                <li><a href="https://cal.com/live-atlas/60min" class="book-btn">Book Now</a></li>
             </ul>
-            <a href="index.html#booking"><button class="cta-button">Book Now</button></a>
-            <div class="hamburger" id="hamburger">
-                <span></span><span></span><span></span>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </nav>
 
-    <section class="hero" style="min-height: 60vh;">
-        <div class="hero-content">
-            <h1 class="hero-title">
-                <span class="title-line">Our Vision for</span>
-                <span class="title-line highlight">The Future</span>
-            </h1>
-            <p class="hero-subtitle">Building the next generation of virtual travel experiences</p>
+    <!-- Hero -->
+    <section class="roadmap-hero">
+        <div>
+            <h1 style="font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem;">Our Roadmap</h1>
+            <p style="font-size: 1.3rem; max-width: 700px; margin: 0 auto;">Building the future of virtual tourism</p>
         </div>
     </section>
 
-    <section class="how-it-works">
+    <!-- Roadmap -->
+    <section class="roadmap-section">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">LiveAtlas Roadmap</h2>
+            <h2 class="section-title">Our Journey</h2>
             
-            <div class="steps-container" style="flex-direction: column; align-items: stretch; max-width: 1000px; margin: 60px auto;">
-                
+            <div class="roadmap-timeline">
                 <!-- Phase 1 -->
-                <div class="step-card" style="max-width: 100%; margin-bottom: 40px;" data-aos="fade-right" data-aos-delay="100">
-                    <div class="step-number">Q1 2025</div>
-                    <div class="step-icon"><i class="fas fa-rocket"></i></div>
-                    <h3>Phase 1: Platform Launch</h3>
-                    <p style="text-align: left; margin-top: 15px;">
-                        ✅ Launch beta platform with 5 destinations<br>
-                        ✅ Onboard 50+ certified guides<br>
-                        ✅ VR headset compatibility (Meta Quest series)<br>
-                        ✅ Basic e-commerce integration<br>
-                        ✅ Live streaming infrastructure<br>
-                        ✅ User booking system
-                    </p>
+                <div class="roadmap-phase">
+                    <div class="phase-marker">Q1</div>
+                    <div class="phase-content">
+                        <span class="phase-status status-complete">✓ COMPLETED</span>
+                        <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Platform Foundation</h2>
+                        <p style="color: var(--gray-text); margin-bottom: 1rem;">Q1 2026 - Establishing core infrastructure and pilot programs</p>
+                        <ul class="feature-list">
+                            <li>Website launch with 3D interactive design</li>
+                            <li>VR headset integration (Meta Quest, HTC Vive)</li>
+                            <li>Private video streaming pipeline</li>
+                            <li>Initial destination rollout (India, UAE, Denmark, Antarctica)</li>
+                            <li>Guide recruitment and training program</li>
+                            <li>Beta testing with 100 early adopters</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <!-- Phase 2 -->
-                <div class="step-card" style="max-width: 100%; margin-bottom: 40px; background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(123, 44, 191, 0.1) 100%);" data-aos="fade-right" data-aos-delay="200">
-                    <div class="step-number">Q2 2025</div>
-                    <div class="step-icon"><i class="fas fa-globe-americas"></i></div>
-                    <h3>Phase 2: Global Expansion</h3>
-                    <p style="text-align: left; margin-top: 15px;">
-                        🔄 Expand to 25+ destinations worldwide<br>
-                        🔄 Multi-language support (10 languages)<br>
-                        🔄 Enhanced shopping features with AR preview<br>
-                        🔄 Partnership with local artisans and businesses<br>
-                        🔄 Mobile app launch (iOS & Android)<br>
-                        🔄 Group tour functionality
-                    </p>
+                <div class="roadmap-phase">
+                    <div class="phase-marker">Q2</div>
+                    <div class="phase-content">
+                        <span class="phase-status status-progress">⚡ IN PROGRESS</span>
+                        <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Market Expansion</h2>
+                        <p style="color: var(--gray-text); margin-bottom: 1rem;">Q2 2026 - Scaling operations and adding features</p>
+                        <ul class="feature-list">
+                            <li>Expand to 20+ destinations across 6 continents</li>
+                            <li>Launch global shopping marketplace</li>
+                            <li>AI-powered tour customization</li>
+                            <li>Multi-language support (10 languages)</li>
+                            <li>Mobile app for iOS and Android</li>
+                            <li>Partnership with tourism boards</li>
+                            <li>Enhanced social features (group tours)</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <!-- Phase 3 -->
-                <div class="step-card" style="max-width: 100%; margin-bottom: 40px;" data-aos="fade-right" data-aos-delay="300">
-                    <div class="step-number">Q3 2025</div>
-                    <div class="step-icon"><i class="fas fa-brain"></i></div>
-                    <h3>Phase 3: AI Integration</h3>
-                    <p style="text-align: left; margin-top: 15px;">
-                        🔜 AI-powered tour personalization<br>
-                        🔜 Real-time language translation<br>
-                        🔜 Intelligent recommendation engine<br>
-                        🔜 360° camera upgrades for guides<br>
-                        🔜 Haptic feedback suit integration<br>
-                        🔜 Virtual souvenir NFTs
-                    </p>
+                <div class="roadmap-phase">
+                    <div class="phase-marker">Q3</div>
+                    <div class="phase-content">
+                        <span class="phase-status status-planned">📅 PLANNED</span>
+                        <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Advanced Features</h2>
+                        <p style="color: var(--gray-text); margin-bottom: 1rem;">Q3 2026 - Cutting-edge technology integration</p>
+                        <ul class="feature-list">
+                            <li>AR features for hybrid experiences</li>
+                            <li>360° interactive panoramas</li>
+                            <li>Real-time translation during tours</li>
+                            <li>Virtual reality marketplace</li>
+                            <li>Educational partnerships with schools</li>
+                            <li>Corporate team building packages</li>
+                            <li>Live event coverage (festivals, celebrations)</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <!-- Phase 4 -->
-                <div class="step-card" style="max-width: 100%; margin-bottom: 40px;" data-aos="fade-right" data-aos-delay="400">
-                    <div class="step-number">Q4 2025</div>
-                    <div class="step-icon"><i class="fas fa-users"></i></div>
-                    <h3>Phase 4: Social Features</h3>
-                    <p style="text-align: left; margin-top: 15px;">
-                        🔜 Multi-user tours (explore with friends)<br>
-                        🔜 Social marketplace for users<br>
-                        🔜 User-generated content platform<br>
-                        🔜 Virtual meet-ups and events<br>
-                        🔜 Loyalty rewards program<br>
-                        🔜 Subscription packages
-                    </p>
+                <div class="roadmap-phase">
+                    <div class="phase-marker">Q4</div>
+                    <div class="phase-content">
+                        <span class="phase-status status-planned">📅 PLANNED</span>
+                        <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Global Platform</h2>
+                        <p style="color: var(--gray-text); margin-bottom: 1rem;">Q4 2026 - Becoming the world's leading virtual tourism platform</p>
+                        <ul class="feature-list">
+                            <li>100+ destinations worldwide</li>
+                            <li>1000+ certified guides globally</li>
+                            <li>AI tour guide assistant</li>
+                            <li>Subscription plans and memberships</li>
+                            <li>Virtual reality social hub</li>
+                            <li>NFT certificates for visited destinations</li>
+                            <li>B2B enterprise solutions</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <!-- Phase 5 -->
-                <div class="step-card" style="max-width: 100%;" data-aos="fade-right" data-aos-delay="500">
-                    <div class="step-number">2026</div>
-                    <div class="step-icon"><i class="fas fa-star"></i></div>
-                    <h3>Phase 5: Next-Gen Experience</h3>
-                    <p style="text-align: left; margin-top: 15px;">
-                        🔜 Full metaverse integration<br>
-                        🔜 AI avatar guides<br>
-                        🔜 Time-travel historical tours<br>
-                        🔜 Underwater and space destinations<br>
-                        🔜 Corporate team-building packages<br>
-                        🔜 Educational partnerships with schools
-                    </p>
+                <div class="roadmap-phase">
+                    <div class="phase-marker">2027</div>
+                    <div class="phase-content">
+                        <span class="phase-status status-planned">🚀 VISION</span>
+                        <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Future Innovation</h2>
+                        <p style="color: var(--gray-text); margin-bottom: 1rem;">2027 & Beyond - Revolutionary travel experiences</p>
+                        <ul class="feature-list">
+                            <li>Holographic tour projections</li>
+                            <li>Time travel experiences (historical recreations)</li>
+                            <li>Space tourism virtual previews</li>
+                            <li>Metaverse integration</li>
+                            <li>Brain-computer interface experiments</li>
+                            <li>Sustainable tourism impact tracking</li>
+                            <li>Global cultural exchange network</li>
+                        </ul>
+                    </div>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <section class="services">
+    <!-- Vision Section -->
+    <section class="features" style="background: #1a1a2e;">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Technology Stack</h2>
-            <div class="services-grid">
-                <div class="service-card card-3d" data-aos="zoom-in">
-                    <div class="card-icon"><i class="fas fa-video"></i></div>
-                    <h3>Streaming</h3>
-                    <p>Ultra-low latency 4K video streaming with WebRTC and custom compression algorithms</p>
+            <h2 class="section-title">Our Vision for 2030</h2>
+            <p style="text-align: center; max-width: 900px; margin: 0 auto 4rem; font-size: 1.2rem; color: var(--gray-text); line-height: 1.8;">
+                By 2030, we envision a world where everyone can experience the wonders of our planet, 
+                where physical barriers don't limit exploration, and where virtual tourism contributes 
+                positively to local economies and cultural preservation.
+            </p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>1 Billion Explorers</h3>
+                    <p>Connecting one billion people with virtual travel experiences across 200+ countries.</p>
                 </div>
-                <div class="service-card card-3d" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
-                    <h3>Security</h3>
-                    <p>End-to-end encryption for private tours with enterprise-grade security protocols</p>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Economic Impact</h3>
+                    <p>Generating $10B in revenue for local guides and merchants in developing countries.</p>
                 </div>
-                <div class="service-card card-3d" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="card-icon"><i class="fas fa-cloud"></i></div>
-                    <h3>Infrastructure</h3>
-                    <p>Global CDN with edge computing for minimal latency worldwide</p>
+                <div class="feature-card">
+                    <div class="feature-icon">🌱</div>
+                    <h3>Carbon Neutral</h3>
+                    <p>Offsetting millions of tons of CO2 by reducing unnecessary physical travel.</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="testimonials">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Join Our Journey</h2>
-            <div style="max-width: 700px; margin: 60px auto; text-align: center;">
-                <p style="font-size: 1.2rem; color: var(--gray-text); line-height: 2; margin-bottom: 40px;">
-                    We're building the future of travel, and we want you to be part of it. Sign up for early access to new features, 
-                    beta test upcoming destinations, and help shape the direction of virtual tourism.
-                </p>
-                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                    <button class="btn-primary" onclick="alert('Thank you for your interest! We will contact you soon.')">
-                        <i class="fas fa-bell"></i> Get Early Access
-                    </button>
-                    <button class="btn-secondary" onclick="alert('Partnership inquiry form coming soon!')">
-                        <i class="fas fa-handshake"></i> Partner With Us
-                    </button>
+                <div class="feature-card">
+                    <div class="feature-icon">🎓</div>
+                    <h3>Education Revolution</h3>
+                    <p>Partnering with 10,000 schools worldwide for immersive educational field trips.</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Join Us on This Journey</h2>
+            <p>Be part of the virtual tourism revolution</p>
+            <a href="https://cal.com/live-atlas/60min" class="cta-primary large">Book Your Tour Today</a>
+        </div>
+        <div class="floating-elements">
+            <div class="float-item"></div>
+            <div class="float-item"></div>
+            <div class="float-item"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <div class="footer-logo">
-                        <img src="logo.png" alt="LiveAtlas">
-                        <span>LiveAtlas</span>
-                    </div>
-                    <p>Revolutionizing travel through immersive virtual reality experiences.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
+                    <h3>LiveAtlas</h3>
+                    <p>Bringing the world to your home through immersive virtual experiences</p>
                 </div>
                 <div class="footer-section">
-                    <h3>Quick Links</h3>
+                    <h4>Quick Links</h4>
                     <ul>
                         <li><a href="about.html">About Us</a></li>
-                        <li><a href="index.html#services">Services</a></li>
                         <li><a href="roadmap.html">Roadmap</a></li>
+                        <li><a href="index.html#destinations">Destinations</a></li>
+                        <li><a href="https://cal.com/live-atlas/60min">Book Now</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Destinations</h3>
-                    <ul>
-                        <li><a href="india.html">India</a></li>
-                        <li><a href="uae.html">UAE</a></li>
-                        <li><a href="denmark.html">Denmark</a></li>
-                        <li><a href="antarctica.html">Antarctica</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact</h3>
-                    <ul>
-                        <li><i class="fas fa-envelope"></i> info@liveatlas.com</li>
-                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
-                    </ul>
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                        <a href="#" aria-label="LinkedIn">💼</a>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 LiveAtlas. All rights reserved.</p>
+                <p>&copy; 2026 LiveAtlas. All rights reserved.</p>
             </div>
         </div>
     </footer>
+
     <script src="app.js"></script>
     <script src="script.js"></script>
 </body>

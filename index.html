@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+
     <!-- Animated Background -->
     <div class="background-container">
         <canvas id="particles"></canvas>
@@ -36,11 +37,12 @@
                 <li><a href="roadmap.html" class="nav-link">Roadmap</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-            <button class="cta-button" onclick="scrollToBooking()">Book Now</button>
+
+            <!-- BOOK BUTTON → CAL.COM -->
+            <a class="cta-button" href="https://cal.com/live-atlas/60min" target="_blank">Book Now</a>
+
             <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
         </div>
     </nav>
@@ -52,323 +54,138 @@
                 <div class="floating-globe"></div>
                 <div class="vr-headset-icon"></div>
             </div>
+
             <h1 class="hero-title">
                 <span class="title-line">Experience the World</span>
                 <span class="title-line highlight">Through Live Eyes</span>
             </h1>
-            <p class="hero-subtitle">Virtual Tourism Meets Reality - Explore anywhere, anytime with our live guides</p>
+
+            <p class="hero-subtitle">
+                Virtual Tourism Meets Reality — explore real places with real people, live.
+            </p>
+
             <div class="hero-buttons">
-                <button class="btn-primary" onclick="scrollToBooking()">
-                    <i class="fas fa-vr-cardboard"></i> Start Your Journey
-                </button>
+                <a class="btn-primary" href="https://cal.com/live-atlas/60min" target="_blank">
+                    <i class="fas fa-vr-cardboard"></i> Book Your Live Tour
+                </a>
                 <button class="btn-secondary" onclick="playVideo()">
                     <i class="fas fa-play"></i> Watch Demo
                 </button>
             </div>
+
             <div class="scroll-indicator">
-                <div class="mouse">
-                    <div class="wheel"></div>
-                </div>
+                <div class="mouse"><div class="wheel"></div></div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
+    <!-- Services -->
     <section class="services" id="services">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Our Revolutionary Services</h2>
+            <h2 class="section-title">Our Core Experiences</h2>
             <div class="services-grid">
-                <div class="service-card card-3d" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="card-icon">
-                        <i class="fas fa-globe-americas"></i>
-                    </div>
+                <div class="service-card card-3d">
+                    <div class="card-icon"><i class="fas fa-globe"></i></div>
                     <h3>Live Virtual Tourism</h3>
-                    <p>Connect with expert local guides through VR and explore destinations in real-time as if you're there</p>
-                    <div class="card-glow"></div>
+                    <p>Explore destinations in real-time through a local guide’s eyes.</p>
                 </div>
-                <div class="service-card card-3d" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="card-icon">
-                        <i class="fas fa-shopping-bag"></i>
-                    </div>
+                <div class="service-card card-3d">
+                    <div class="card-icon"><i class="fas fa-shopping-bag"></i></div>
                     <h3>Live Global Shopping</h3>
-                    <p>Purchase authentic products directly during your virtual tour from local markets and stores</p>
-                    <div class="card-glow"></div>
+                    <p>Buy authentic local products during your live experience.</p>
                 </div>
-                <div class="service-card card-3d" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="card-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h3>VR Integration</h3>
-                    <p>Seamless compatibility with Meta Quest, VR headsets for an immersive experience</p>
-                    <div class="card-glow"></div>
+                <div class="service-card card-3d">
+                    <div class="card-icon"><i class="fas fa-headset"></i></div>
+                    <h3>VR Ready</h3>
+                    <p>Fully compatible with Meta Quest and modern VR devices.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How It Works -->
-    <section class="how-it-works" id="how">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">How LiveAtlas Works</h2>
-            <div class="steps-container">
-                <div class="step-card" data-aos="fade-right" data-aos-delay="100">
-                    <div class="step-number">01</div>
-                    <div class="step-icon"><i class="fas fa-map-marked-alt"></i></div>
-                    <h3>Choose Your Destination</h3>
-                    <p>Browse through our curated list of destinations and select the place you want to explore</p>
-                </div>
-                <div class="connection-line"></div>
-                <div class="step-card" data-aos="fade-right" data-aos-delay="200">
-                    <div class="step-number">02</div>
-                    <div class="step-icon"><i class="fas fa-user-tie"></i></div>
-                    <h3>Connect with Guide</h3>
-                    <p>Get matched with a certified local guide who will take you on a personalized live tour</p>
-                </div>
-                <div class="connection-line"></div>
-                <div class="step-card" data-aos="fade-right" data-aos-delay="300">
-                    <div class="step-number">03</div>
-                    <div class="step-icon"><i class="fas fa-vr-cardboard"></i></div>
-                    <h3>Wear Your VR Headset</h3>
-                    <p>Put on your VR glasses and immerse yourself in a live video feed from your guide's perspective</p>
-                </div>
-                <div class="connection-line"></div>
-                <div class="step-card" data-aos="fade-right" data-aos-delay="400">
-                    <div class="step-number">04</div>
-                    <div class="step-icon"><i class="fas fa-shopping-cart"></i></div>
-                    <h3>Shop & Explore</h3>
-                    <p>Interact with your guide, ask questions, and purchase authentic products in real-time</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Destinations -->
+    <!-- Destinations -->
     <section class="destinations" id="destinations">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Featured Destinations</h2>
-            <p class="section-subtitle">Explore the world's most incredible places with our expert guides</p>
+            <h2 class="section-title">Featured Destinations</h2>
+            <p class="section-subtitle">Choose a destination and book a live experience</p>
+
             <div class="destinations-grid">
-                <div class="destination-card" data-aos="flip-left" data-aos-delay="100">
+
+                <!-- INDIA -->
+                <div class="destination-card">
                     <div class="destination-image">
-                        <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800" alt="India">
+                        <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800">
                         <div class="destination-overlay">
                             <a href="india.html" class="explore-btn">Explore India</a>
                         </div>
                     </div>
                     <div class="destination-info">
                         <h3>India</h3>
-                        <p><i class="fas fa-map-marker-alt"></i> Taj Mahal, Mumbai, Kerala & More</p>
-                        <div class="destination-stats">
-                            <span><i class="fas fa-star"></i> 4.9</span>
-                            <span><i class="fas fa-users"></i> 2.3k Tours</span>
-                        </div>
+                        <p>Taj Mahal • Kerala • Mumbai</p>
                     </div>
                 </div>
-                <div class="destination-card" data-aos="flip-left" data-aos-delay="200">
+
+                <!-- UAE -->
+                <div class="destination-card">
                     <div class="destination-image">
-                        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800" alt="UAE">
+                        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800">
                         <div class="destination-overlay">
                             <a href="uae.html" class="explore-btn">Explore UAE</a>
                         </div>
                     </div>
                     <div class="destination-info">
-                        <h3>United Arab Emirates</h3>
-                        <p><i class="fas fa-map-marker-alt"></i> Dubai, Abu Dhabi, Sharjah</p>
-                        <div class="destination-stats">
-                            <span><i class="fas fa-star"></i> 4.8</span>
-                            <span><i class="fas fa-users"></i> 1.8k Tours</span>
-                        </div>
+                        <h3>UAE</h3>
+                        <p>Dubai • Abu Dhabi • Desert Safari</p>
                     </div>
                 </div>
-                <div class="destination-card" data-aos="flip-left" data-aos-delay="300">
+
+                <!-- DENMARK -->
+                <div class="destination-card">
                     <div class="destination-image">
-                        <img src="https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=800" alt="Denmark">
+                        <img src="https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=800">
                         <div class="destination-overlay">
                             <a href="denmark.html" class="explore-btn">Explore Denmark</a>
                         </div>
                     </div>
                     <div class="destination-info">
                         <h3>Denmark</h3>
-                        <p><i class="fas fa-map-marker-alt"></i> Copenhagen, Aarhus, Odense</p>
-                        <div class="destination-stats">
-                            <span><i class="fas fa-star"></i> 4.9</span>
-                            <span><i class="fas fa-users"></i> 1.5k Tours</span>
-                        </div>
+                        <p>Copenhagen • Nyhavn</p>
                     </div>
                 </div>
-                <div class="destination-card" data-aos="flip-left" data-aos-delay="400">
+
+                <!-- ANTARCTICA -->
+                <div class="destination-card">
                     <div class="destination-image">
-                        <img src="https://images.unsplash.com/photo-1516373829595-ae4fdd27e32d?w=800" alt="Antarctica">
+                        <img src="https://images.unsplash.com/photo-1516373829595-ae4fdd27e32d?w=800">
                         <div class="destination-overlay">
                             <a href="antarctica.html" class="explore-btn">Explore Antarctica</a>
                         </div>
                     </div>
                     <div class="destination-info">
                         <h3>Antarctica</h3>
-                        <p><i class="fas fa-map-marker-alt"></i> Ice Shelves, Penguin Colonies</p>
-                        <div class="destination-stats">
-                            <span><i class="fas fa-star"></i> 5.0</span>
-                            <span><i class="fas fa-users"></i> 890 Tours</span>
-                        </div>
+                        <p>Ice Shelves • Penguins</p>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Booking Section -->
-    <section class="booking" id="booking">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Book Your Virtual Adventure</h2>
-            <div class="booking-container" data-aos="zoom-in">
-                <form class="booking-form" id="bookingForm">
-                    <div class="form-group">
-                        <label for="destination"><i class="fas fa-globe"></i> Select Destination</label>
-                        <select id="destination" required>
-                            <option value="">Choose a destination...</option>
-                            <option value="india">India</option>
-                            <option value="uae">United Arab Emirates</option>
-                            <option value="denmark">Denmark</option>
-                            <option value="antarctica">Antarctica</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="date"><i class="fas fa-calendar"></i> Tour Date</label>
-                        <input type="date" id="date" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="time"><i class="fas fa-clock"></i> Preferred Time</label>
-                        <select id="time" required>
-                            <option value="">Select time...</option>
-                            <option value="morning">Morning (8AM - 12PM)</option>
-                            <option value="afternoon">Afternoon (12PM - 4PM)</option>
-                            <option value="evening">Evening (4PM - 8PM)</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="name"><i class="fas fa-user"></i> Full Name</label>
-                        <input type="text" id="name" placeholder="Enter your name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
-                        <input type="email" id="email" placeholder="your@email.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone"><i class="fas fa-phone"></i> Phone Number</label>
-                        <input type="tel" id="phone" placeholder="+1 (555) 000-0000" required>
-                    </div>
-                    <div class="form-group full-width">
-                        <label for="vr-device"><i class="fas fa-headset"></i> VR Device</label>
-                        <select id="vr-device" required>
-                            <option value="">Select your VR device...</option>
-                            <option value="meta-quest">Meta Quest</option>
-                            <option value="meta-quest-2">Meta Quest 2</option>
-                            <option value="meta-quest-3">Meta Quest 3</option>
-                            <option value="other">Other VR Headset</option>
-                        </select>
-                    </div>
-                    <div class="form-group full-width">
-                        <label for="message"><i class="fas fa-comment"></i> Special Requests</label>
-                        <textarea id="message" rows="4" placeholder="Any special interests or requests..."></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">
-                        <span>Confirm Booking</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">What Our Travelers Say</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="stars">★★★★★</div>
-                    <p>"Absolutely mind-blowing! I explored the Taj Mahal from my living room. The guide was incredible and I even bought some authentic Indian spices!"</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">S</div>
-                        <div>
-                            <h4>Sarah Johnson</h4>
-                            <span>USA</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="stars">★★★★★</div>
-                    <p>"The future of tourism is here. Being able to experience Dubai's Burj Khalifa through VR with a live guide felt surreal. Highly recommend!"</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">M</div>
-                        <div>
-                            <h4>Michael Chen</h4>
-                            <span>Singapore</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="stars">★★★★★</div>
-                    <p>"I never thought I'd see Antarctica without actually going there. The penguin colonies were stunning. LiveAtlas made my dream come true!"</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">E</div>
-                        <div>
-                            <h4>Emma Rodriguez</h4>
-                            <span>Spain</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Final CTA -->
+    <section class="hero" style="min-height:60vh">
+        <div class="hero-content">
+            <h2 class="hero-title">Ready to Travel Live?</h2>
+            <p class="hero-subtitle">Book a real-time virtual journey with a local guide.</p>
+            <a class="btn-primary" href="https://cal.com/live-atlas/60min" target="_blank">
+                Book Your Live Tour
+            </a>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer" id="contact">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-logo">
-                        <img src="logo.png" alt="LiveAtlas">
-                        <span>LiveAtlas</span>
-                    </div>
-                    <p>Revolutionizing travel through immersive virtual reality experiences.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="roadmap.html">Roadmap</a></li>
-                        <li><a href="#booking">Book Now</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Destinations</h3>
-                    <ul>
-                        <li><a href="india.html">India</a></li>
-                        <li><a href="uae.html">UAE</a></li>
-                        <li><a href="denmark.html">Denmark</a></li>
-                        <li><a href="antarctica.html">Antarctica</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact Us</h3>
-                    <ul>
-                        <li><i class="fas fa-envelope"></i> liveatlasco@gmail.com</li>
-                        <li><i class="fas fa-phone"></i> +91 8639392931</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Telangana, India</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 LiveAtlas. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
-            </div>
+            <p>&copy; 2025 LiveAtlas — Experience the World Live.</p>
         </div>
     </footer>
 
@@ -376,11 +193,14 @@
     <div class="video-modal" id="videoModal">
         <div class="video-modal-content">
             <span class="close-modal">&times;</span>
-            <iframe width="100%" height="500" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe width="100%" height="500"
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                allowfullscreen></iframe>
         </div>
     </div>
 
     <script src="app.js"></script>
     <script src="script.js"></script>
+
 </body>
 </html>

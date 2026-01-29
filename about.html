@@ -3,41 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - LiveAtlas</title>
+    <title>About LiveAtlas - Virtual Tourism Revolution</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        .about-hero {
+            height: 60vh;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 70px;
+        }
+        
+        .about-section {
+            padding: 6rem 2rem;
+        }
+        
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin: 4rem 0;
+        }
+        
+        .mission-card {
+            text-align: center;
+        }
+        
+        .mission-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .team-section {
+            background: #1a1a2e;
+            padding: 6rem 2rem;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+        
+        .tech-badge {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-badge:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+    </style>
 </head>
 <body>
-    <!-- Background -->
-    <div class="background-container">
-        <canvas id="particles"></canvas>
-        <div class="gradient-overlay"></div>
-    </div>
-
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
+    <nav class="navbar">
         <div class="nav-container">
-            <div class="logo-container">
-                <img src="logo.png" alt="LiveAtlas Logo" class="logo">
-                <span class="logo-text">LiveAtlas</span>
+            <div class="logo">
+                <img src="logo.png" alt="LiveAtlas Logo">
+                <span>LiveAtlas</span>
             </div>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="about.html" class="nav-link active">About</a></li>
-                <li class="dropdown">
-                    <a href="#destinations" class="nav-link">Destinations <i class="fas fa-chevron-down"></i></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="india.html">India</a></li>
-                        <li><a href="uae.html">UAE</a></li>
-                        <li><a href="denmark.html">Denmark</a></li>
-                        <li><a href="antarctica.html">Antarctica</a></li>
-                    </ul>
-                </li>
-                <li><a href="roadmap.html" class="nav-link">Roadmap</a></li>
-                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="index.html#destinations">Destinations</a></li>
+                <li><a href="roadmap.html">Roadmap</a></li>
+                <li><a href="https://cal.com/live-atlas/60min" class="book-btn">Book Now</a></li>
             </ul>
-            <a href="index.html#booking"><button class="cta-button">Book Now</button></a>
-            <div class="hamburger" id="hamburger">
+            <div class="hamburger">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -45,113 +89,140 @@
         </div>
     </nav>
 
-    <!-- About Hero -->
-    <section class="hero" style="min-height: 60vh;">
-        <div class="hero-content">
-            <h1 class="hero-title">
-                <span class="title-line">Redefining Travel</span>
-                <span class="title-line highlight">Through Innovation</span>
-            </h1>
-            <p class="hero-subtitle">Connecting the world through immersive virtual reality experiences</p>
+    <!-- Hero -->
+    <section class="about-hero">
+        <div>
+            <h1 style="font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem;">About LiveAtlas</h1>
+            <p style="font-size: 1.3rem; max-width: 700px; margin: 0 auto;">Revolutionizing travel through immersive virtual experiences</p>
         </div>
     </section>
 
-    <!-- Mission Section -->
-    <section class="services">
+    <!-- Mission -->
+    <section class="about-section">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Our Mission</h2>
-            <div class="services-grid">
-                <div class="service-card card-3d" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="card-icon">
-                        <i class="fas fa-globe"></i>
+            <h2 class="section-title">Our Mission</h2>
+            <p style="text-align: center; max-width: 900px; margin: 0 auto 4rem; font-size: 1.2rem; color: var(--gray-text); line-height: 1.8;">
+                LiveAtlas is pioneering the future of travel by combining cutting-edge VR technology with live human connection. 
+                We believe everyone deserves to explore the world, regardless of physical, financial, or time constraints.
+            </p>
+
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <div class="mission-icon">🌍</div>
+                    <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Global Access</h3>
+                    <p style="color: var(--gray-text);">Making world exploration accessible to everyone, anywhere, at any time.</p>
+                </div>
+                <div class="mission-card">
+                    <div class="mission-icon">👥</div>
+                    <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Human Connection</h3>
+                    <p style="color: var(--gray-text);">Real guides sharing authentic experiences and local knowledge in real-time.</p>
+                </div>
+                <div class="mission-card">
+                    <div class="mission-icon">🛍️</div>
+                    <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Global Commerce</h3>
+                    <p style="color: var(--gray-text);">Supporting local economies by enabling global shopping during virtual tours.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="team-section">
+        <div class="container">
+            <h2 class="section-title">How LiveAtlas Works</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Advanced VR Integration</h3>
+                        <p>Our platform seamlessly connects with Meta Quest, HTC Vive, and other VR headsets to deliver truly immersive experiences.</p>
                     </div>
-                    <h3>Global Accessibility</h3>
-                    <p>Making world exploration accessible to everyone, regardless of physical limitations or financial constraints.</p>
                 </div>
-                <div class="service-card card-3d" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="card-icon">
-                        <i class="fas fa-leaf"></i>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Private Video Pipeline</h3>
+                        <p>Custom-built secure streaming infrastructure ensures crystal-clear, low-latency video transmission from guides to users worldwide.</p>
                     </div>
-                    <h3>Sustainable Tourism</h3>
-                    <p>Reducing carbon footprint while preserving cultural heritage through virtual experiences.</p>
                 </div>
-                <div class="service-card card-3d" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="card-icon">
-                        <i class="fas fa-users"></i>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Live Expert Guides</h3>
+                        <p>Vetted local experts equipped with professional cameras provide authentic, interactive tours tailored to your interests.</p>
                     </div>
-                    <h3>Cultural Connection</h3>
-                    <p>Bridging cultures and fostering global understanding through authentic local interactions.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Integrated Shopping</h3>
+                        <p>Seamlessly purchase authentic local products during your tour with global shipping and quality guarantees.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Story Section -->
-    <section class="how-it-works">
+    <!-- Technology -->
+    <section class="about-section">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Our Story</h2>
-            <div style="max-width: 800px; margin: 60px auto; text-align: center;">
-                <p style="color: var(--gray-text); font-size: 1.2rem; line-height: 2; margin-bottom: 30px;" data-aos="fade-up">
-                    LiveAtlas was born from a simple idea: what if everyone could explore the world without leaving their home? 
-                    Founded in 2023, we've pioneered the fusion of VR technology with live human guides to create authentic, 
-                    immersive travel experiences.
-                </p>
-                <p style="color: var(--gray-text); font-size: 1.2rem; line-height: 2;" data-aos="fade-up" data-aos-delay="200">
-                    Today, we're proud to connect thousands of travelers with local guides worldwide, offering unprecedented 
-                    access to destinations while supporting local economies and promoting sustainable tourism practices.
-                </p>
+            <h2 class="section-title">Our Technology Stack</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem; color: var(--gray-text);">
+                Built on cutting-edge technology to deliver the best virtual tourism experience
+            </p>
+            <div class="tech-stack">
+                <div class="tech-badge">WebRTC</div>
+                <div class="tech-badge">VR Integration</div>
+                <div class="tech-badge">AI Navigation</div>
+                <div class="tech-badge">Cloud Infrastructure</div>
+                <div class="tech-badge">Real-time Video</div>
+                <div class="tech-badge">Secure Payments</div>
+                <div class="tech-badge">4K Streaming</div>
+                <div class="tech-badge">Cross-Platform</div>
             </div>
         </div>
     </section>
 
-    <!-- Team Section -->
-    <section class="testimonials">
+    <!-- Values -->
+    <section class="team-section">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Meet Our Founders</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="author-avatar" style="width: 100px; height: 100px; font-size: 3rem; margin: 0 auto 20px;">A</div>
-                    <h4 style="font-size: 1.4rem; margin-bottom: 10px;">Alex Rodriguez</h4>
-                    <span style="color: var(--primary-color); display: block; margin-bottom: 15px;">CEO & Co-Founder</span>
-                    <p>Former VR engineer with a passion for making travel accessible to all.</p>
+            <h2 class="section-title">Our Values</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">♿</div>
+                    <h3>Accessibility</h3>
+                    <p>Making travel possible for people with disabilities, limited mobility, or health constraints.</p>
                 </div>
-                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="author-avatar" style="width: 100px; height: 100px; font-size: 3rem; margin: 0 auto 20px;">S</div>
-                    <h4 style="font-size: 1.4rem; margin-bottom: 10px;">Sarah Chen</h4>
-                    <span style="color: var(--primary-color); display: block; margin-bottom: 15px;">CTO & Co-Founder</span>
-                    <p>Tech innovator specializing in real-time streaming and AR/VR solutions.</p>
+                <div class="feature-card">
+                    <div class="feature-icon">🌱</div>
+                    <h3>Sustainability</h3>
+                    <p>Reducing carbon footprint while still experiencing the world's wonders.</p>
                 </div>
-                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="author-avatar" style="width: 100px; height: 100px; font-size: 3rem; margin: 0 auto 20px;">M</div>
-                    <h4 style="font-size: 1.4rem; margin-bottom: 10px;">Marcus Thompson</h4>
-                    <span style="color: var(--primary-color); display: block; margin-bottom: 15px;">Head of Operations</span>
-                    <p>Travel industry veteran with 15+ years experience in global tourism.</p>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Cultural Exchange</h3>
+                    <p>Fostering genuine connections between travelers and local communities.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💡</div>
+                    <h3>Innovation</h3>
+                    <p>Continuously pushing boundaries in virtual reality and live streaming technology.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="services">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">LiveAtlas by Numbers</h2>
-            <div class="services-grid">
-                <div class="service-card" data-aos="zoom-in">
-                    <div class="stat-number" data-target="50000" style="font-size: 3.5rem; color: var(--primary-color); margin-bottom: 10px;">0</div>
-                    <h3 style="font-size: 1.3rem;">Virtual Tours</h3>
-                    <p>Completed across 40+ countries</p>
-                </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="stat-number" data-target="500" style="font-size: 3.5rem; color: var(--primary-color); margin-bottom: 10px;">0</div>
-                    <h3 style="font-size: 1.3rem;">Expert Guides</h3>
-                    <p>Certified local professionals</p>
-                </div>
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="stat-number" data-target="98" style="font-size: 3.5rem; color: var(--primary-color); margin-bottom: 10px;">0</div>
-                    <h3 style="font-size: 1.3rem;">% Satisfaction</h3>
-                    <p>Based on customer reviews</p>
-                </div>
-            </div>
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Join the Virtual Tourism Revolution</h2>
+            <p>Start exploring the world from your home today</p>
+            <a href="https://cal.com/live-atlas/60min" class="cta-primary large">Book Your First Tour</a>
+        </div>
+        <div class="floating-elements">
+            <div class="float-item"></div>
+            <div class="float-item"></div>
+            <div class="float-item"></div>
         </div>
     </section>
 
@@ -160,47 +231,30 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <div class="footer-logo">
-                        <img src="logo.png" alt="LiveAtlas">
-                        <span>LiveAtlas</span>
-                    </div>
-                    <p>Revolutionizing travel through immersive virtual reality experiences.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
+                    <h3>LiveAtlas</h3>
+                    <p>Bringing the world to your home through immersive virtual experiences</p>
                 </div>
                 <div class="footer-section">
-                    <h3>Quick Links</h3>
+                    <h4>Quick Links</h4>
                     <ul>
                         <li><a href="about.html">About Us</a></li>
-                        <li><a href="index.html#services">Services</a></li>
                         <li><a href="roadmap.html">Roadmap</a></li>
-                        <li><a href="index.html#booking">Book Now</a></li>
+                        <li><a href="index.html#destinations">Destinations</a></li>
+                        <li><a href="https://cal.com/live-atlas/60min">Book Now</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Destinations</h3>
-                    <ul>
-                        <li><a href="india.html">India</a></li>
-                        <li><a href="uae.html">UAE</a></li>
-                        <li><a href="denmark.html">Denmark</a></li>
-                        <li><a href="antarctica.html">Antarctica</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact Us</h3>
-                    <ul>
-                        <li><i class="fas fa-envelope"></i> info@liveatlas.com</li>
-                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
-                        <li><i class="fas fa-map-marker-alt"></i> San Francisco, CA</li>
-                    </ul>
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                        <a href="#" aria-label="LinkedIn">💼</a>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 LiveAtlas. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+                <p>&copy; 2026 LiveAtlas. All rights reserved.</p>
             </div>
         </div>
     </footer>

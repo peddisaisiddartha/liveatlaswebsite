@@ -1,4 +1,3 @@
-cat > /home/claude/antarctica.html << 'EOF'
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,161 +5,226 @@ cat > /home/claude/antarctica.html << 'EOF'
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Explore Antarctica - LiveAtlas</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="logo.png">
+    <style>
+        .destination-hero {
+            height: 70vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 70px;
+        }
+        
+        .destination-content {
+            padding: 6rem 0;
+        }
+        
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .highlight-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .highlight-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+        }
+        
+        .highlight-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .experiences {
+            background: #1a1a2e;
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+        }
+        
+        .experience-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            align-items: center;
+        }
+        
+        .experience-item img {
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        
+        .book-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--gradient-1);
+            border-radius: 20px;
+            margin: 3rem 0;
+        }
+    </style>
 </head>
 <body>
-    <div class="background-container">
-        <canvas id="particles"></canvas>
-        <div class="gradient-overlay"></div>
-    </div>
-
-    <nav class="navbar" id="navbar">
+    <!-- Navigation -->
+    <nav class="navbar">
         <div class="nav-container">
-            <div class="logo-container">
-                <img src="logo.png" alt="LiveAtlas Logo" class="logo">
-                <span class="logo-text">LiveAtlas</span>
+            <div class="logo">
+                <img src="logo.png" alt="LiveAtlas Logo">
+                <span>LiveAtlas</span>
             </div>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="about.html" class="nav-link">About</a></li>
-                <li class="dropdown">
-                    <a href="#destinations" class="nav-link active">Destinations <i class="fas fa-chevron-down"></i></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="india.html">India</a></li>
-                        <li><a href="uae.html">UAE</a></li>
-                        <li><a href="denmark.html">Denmark</a></li>
-                        <li><a href="antarctica.html">Antarctica</a></li>
-                    </ul>
-                </li>
-                <li><a href="roadmap.html" class="nav-link">Roadmap</a></li>
-                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="index.html#destinations">Destinations</a></li>
+                <li><a href="roadmap.html">Roadmap</a></li>
+                <li><a href="https://cal.com/live-atlas/60min" class="book-btn">Book Now</a></li>
             </ul>
-            <a href="index.html#booking"><button class="cta-button">Book Now</button></a>
-            <div class="hamburger" id="hamburger">
-                <span></span><span></span><span></span>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </nav>
 
-    <section class="hero" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1516373829595-ae4fdd27e32d?w=1600') center/cover;">
-        <div class="hero-content">
-            <h1 class="hero-title">
-                <span class="title-line">Pristine</span>
-                <span class="title-line highlight">Antarctica</span>
-            </h1>
-            <p class="hero-subtitle">The Last Great Wilderness on Earth</p>
-            <div class="hero-buttons">
-                <a href="index.html#booking"><button class="btn-primary"><i class="fas fa-ticket-alt"></i> Book Your Tour</button></a>
-            </div>
+    <!-- Hero -->
+    <section class="destination-hero">
+        <div>
+            <h1 class="glitch" data-text="Discover Antarctica">Discover Antarctica</h1>
+            <p style="font-size: 1.5rem; margin-top: 1rem;">The Last Great Wilderness on Earth</p>
         </div>
     </section>
 
-    <section class="services">
+    <!-- Content -->
+    <section class="destination-content">
         <div class="container">
-            <h2 class="section-title">Discover the Frozen Continent</h2>
-            <div class="services-grid">
-                <div class="service-card card-3d">
-                    <div class="card-icon"><i class="fas fa-snowflake"></i></div>
-                    <h3>Ice Shelves</h3>
-                    <p>Witness massive ice formations and glaciers that have existed for millennia in their pristine state.</p>
-                    <div class="card-glow"></div>
-                </div>
-                <div class="service-card card-3d">
-                    <div class="card-icon"><i class="fas fa-otter"></i></div>
+            <h2 class="section-title">Why Visit Antarctica?</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; font-size: 1.2rem; color: var(--gray-text);">
+                Experience the pristine beauty of the world's most remote continent - massive icebergs, 
+                incredible wildlife, and landscapes that few humans will ever see in person.
+            </p>
+
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <div class="highlight-icon">🐧</div>
                     <h3>Penguin Colonies</h3>
-                    <p>Get up close with Emperor, Adelie, and Gentoo penguins in their natural habitat without disturbing them.</p>
-                    <div class="card-glow"></div>
+                    <p>Witness thousands of Emperor, Adelie, and Gentoo penguins in their natural habitat.</p>
                 </div>
-                <div class="service-card card-3d">
-                    <div class="card-icon"><i class="fas fa-water"></i></div>
+                <div class="highlight-card">
+                    <div class="highlight-icon">🧊</div>
+                    <h3>Massive Icebergs</h3>
+                    <p>Marvel at colossal ice formations, some larger than entire cities, in crystal blue waters.</p>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-icon">🐋</div>
                     <h3>Marine Wildlife</h3>
-                    <p>Observe whales, seals, and unique Antarctic marine life through underwater camera feeds.</p>
-                    <div class="card-glow"></div>
+                    <p>Spot humpback whales, seals, orcas, and other incredible marine life in polar waters.</p>
                 </div>
-                <div class="service-card card-3d">
-                    <div class="card-icon"><i class="fas fa-flask"></i></div>
+                <div class="highlight-card">
+                    <div class="highlight-icon">🏔️</div>
                     <h3>Research Stations</h3>
-                    <p>Tour international scientific research stations and learn about climate studies and discoveries.</p>
-                    <div class="card-glow"></div>
+                    <p>Visit international scientific research bases and learn about climate science firsthand.</p>
                 </div>
-                <div class="service-card card-3d">
-                    <div class="card-icon"><i class="fas fa-sun"></i></div>
-                    <h3>Polar Phenomena</h3>
-                    <p>Experience 24-hour daylight in summer or witness the Southern Lights dancing across polar skies.</p>
-                    <div class="card-glow"></div>
+                <div class="highlight-card">
+                    <div class="highlight-icon">⛰️</div>
+                    <h3>Glaciers & Mountains</h3>
+                    <p>Explore dramatic ice shelves, glaciers, and the Antarctic Peninsula's mountain ranges.</p>
                 </div>
-                <div class="service-card card-3d">
-                    <div class="card-icon"><i class="fas fa-mountain"></i></div>
-                    <h3>Dramatic Landscapes</h3>
-                    <p>Marvel at towering icebergs, vast ice fields, and the raw beauty of Earth's most extreme environment.</p>
-                    <div class="card-glow"></div>
+                <div class="highlight-card">
+                    <div class="highlight-icon">🌅</div>
+                    <h3>Midnight Sun</h3>
+                    <p>Experience 24-hour daylight during Antarctic summer and stunning polar light phenomena.</p>
                 </div>
+            </div>
+
+            <div class="experiences">
+                <h2 style="text-align: center; margin-bottom: 3rem; color: var(--primary-color);">Live Tour Experiences</h2>
+                
+                <div class="experience-item">
+                    <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400" alt="Antarctica Landscape">
+                    <div>
+                        <h3>Antarctic Peninsula Expedition</h3>
+                        <p>Explore the most accessible part of Antarctica with stunning ice formations and abundant wildlife.</p>
+                        <p style="color: var(--primary-color); font-weight: bold;">Duration: 3 hours</p>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400" alt="Penguins">
+                    <div>
+                        <h3>Wildlife Safari</h3>
+                        <p>Get up close with penguin colonies, seals, and witness whales breaching in icy waters.</p>
+                        <p style="color: var(--primary-color); font-weight: bold;">Duration: 2.5 hours</p>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <img src="https://images.unsplash.com/photo-1483664852095-d6cc6870702d?w=400" alt="Ice Caves">
+                    <div>
+                        <h3>Research Station Tour</h3>
+                        <p>Visit working scientific bases and learn about cutting-edge climate research and polar science.</p>
+                        <p style="color: var(--primary-color); font-weight: bold;">Duration: 2 hours</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-section">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Ready to Explore Antarctica?</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">
+                    Book your virtual expedition now and witness Earth's frozen frontier
+                </p>
+                <a href="https://cal.com/live-atlas/60min" class="cta-primary large">Book Antarctica Tour</a>
             </div>
         </div>
     </section>
 
-    <section class="how-it-works">
-        <div class="container">
-            <h2 class="section-title">Why Antarctica?</h2>
-            <div style="max-width: 900px; margin: 0 auto;">
-                <div class="testimonial-card" style="margin-bottom: 30px;">
-                    <h3 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-globe"></i> Untouched Wilderness</h3>
-                    <p>Experience Earth's last true wilderness without the environmental impact of physical travel. Antarctica remains 98% ice-covered and pristine.</p>
-                </div>
-                <div class="testimonial-card" style="margin-bottom: 30px;">
-                    <h3 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-microscope"></i> Scientific Discovery</h3>
-                    <p>Learn about cutting-edge climate research, astronomy, and biology from scientists working at research stations.</p>
-                </div>
-                <div class="testimonial-card">
-                    <h3 style="color: var(--primary-color); margin-bottom: 15px;"><i class="fas fa-heart"></i> Bucket List Adventure</h3>
-                    <p>Visit the most remote and extreme location on Earth without the $10,000+ cost and physical challenges of traditional expeditions.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="booking">
-        <div class="container">
-            <h2 class="section-title">Ready to Explore Antarctica?</h2>
-            <div style="text-align: center; margin-top: 60px;">
-                <p style="font-size: 1.3rem; color: var(--gray-text); margin-bottom: 40px;">Exclusive Antarctica expeditions starting at $899</p>
-                <a href="index.html#booking"><button class="btn-primary" style="font-size: 1.2rem; padding: 20px 50px;"><i class="fas fa-vr-cardboard"></i> Book Your Antarctica Expedition</button></a>
-            </div>
-        </div>
-    </section>
-
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <div class="footer-logo">
-                        <img src="logo.png" alt="LiveAtlas">
-                        <span>LiveAtlas</span>
+                    <h3>LiveAtlas</h3>
+                    <p>Bringing the world to your home through immersive virtual experiences</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="roadmap.html">Roadmap</a></li>
+                        <li><a href="index.html#destinations">Destinations</a></li>
+                        <li><a href="https://cal.com/live-atlas/60min">Book Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                        <a href="#" aria-label="LinkedIn">💼</a>
                     </div>
-                    <p>Revolutionizing travel through immersive virtual reality experiences.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Destinations</h3>
-                    <ul>
-                        <li><a href="india.html">India</a></li>
-                        <li><a href="uae.html">UAE</a></li>
-                        <li><a href="denmark.html">Denmark</a></li>
-                        <li><a href="antarctica.html">Antarctica</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact</h3>
-                    <ul>
-                        <li><i class="fas fa-envelope"></i> info@liveatlas.com</li>
-                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
-                    </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 LiveAtlas. All rights reserved.</p>
+                <p>&copy; 2026 LiveAtlas. All rights reserved.</p>
             </div>
         </div>
     </footer>
+
     <script src="app.js"></script>
     <script src="script.js"></script>
 </body>

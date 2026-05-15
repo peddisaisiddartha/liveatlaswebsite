@@ -1,272 +1,322 @@
-// Additional interactive features and enhancements
+/* ============================================================
+   LIVEATLAS — SCRIPT.JS
+   Micro-interactions, Counters, Parallax, Touch polish
+   Works on top of app.js — no dependencies between them.
+   ============================================================ */
 
-// Cursor Trail Effect
-const cursorTrail = document.createElement('div');
-cursorTrail.style.cssText = `
-    position: fixed;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,212,255,0.6), transparent);
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.1s ease;
-    display: none;
-`;
-document.body.appendChild(cursorTrail);
+(function () {
+  'use strict';
 
-let mouseX = 0;
-let mouseY = 0;
+  document.addEventListener('DOMContentLoaded', function () {
+    setupCounters();
+    setupParallax();
+    setupDestinationCards();
+    setupSmoothAnchorLinks();
+    setupActiveNavLink();
+    setupTypewriter();
+    setupTabSwitcher();
+  });
 
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    cursorTrail.style.left = mouseX - 10 + 'px';
-    cursorTrail.style.top = mouseY - 10 + 'px';
-    cursorTrail.style.display = 'block';
-});
+  /* ============================================================
+     1. ANIMATED NUMBER COUNTERS
+     Add class="counter" data-target="1000" to any element.
+  ============================================================ */
+  function setupCounters() {
+    const counters = document.querySelectorAll('.counter');
+    if (!counters.length) return;
 
-// Intersection Observer for fade-in animations
-const fadeInObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+
+        const el       = entry.target;
+        const target   = parseFloat(el.dataset.target || 0);
+        const suffix   = el.dataset.suffix || '';
+        const prefix   = el.dataset.prefix || '';
+        const decimals = el.dataset.decimals ? parseInt(el.dataset.decimals) : 0;
+        const duration = 1800;
+        const start    = performance.now();
+
+        function update(now) {
+          const elapsed  = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          /* Ease out quart */
+          const eased    = 1 - Math.pow(1 - progress, 4);
+          const current  = eased * target;
+
+          el.textContent = prefix + current.toFixed(decimals) + suffix;
+
+          if (progress < 1) requestAnimationFrame(update);
+          else el.textContent = prefix + target.toFixed(decimals) + suffix;
         }
+
+        requestAnimationFrame(update);
+        io.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach(el => io.observe(el));
+  }
+
+  /* ============================================================
+     2. PARALLAX ON SCROLL
+     Add class="parallax" data-speed="0.3" to any element.
+     Speed 0 = no movement, 1 = full scroll speed.
+  ============================================================ */
+  function setupParallax() {
+    const els = document.querySelectorAll('.parallax');
+    if (!els.length) return;
+
+    /* Respect reduced motion preference */
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    function onScroll() {
+      const scrollY = window.scrollY;
+      els.forEach(el => {
+        const speed  = parseFloat(el.dataset.speed || 0.2);
+        const offset = scrollY * speed;
+        el.style.transform = `translateY(${offset}px)`;
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* ============================================================
+     3. DESTINATION CARD — tilt on mouse move
+  ============================================================ */
+  function setupDestinationCards() {
+    const cards = document.querySelectorAll('.card-dest');
+    if (!cards.length) return;
+
+    /* Skip on touch devices */
+    if (!window.matchMedia('(hover: hover)').matches) return;
+
+    cards.forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect   = card.getBoundingClientRect();
+        const cx     = rect.left + rect.width  / 2;
+        const cy     = rect.top  + rect.height / 2;
+        const dx     = (e.clientX - cx) / (rect.width  / 2);
+        const dy     = (e.clientY - cy) / (rect.height / 2);
+        const tiltX  = dy * -6;
+        const tiltY  = dx *  6;
+        card.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+        card.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)';
+        setTimeout(() => { card.style.transition = ''; }, 500);
+      });
     });
-}, {
-    threshold: 0.1
-});
+  }
 
-// Apply to various elements
-document.querySelectorAll('.section-title, .hero-subtitle').forEach(el => {
-    fadeInObserver.observe(el);
-});
+  /* ============================================================
+     4. SMOOTH ANCHOR LINKS with offset for fixed nav
+  ============================================================ */
+  function setupSmoothAnchorLinks() {
+    const NAV_H = parseInt(
+      getComputedStyle(document.documentElement).getPropertyValue('--nav-h') || '72'
+    );
 
-// Smooth scroll behavior enhancement
-document.addEventListener('DOMContentLoaded', () => {
-    // Add smooth scrolling to all links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (href && href !== '#') {
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    const offsetTop = target.offsetTop - 80;
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-            }
-        });
+      anchor.addEventListener('click', e => {
+        const id     = anchor.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        if (!target) return;
+
+        e.preventDefault();
+        const top = target.getBoundingClientRect().top + window.scrollY - NAV_H - 16;
+        window.scrollTo({ top, behavior: 'smooth' });
+      });
     });
-});
+  }
 
-// Dynamic background gradient on scroll
-let scrollPosition = 0;
-window.addEventListener('scroll', () => {
-    scrollPosition = window.scrollY;
-    const sections = document.querySelectorAll('section');
-    
-    sections.forEach((section, index) => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-            const progress = (window.innerHeight - rect.top) / window.innerHeight;
-            if (section.classList.contains('features') || section.classList.contains('how-it-works')) {
-                const hue = 220 + (progress * 40);
-                section.style.background = `linear-gradient(180deg, hsl(${hue}, 30%, 10%) 0%, hsl(${hue + 20}, 35%, 15%) 100%)`;
-            }
-        }
+  /* ============================================================
+     5. ACTIVE NAV LINK based on current page
+  ============================================================ */
+  function setupActiveNavLink() {
+    const path = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.la-nav__links a, .la-nav__mobile a').forEach(link => {
+      const href = link.getAttribute('href') || '';
+      if (href === path || (path === '' && href === 'index.html')) {
+        link.style.color = 'var(--cream)';
+        link.style.fontWeight = '600';
+      }
     });
-});
+  }
 
-// Destination cards hover effect enhancement
-const destinationCards = document.querySelectorAll('.destination-card');
-destinationCards.forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'scale(1.03)';
-    });
-    
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'scale(1)';
-    });
-});
+  /* ============================================================
+     6. TYPEWRITER EFFECT
+     Add class="typewriter" data-words='["word1","word2"]' to a span.
+  ============================================================ */
+  function setupTypewriter() {
+    const els = document.querySelectorAll('.typewriter');
+    if (!els.length) return;
 
-// Add parallax effect to hero background
-const heroSection = document.querySelector('.hero');
-if (heroSection) {
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const parallax = scrolled * 0.5;
-        if (heroSection.querySelector('.hero-bg')) {
-            heroSection.querySelector('.hero-bg').style.transform = `translateY(${parallax}px)`;
-        }
-    });
-}
+    els.forEach(el => {
+      let words;
+      try { words = JSON.parse(el.dataset.words || '[]'); } catch { return; }
+      if (!words.length) return;
 
-// Floating animation for CTA buttons
-const ctaButtons = document.querySelectorAll('.cta-primary, .cta-secondary');
-ctaButtons.forEach((btn, index) => {
-    setInterval(() => {
-        btn.style.transform = `translateY(${Math.sin(Date.now() / 1000 + index) * 3}px)`;
-    }, 50);
-});
+      let wi   = 0;  /* word index */
+      let ci   = 0;  /* char index */
+      let del  = false;
 
-// Add ripple effect to buttons
-const buttons = document.querySelectorAll('.cta-primary, .cta-secondary, .book-btn, .explore-btn');
-buttons.forEach(button => {
-    button.addEventListener('click', function(e) {
-        const ripple = document.createElement('span');
-        const rect = this.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        const x = e.clientX - rect.left - size / 2;
-        const y = e.clientY - rect.top - size / 2;
-        
-        ripple.style.cssText = `
-            position: absolute;
-            width: ${size}px;
-            height: ${size}px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            left: ${x}px;
-            top: ${y}px;
-            pointer-events: none;
-            transform: scale(0);
-            animation: ripple 0.6s ease-out;
-        `;
-        
-        this.style.position = 'relative';
-        this.style.overflow = 'hidden';
-        this.appendChild(ripple);
-        
-        setTimeout(() => ripple.remove(), 600);
-    });
-});
+      const speed     = parseInt(el.dataset.speed   || '90');
+      const pauseWait = parseInt(el.dataset.pause   || '1800');
+      const delSpeed  = parseInt(el.dataset.delSpeed|| '55');
 
-// Add ripple animation keyframes
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes ripple {
-        to {
-            transform: scale(4);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(style);
+      el.style.borderRight = '2px solid var(--accent)';
+      el.style.paddingRight = '2px';
+      el.style.animation = 'none';
 
-// Enhanced card animations on scroll
-const cards = document.querySelectorAll('.feature-card, .highlight-card');
-const cardObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-            setTimeout(() => {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0) rotateX(0)';
-            }, index * 100);
-        }
-    });
-}, {
-    threshold: 0.1
-});
+      function tick() {
+        const word = words[wi];
 
-cards.forEach(card => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(50px) rotateX(-10deg)';
-    card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-    cardObserver.observe(card);
-});
-
-// Add typing effect to hero title (if on homepage)
-const glitchTitle = document.querySelector('.glitch');
-if (glitchTitle && window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
-    const originalText = glitchTitle.textContent;
-    glitchTitle.textContent = '';
-    let charIndex = 0;
-    
-    const typeEffect = setInterval(() => {
-        if (charIndex < originalText.length) {
-            glitchTitle.textContent += originalText.charAt(charIndex);
-            charIndex++;
+        if (!del) {
+          /* Typing */
+          el.textContent = word.slice(0, ci + 1);
+          ci++;
+          if (ci === word.length) {
+            del = true;
+            setTimeout(tick, pauseWait);
+            return;
+          }
+          setTimeout(tick, speed);
         } else {
-            clearInterval(typeEffect);
+          /* Deleting */
+          el.textContent = word.slice(0, ci - 1);
+          ci--;
+          if (ci === 0) {
+            del = false;
+            wi  = (wi + 1) % words.length;
+            setTimeout(tick, 300);
+            return;
+          }
+          setTimeout(tick, delSpeed);
         }
-    }, 100);
-}
+      }
 
-// Add active state to navigation
-const navLinks = document.querySelectorAll('.nav-menu a');
-const currentPath = window.location.pathname;
-
-navLinks.forEach(link => {
-    if (link.getAttribute('href') === currentPath.split('/').pop() || 
-        (currentPath.endsWith('/') && link.getAttribute('href') === 'index.html')) {
-        link.style.color = 'var(--primary-color)';
-    }
-});
-
-// Performance optimization: Lazy load images
-const images = document.querySelectorAll('img[src]');
-const imageObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const img = entry.target;
-            img.style.opacity = '0';
-            img.style.transition = 'opacity 0.5s ease';
-            setTimeout(() => {
-                img.style.opacity = '1';
-            }, 100);
-            imageObserver.unobserve(img);
-        }
+      setTimeout(tick, 500);
     });
-});
+  }
 
-images.forEach(img => imageObserver.observe(img));
+  /* ============================================================
+     7. TAB SWITCHER
+     Usage:
+       <div class="tabs">
+         <button class="tab-btn active" data-tab="t1">Tab 1</button>
+         <button class="tab-btn"        data-tab="t2">Tab 2</button>
+       </div>
+       <div id="t1" class="tab-panel active">...</div>
+       <div id="t2" class="tab-panel">...</div>
+  ============================================================ */
+  function setupTabSwitcher() {
+    const btns = document.querySelectorAll('.tab-btn');
+    if (!btns.length) return;
 
-// Add loading indicator
-window.addEventListener('load', () => {
-    const loader = document.createElement('div');
-    loader.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--dark-bg);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10000;
-        transition: opacity 0.5s ease;
-    `;
-    
-    const spinner = document.createElement('div');
-    spinner.style.cssText = `
-        width: 50px;
-        height: 50px;
-        border: 3px solid rgba(0, 212, 255, 0.3);
-        border-top-color: var(--primary-color);
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-    `;
-    
-    loader.appendChild(spinner);
-    
-    // Remove loader after page loads
-    setTimeout(() => {
-        loader.style.opacity = '0';
-        setTimeout(() => loader.remove(), 500);
-    }, 1000);
-});
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.dataset.tab;
+        const allBtns  = btn.closest('.tabs').querySelectorAll('.tab-btn');
+        const allPanels = document.querySelectorAll('.tab-panel');
 
-// Add spin animation
-const spinStyle = document.createElement('style');
-spinStyle.textContent = `
-    @keyframes spin {
-        to { transform: rotate(360deg); }
-    }
-`;
-document.head.appendChild(spinStyle);
+        allBtns.forEach(b => b.classList.remove('active'));
+        allPanels.forEach(p => {
+          p.classList.remove('active');
+          p.style.opacity = '0';
+          p.style.transform = 'translateY(10px)';
+        });
 
-console.log('✨ Enhanced interactivity loaded!');
+        btn.classList.add('active');
+        const target = document.getElementById(targetId);
+        if (target) {
+          target.classList.add('active');
+          requestAnimationFrame(() => {
+            target.style.opacity = '1';
+            target.style.transform = 'translateY(0)';
+            target.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+          });
+        }
+      });
+    });
+  }
+
+  /* ============================================================
+     8. TOUCH — swipe to scroll horizontal carousels
+     Add class="carousel" to the wrapper.
+  ============================================================ */
+  (function setupCarouselSwipe() {
+    const carousels = document.querySelectorAll('.carousel');
+    if (!carousels.length) return;
+
+    carousels.forEach(el => {
+      let startX = 0;
+
+      el.addEventListener('touchstart', e => {
+        startX = e.touches[0].clientX;
+      }, { passive: true });
+
+      el.addEventListener('touchmove', e => {
+        const diff = startX - e.touches[0].clientX;
+        el.scrollLeft += diff * 0.8;
+        startX = e.touches[0].clientX;
+      }, { passive: true });
+    });
+  })();
+
+  /* ============================================================
+     9. RIPPLE EFFECT on buttons
+  ============================================================ */
+  (function setupRipple() {
+    document.querySelectorAll('.btn-primary, .btn-ghost').forEach(btn => {
+      btn.style.position = 'relative';
+      btn.style.overflow = 'hidden';
+
+      btn.addEventListener('click', e => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const ripple = document.createElement('span');
+        ripple.style.cssText = `
+          position: absolute;
+          border-radius: 50%;
+          transform: scale(0);
+          animation: ripple-anim 0.55s linear;
+          background: rgba(255,255,255,0.22);
+          width: 80px; height: 80px;
+          left: ${x - 40}px; top: ${y - 40}px;
+          pointer-events: none;
+        `;
+
+        /* Inject keyframe once */
+        if (!document.getElementById('ripple-style')) {
+          const style = document.createElement('style');
+          style.id = 'ripple-style';
+          style.textContent = `
+            @keyframes ripple-anim {
+              to { transform: scale(4); opacity: 0; }
+            }
+          `;
+          document.head.appendChild(style);
+        }
+
+        btn.appendChild(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove());
+      });
+    });
+  })();
+
+  /* ============================================================
+     10. FOOTER YEAR — keeps copyright current automatically
+  ============================================================ */
+  (function updateYear() {
+    const el = document.getElementById('current-year');
+    if (el) el.textContent = new Date().getFullYear();
+  })();
+
+})();

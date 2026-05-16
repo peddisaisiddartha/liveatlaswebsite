@@ -1,216 +1,599 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiveAtlas - Explore the World Virtually</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="logo.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="LiveAtlas — Experience the world through live virtual tours with expert local guides. Explore India, UAE, Denmark, Antarctica and more from home." />
+  <title>LiveAtlas — Explore the World Virtually</title>
+
+  <!-- Design System -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Three.js CDN (3D Globe) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <img src="logo.png" alt="LiveAtlas Logo">
-                <span>LiveAtlas</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="#destinations">Destinations</a></li>
-                <li><a href="roadmap.html">Roadmap</a></li>
-                <li><a href="https://cal.com/live-atlas/60min" class="book-btn">Book Now</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
 
-    <!-- 3D Hero Section -->
-    <section class="hero">
-        <div class="hero-bg">
-            <canvas id="hero-canvas"></canvas>
-        </div>
-        <div class="hero-content">
-            <h1 class="glitch" data-text="Explore Without Boundaries">Explore Without Boundaries</h1>
-            <p class="hero-subtitle">Experience the world through live virtual tours with expert guides</p>
-            <div class="hero-buttons">
-                <a href="https://cal.com/live-atlas/60min" class="cta-primary">Start Your Journey</a>
-                <a href="#how-it-works" class="cta-secondary">Learn More</a>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="mouse"></div>
-        </div>
-    </section>
+  <!-- ══════════════════════════════════
+       LOADER
+  ══════════════════════════════════ -->
+  <div id="la-loader">
+    <div class="la-loader__name">LiveAtlas</div>
+    <div class="la-loader__bar-wrap">
+      <div class="la-loader__bar"></div>
+    </div>
+  </div>
 
-    <!-- Features Section -->
-    <section class="features">
-        <div class="container">
-            <h2 class="section-title">Revolutionary Travel Experience</h2>
-            <div class="features-grid">
-                <div class="feature-card" data-tilt>
-                    <div class="feature-icon">🌍</div>
-                    <h3>Live Virtual Tours</h3>
-                    <p>Connect with expert guides in real-time and explore destinations through their eyes via VR/Meta glasses</p>
-                </div>
-                <div class="feature-card" data-tilt>
-                    <div class="feature-icon">🛍️</div>
-                    <h3>Global Shopping</h3>
-                    <p>Purchase authentic products directly during your virtual tour and have them shipped worldwide</p>
-                </div>
-                <div class="feature-card" data-tilt>
-                    <div class="feature-icon">🎥</div>
-                    <h3>HD Video Feed</h3>
-                    <p>Crystal-clear video streaming through our secure private communication pipeline</p>
-                </div>
-                <div class="feature-card" data-tilt>
-                    <div class="feature-icon">🗺️</div>
-                    <h3>Expert Guides</h3>
-                    <p>Local guides with deep knowledge of culture, history, and hidden gems</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- ══════════════════════════════════
+       CURSOR
+  ══════════════════════════════════ -->
+  <div id="la-cursor"></div>
+  <div id="la-cursor-ring"></div>
 
-    <!-- How It Works -->
-    <section id="how-it-works" class="how-it-works">
-        <div class="container">
-            <h2 class="section-title">How It Works</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h3>1. Choose Your Destination</h3>
-                        <p>Browse our curated list of global destinations and select your dream location</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h3>2. Book Your Guide</h3>
-                        <p>Select a time slot and connect with an expert local guide</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h3>3. Put On Your VR Headset</h3>
-                        <p>Experience immersive exploration through Meta/VR glasses</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <h3>4. Explore & Shop</h3>
-                        <p>Tour, interact, and purchase authentic products on the go</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- ══════════════════════════════════
+       3D CANVAS BACKGROUND
+  ══════════════════════════════════ -->
+  <canvas id="la-canvas"></canvas>
 
-    <!-- Destinations -->
-    <section id="destinations" class="destinations">
-        <div class="container">
-            <h2 class="section-title">Popular Destinations</h2>
-            <div class="destinations-grid">
-                <div class="destination-card">
-                    <div class="destination-image">
-                        <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800" alt="India">
-                        <div class="destination-overlay">
-                            <h3>India</h3>
-                            <p>Temples, Markets & Culture</p>
-                            <a href="india.html" class="explore-btn">Explore</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="destination-card">
-                    <div class="destination-image">
-                        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800" alt="UAE">
-                        <div class="destination-overlay">
-                            <h3>UAE</h3>
-                            <p>Modern Marvels & Souks</p>
-                            <a href="uae.html" class="explore-btn">Explore</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="destination-card">
-                    <div class="destination-image">
-                        <img src="https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=800" alt="Denmark">
-                        <div class="destination-overlay">
-                            <h3>Denmark</h3>
-                            <p>Nordic Beauty & Design</p>
-                            <a href="denmark.html" class="explore-btn">Explore</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="destination-card">
-                    <div class="destination-image">
-                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800" alt="Antarctica">
-                        <div class="destination-overlay">
-                            <h3>Antarctica</h3>
-                            <p>Frozen Wilderness</p>
-                            <a href="antarctica.html" class="explore-btn">Explore</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- ══════════════════════════════════
+       NAVIGATION
+  ══════════════════════════════════ -->
+  <nav class="la-nav" id="la-nav">
+    <a href="index.html" class="la-nav__logo">
+      <div class="la-nav__logo-mark">🌍</div>
+      LiveAtlas
+    </a>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="cta-content">
-            <h2>Ready to Start Your Virtual Adventure?</h2>
-            <p>Book your first live tour today and explore the world from home</p>
-            <a href="https://cal.com/live-atlas/60min" class="cta-primary large">Book a Tour Now</a>
-        </div>
-        <div class="floating-elements">
-            <div class="float-item"></div>
-            <div class="float-item"></div>
-            <div class="float-item"></div>
-        </div>
-    </section>
+    <ul class="la-nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="#destinations">Destinations</a></li>
+      <li><a href="roadmap.html">Roadmap</a></li>
+      <li><a href="https://cal.com/live-atlas/60min" class="la-nav__cta">Book Now</a></li>
+    </ul>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>LiveAtlas</h3>
-                    <p>Bringing the world to your home through immersive virtual experiences</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="roadmap.html">Roadmap</a></li>
-                        <li><a href="#destinations">Destinations</a></li>
-                        <li><a href="https://cal.com/live-atlas/60min">Book Now</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Connect</h4>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook">📘</a>
-                        <a href="#" aria-label="Instagram">📷</a>
-                        <a href="#" aria-label="Twitter">🐦</a>
-                        <a href="#" aria-label="LinkedIn">💼</a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 LiveAtlas. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    <button class="la-nav__hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 
-    <script src="app.js"></script>
-    <script src="script.js"></script>
+  <!-- Mobile Menu -->
+  <div class="la-nav__mobile">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="#destinations">Destinations</a>
+    <a href="roadmap.html">Roadmap</a>
+    <a href="https://cal.com/live-atlas/60min" class="btn-primary" style="width:fit-content;margin-top:8px;">Book Now</a>
+  </div>
+
+  <!-- ══════════════════════════════════
+       HERO
+  ══════════════════════════════════ -->
+  <section class="hero" id="home">
+
+    <div class="hero__tag">
+      <span class="tag">
+        <span class="tag__dot"></span>
+        Live Virtual Experiences — Now Available
+      </span>
+    </div>
+
+    <h1 class="hero__title">
+      Explore Without
+      <em>Boundaries</em>
+    </h1>
+
+    <p class="hero__sub">
+      The world belongs to everyone. LiveAtlas connects you with expert local guides — live, in real-time — so every soul can experience what travel truly means.
+    </p>
+
+    <div class="hero__actions">
+      <a href="https://cal.com/live-atlas/60min" class="btn-primary">Start Your Journey</a>
+      <a href="#how-it-works" class="btn-ghost">How It Works</a>
+    </div>
+
+    <div class="scroll-indicator">
+      <span class="scroll-indicator__label">Scroll</span>
+      <div class="scroll-indicator__line"></div>
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════
+       MISSION STRIP
+  ══════════════════════════════════ -->
+  <section class="section" style="position:relative;z-index:2;">
+    <hr class="divider" />
+    <div class="container" style="padding-top:44px;padding-bottom:44px;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:60px;flex-wrap:wrap;text-align:center;">
+
+        <div class="reveal">
+          <div class="counter" data-target="400" data-suffix="+"
+            style="font-family:'Playfair Display',serif;font-size:2.6rem;color:var(--accent);line-height:1;">0</div>
+          <div style="color:var(--muted);font-size:0.82rem;margin-top:6px;letter-spacing:0.04em;">Guides Earning a Livelihood</div>
+        </div>
+
+        <div style="width:1px;height:52px;background:var(--border);flex-shrink:0;" class="reveal delay-1"></div>
+
+        <div class="reveal delay-2">
+          <div class="counter" data-target="499" data-prefix="₹"
+            style="font-family:'Playfair Display',serif;font-size:2.6rem;color:var(--accent);line-height:1;">₹0</div>
+          <div style="color:var(--muted);font-size:0.82rem;margin-top:6px;letter-spacing:0.04em;">Per Session · ₹400 Goes to Guide</div>
+        </div>
+
+        <div style="width:1px;height:52px;background:var(--border);flex-shrink:0;" class="reveal delay-3"></div>
+
+        <div class="reveal delay-4">
+          <div class="counter" data-target="4" data-suffix=" Countries"
+            style="font-family:'Playfair Display',serif;font-size:2.6rem;color:var(--accent);line-height:1;">0</div>
+          <div style="color:var(--muted);font-size:0.82rem;margin-top:6px;letter-spacing:0.04em;">Destinations Live Now</div>
+        </div>
+
+      </div>
+    </div>
+    <hr class="divider" />
+  </section>
+
+  <!-- ══════════════════════════════════
+       FEATURES
+  ══════════════════════════════════ -->
+  <section class="section section--pad" id="features">
+    <div class="container">
+
+      <div class="section-header section-header--center">
+        <div class="section-label reveal">What We Offer</div>
+        <h2 class="section-title reveal delay-1">A <em>Revolutionary</em> Travel Experience</h2>
+        <p class="section-desc reveal delay-2">
+          More than a platform — a movement to make the world's wonders reachable for everyone, while putting money directly into the hands of local people.
+        </p>
+      </div>
+
+      <div class="grid-4">
+        <div class="card-feature reveal">
+          <div class="card-feature__icon">🌍</div>
+          <h3 class="card-feature__title">Live Virtual Tours</h3>
+          <p class="card-feature__desc">Connect with expert guides in real-time and explore destinations through their eyes via VR/Meta glasses.</p>
+        </div>
+        <div class="card-feature reveal delay-1">
+          <div class="card-feature__icon">🛍️</div>
+          <h3 class="card-feature__title">Global Shopping</h3>
+          <p class="card-feature__desc">Purchase authentic products directly during your tour and have them shipped worldwide to your door.</p>
+        </div>
+        <div class="card-feature reveal delay-2">
+          <div class="card-feature__icon">🎥</div>
+          <h3 class="card-feature__title">HD Video Feed</h3>
+          <p class="card-feature__desc">Crystal-clear streaming through our secure private pipeline — as close to being there as it gets.</p>
+        </div>
+        <div class="card-feature reveal delay-3">
+          <div class="card-feature__icon">🗺️</div>
+          <h3 class="card-feature__title">Expert Guides</h3>
+          <p class="card-feature__desc">Local youth with deep knowledge of culture, history, and hidden gems no guidebook will ever tell you.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ══════════════════════════════════
+       HOW IT WORKS
+  ══════════════════════════════════ -->
+  <section class="section section--pad" id="how-it-works">
+    <div class="container">
+      <div class="how-grid">
+
+        <!-- Steps -->
+        <div>
+          <div class="section-label reveal">The Process</div>
+          <h2 class="section-title reveal delay-1" style="margin-bottom:48px;">How It <em>Works</em></h2>
+
+          <div class="steps-list">
+
+            <div class="step-item reveal">
+              <div class="step-num">01</div>
+              <div class="step-body">
+                <h3 class="step-title">Choose Your Destination</h3>
+                <p class="step-desc">Browse our curated destinations and pick where your soul wants to go.</p>
+              </div>
+            </div>
+
+            <div class="step-item reveal delay-1">
+              <div class="step-num">02</div>
+              <div class="step-body">
+                <h3 class="step-title">Book Your Guide</h3>
+                <p class="step-desc">Select a time slot and connect with a verified expert local guide — a real human, not a bot.</p>
+              </div>
+            </div>
+
+            <div class="step-item reveal delay-2">
+              <div class="step-num">03</div>
+              <div class="step-body">
+                <h3 class="step-title">Put On Your VR Headset</h3>
+                <p class="step-desc">Slip into full immersion through Meta/VR glasses and feel the atmosphere of a new world.</p>
+              </div>
+            </div>
+
+            <div class="step-item reveal delay-3">
+              <div class="step-num">04</div>
+              <div class="step-body">
+                <h3 class="step-title">Explore & Shop</h3>
+                <p class="step-desc">Tour, interact, and purchase authentic products. The whole world becomes your marketplace.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Orb visual -->
+        <div class="orb-wrap reveal-right">
+          <div class="orb-sphere">
+            <div class="orb-inner">
+              <span class="orb-icon">🥽</span>
+              <span class="orb-label">VR · LIVE · REAL</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ══════════════════════════════════
+       DESTINATIONS
+  ══════════════════════════════════ -->
+  <section class="section section--pad" id="destinations">
+    <div class="container">
+
+      <div class="dest-header">
+        <div>
+          <div class="section-label reveal">Where To</div>
+          <h2 class="section-title reveal delay-1">Popular <em>Destinations</em></h2>
+        </div>
+        <a href="#destinations" class="btn-ghost reveal delay-2">View All</a>
+      </div>
+
+      <!-- Mosaic -->
+      <div class="dest-mosaic">
+
+        <div class="card-dest dest-tall reveal">
+          <img class="card-dest__img" src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=900&auto=format&fit=crop&q=80" alt="India" loading="lazy" />
+          <div class="card-dest__overlay">
+            <div class="card-dest__region">South Asia</div>
+            <h3 class="card-dest__name">India</h3>
+            <p class="card-dest__tagline">Temples, Markets & Culture</p>
+            <a href="india.html" class="card-dest__cta btn-text">Explore <span class="arrow">→</span></a>
+          </div>
+        </div>
+
+        <div class="dest-stack">
+          <div class="card-dest reveal delay-1">
+            <img class="card-dest__img" src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=700&auto=format&fit=crop&q=80" alt="UAE" loading="lazy" />
+            <div class="card-dest__overlay">
+              <div class="card-dest__region">Middle East</div>
+              <h3 class="card-dest__name">UAE</h3>
+              <p class="card-dest__tagline">Modern Marvels & Souks</p>
+              <a href="uae.html" class="card-dest__cta btn-text">Explore <span class="arrow">→</span></a>
+            </div>
+          </div>
+
+          <div class="card-dest reveal delay-2">
+            <img class="card-dest__img" src="https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?w=700&auto=format&fit=crop&q=80" alt="Denmark" loading="lazy" />
+            <div class="card-dest__overlay">
+              <div class="card-dest__region">Scandinavia</div>
+              <h3 class="card-dest__name">Denmark</h3>
+              <p class="card-dest__tagline">Nordic Beauty & Design</p>
+              <a href="denmark.html" class="card-dest__cta btn-text">Explore <span class="arrow">→</span></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Antarctica banner -->
+      <div class="card-dest dest-banner reveal">
+        <img class="card-dest__img" src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1400&auto=format&fit=crop&q=80" alt="Antarctica" loading="lazy" />
+        <div class="card-dest__overlay dest-banner__overlay">
+          <div class="card-dest__region">Polar Expedition</div>
+          <h3 class="card-dest__name">Antarctica</h3>
+          <p class="card-dest__tagline">Frozen Wilderness — The Final Frontier</p>
+          <a href="antarctica.html" class="card-dest__cta btn-text">Explore <span class="arrow">→</span></a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ══════════════════════════════════
+       MISSION
+  ══════════════════════════════════ -->
+  <section class="section section--pad">
+    <div class="container">
+      <div class="mission-grid">
+
+        <div>
+          <div class="section-label reveal">Our Purpose</div>
+          <h2 class="section-title reveal delay-1" style="margin-bottom:28px;">
+            Making the Earth a <em>Better Place</em>
+          </h2>
+          <p class="reveal delay-2" style="color:var(--muted);font-size:1rem;line-height:1.85;margin-bottom:20px;">
+            Travel changes people. It breaks assumptions, dissolves stereotypes, and reminds you that humanity is one family. But most people will never get on a plane.
+          </p>
+          <p class="reveal delay-3" style="color:var(--muted);font-size:1rem;line-height:1.85;margin-bottom:36px;">
+            LiveAtlas exists to fix that — and to give young local guides a dignified, sustainable income at the same time. ₹400 of every ₹499 goes directly to the guide. That's not a business model. That's a belief system.
+          </p>
+          <a href="about.html" class="btn-text reveal delay-4">
+            Read Our Story <span class="arrow">→</span>
+          </a>
+        </div>
+
+        <div class="values-grid">
+          <div class="card-feature reveal" style="padding:28px 24px;">
+            <div class="card-feature__icon" style="width:44px;height:44px;font-size:1.1rem;margin-bottom:18px;">♿</div>
+            <h3 class="card-feature__title" style="font-size:1.1rem;margin-bottom:8px;">Accessibility</h3>
+            <p class="card-feature__desc" style="font-size:0.84rem;">Travel for people with disabilities, limited mobility, or financial constraints.</p>
+          </div>
+          <div class="card-feature reveal delay-1" style="padding:28px 24px;">
+            <div class="card-feature__icon" style="width:44px;height:44px;font-size:1.1rem;margin-bottom:18px;">🌱</div>
+            <h3 class="card-feature__title" style="font-size:1.1rem;margin-bottom:8px;">Sustainability</h3>
+            <p class="card-feature__desc" style="font-size:0.84rem;">Experience the world's wonders while leaving no carbon footprint.</p>
+          </div>
+          <div class="card-feature reveal delay-2" style="padding:28px 24px;">
+            <div class="card-feature__icon" style="width:44px;height:44px;font-size:1.1rem;margin-bottom:18px;">🤝</div>
+            <h3 class="card-feature__title" style="font-size:1.1rem;margin-bottom:8px;">Connection</h3>
+            <p class="card-feature__desc" style="font-size:0.84rem;">Genuine bonds between travelers and local communities worldwide.</p>
+          </div>
+          <div class="card-feature reveal delay-3" style="padding:28px 24px;">
+            <div class="card-feature__icon" style="width:44px;height:44px;font-size:1.1rem;margin-bottom:18px;">💡</div>
+            <h3 class="card-feature__title" style="font-size:1.1rem;margin-bottom:8px;">Innovation</h3>
+            <p class="card-feature__desc" style="font-size:0.84rem;">Pushing the limits of VR and live-streaming technology every day.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       CTA BANNER
+  ══════════════════════════════════ -->
+  <section class="section section--pad-sm">
+    <div class="container">
+      <div class="cta-banner reveal">
+        <div class="section-label" style="justify-content:center;">Ready?</div>
+        <h2 class="cta-banner__title">Start Your <em>Virtual Adventure</em></h2>
+        <p class="cta-banner__desc">
+          Book your first live tour today and experience the world from home. Every session supports a local guide building their future.
+        </p>
+        <a href="https://cal.com/live-atlas/60min" class="btn-primary">Book a Tour — ₹499</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════
+       FOOTER
+  ══════════════════════════════════ -->
+  <footer class="la-footer">
+    <div class="container">
+      <div class="la-footer__grid">
+
+        <div>
+          <h3 class="la-footer__brand-name">LiveAtlas</h3>
+          <p class="la-footer__brand-desc">Bringing the world to your home through immersive live virtual experiences guided by local youth.</p>
+          <div class="la-footer__socials">
+            <a href="#" class="la-footer__social" title="Facebook">f</a>
+            <a href="#" class="la-footer__social" title="Instagram">ig</a>
+            <a href="#" class="la-footer__social" title="Twitter">𝕏</a>
+            <a href="#" class="la-footer__social" title="LinkedIn">in</a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="la-footer__col-title">Navigate</h4>
+          <ul class="la-footer__col-links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="roadmap.html">Roadmap</a></li>
+            <li><a href="#destinations">Destinations</a></li>
+            <li><a href="https://cal.com/live-atlas/60min">Book Now</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="la-footer__col-title">Destinations</h4>
+          <ul class="la-footer__col-links">
+            <li><a href="india.html">India</a></li>
+            <li><a href="uae.html">UAE</a></li>
+            <li><a href="denmark.html">Denmark</a></li>
+            <li><a href="antarctica.html">Antarctica</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="la-footer__col-title">Platform</h4>
+          <ul class="la-footer__col-links">
+            <li><a href="https://liveatlas-cp-1.onrender.com" target="_blank" rel="noopener">Communication App</a></li>
+            <li><a href="roadmap.html">What's Coming</a></li>
+            <li><a href="about.html">Become a Guide</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="la-footer__bottom">
+        <p class="la-footer__copy">© <span id="current-year">2026</span> LiveAtlas. All rights reserved.</p>
+        <p class="la-footer__love">Built with purpose, for <a href="about.html">explorers worldwide</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════
+       PAGE-SPECIFIC STYLES
+       (How-it-works layout, Dest mosaic,
+        Mission grid — not in style.css)
+  ══════════════════════════════════ -->
+  <style>
+    /* How It Works layout */
+    .how-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 22px;
+      padding: 26px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .step-item:last-child { border-bottom: none; }
+
+    .step-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      font-weight: 300;
+      color: rgba(232, 147, 90, 0.22);
+      min-width: 48px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .step-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+
+    .step-desc {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.75;
+    }
+
+    /* Orb */
+    .orb-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .orb-sphere {
+      width: min(380px, 80vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at 35% 30%,
+        rgba(232,147,90,0.14),
+        rgba(11,26,58,0.3) 50%,
+        rgba(5,8,15,0.9) 80%);
+      border: 1px solid rgba(232,147,90,0.16);
+      display: grid;
+      place-items: center;
+      animation: spin-slow 22s linear infinite;
+      box-shadow:
+        0 0 80px rgba(232,147,90,0.08),
+        inset 0 0 60px rgba(232,147,90,0.04);
+    }
+
+    .orb-inner {
+      animation: spin-slow 22s linear infinite reverse;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .orb-icon { font-size: 3rem; }
+
+    .orb-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+    }
+
+    /* Destinations mosaic */
+    .dest-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 56px;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .dest-mosaic {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .dest-tall { min-height: 520px; }
+
+    .dest-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .dest-stack .card-dest { min-height: 248px; flex: 1; }
+
+    .dest-banner { height: 210px; }
+
+    .dest-banner__overlay {
+      background: linear-gradient(to right,
+        rgba(5,8,15,0.92) 0%,
+        rgba(5,8,15,0.2) 60%,
+        transparent 100%) !important;
+    }
+
+    /* Mission grid */
+    .mission-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    /* Responsive overrides */
+    @media (max-width: 900px) {
+      .how-grid { grid-template-columns: 1fr; gap: 50px; }
+      .orb-wrap { display: none; }
+      .dest-mosaic { grid-template-columns: 1fr; }
+      .dest-tall { min-height: 320px; }
+      .dest-stack { flex-direction: column; }
+      .dest-stack .card-dest { min-height: 240px; }
+      .dest-banner { height: 180px; }
+      .mission-grid { grid-template-columns: 1fr; gap: 50px; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .values-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <!-- Scripts last -->
+  <script src="app.js"></script>
+  <script src="script.js"></script>
+
 </body>
 </html>

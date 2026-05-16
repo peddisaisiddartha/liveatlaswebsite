@@ -14,6 +14,26 @@
 </head>
 <body>
 
+  <!-- =========================================================
+     CINEMATIC LOADER
+========================================================= -->
+
+<div id="la-loader">
+
+  <div class="la-loader__logo">
+    LiveAtlas
+  </div>
+
+  <div class="la-loader__subtitle">
+    Initializing Immersive World Engine
+  </div>
+
+  <div class="la-loader__track">
+    <div class="la-loader__bar"></div>
+  </div>
+
+</div>
+
   <!-- ══════════════════════════════════
        LOADER
   ══════════════════════════════════ -->
@@ -69,35 +89,76 @@
   <!-- ══════════════════════════════════
        HERO
   ══════════════════════════════════ -->
-  <section class="hero" id="home">
+ <section class="hero hero--cinematic parallax" data-speed="0.12" id="home"></section>
+
+  <!-- Background Glow Layers -->
+     <!-- Cinematic Light Beams -->
+  <div class="hero-lightbeam hero-lightbeam-1"></div>
+  <div class="hero-lightbeam hero-lightbeam-2"></div>
+  <div class="hero-bg-glow hero-bg-glow-1"></div>
+  <div class="hero-bg-glow hero-bg-glow-2"></div>
+
+  <!-- Floating Gradient Ring -->
+  <div class="hero-ring"></div>
+
+  <!-- Left Content -->
+  <div class="hero-cinematic__content parallax" data-speed="0.18"></div>
 
     <div class="hero__tag">
       <span class="tag">
         <span class="tag__dot"></span>
-        Live Virtual Experiences — Now Available
+        Live Immersive Tourism Platform
       </span>
     </div>
 
-    <h1 class="hero__title">
-      Explore Without
-      <em>Boundaries</em>
+    <h1 class="hero-cinematic__title">
+      Explore The World
+      <span>Beyond Reality</span>
     </h1>
 
-    <p class="hero__sub">
-      The world belongs to everyone. LiveAtlas connects you with expert local guides — live, in real-time — so every soul can experience what travel truly means.
+    <p class="hero-cinematic__sub">
+      LiveAtlas transforms travel into a real-time immersive experience —
+      connecting people to cultures, cities, and humanity through live virtual exploration.
     </p>
 
     <div class="hero__actions">
-      <a href="https://cal.com/live-atlas/60min" class="btn-primary">Start Your Journey</a>
-      <a href="#how-it-works" class="btn-ghost">How It Works</a>
+      <a href="https://cal.com/live-atlas/60min" class="btn-primary">
+        Start Exploring
+      </a>
+
+      <a href="#how-it-works" class="btn-ghost">
+        Watch Experience
+      </a>
     </div>
 
-    <div class="scroll-indicator">
-      <span class="scroll-indicator__label">Scroll</span>
-      <div class="scroll-indicator__line"></div>
+  </div>
+
+  <!-- Globe Side -->
+  <div class="hero-cinematic__visual parallax" data-speed="0.06"></div>
+
+    <div class="hero-globe-frame">
+
+      <div class="hero-orbit hero-orbit-1"></div>
+      <div class="hero-orbit hero-orbit-2"></div>
+
+      <div class="hero-glow-core"></div>
+
+      <!-- 3D canvas already exists globally -->
+      <div class="hero-globe-label">
+        LIVE ATLAS • EARTH STREAM
+      </div>
+
     </div>
 
-  </section>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="scroll-indicator">
+    <span class="scroll-indicator__label">Scroll</span>
+    <div class="scroll-indicator__line"></div>
+  </div>
+
+</section>
 
   <!-- ══════════════════════════════════
        MISSION STRIP

@@ -157,8 +157,27 @@
     const nav = document.querySelector('.la-nav');
     if (!nav) return;
 
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 50);
+        window.addEventListener('scroll', () => {
+
+      nav.classList.toggle(
+        'scrolled',
+        window.scrollY > 50
+      );
+
+      /* Dynamic cinematic glow */
+
+      const scrollY = window.scrollY;
+
+      const opacity =
+        Math.min(scrollY / 400, 1);
+
+      nav.style.boxShadow =
+        `
+        0 20px 60px rgba(0,0,0,0.45),
+        0 0 ${30 + opacity * 40}px
+        rgba(232,147,90,${0.08 + opacity * 0.08})
+        `;
+
     }, { passive: true });
   }
 
@@ -324,6 +343,42 @@
     ring2.rotation.y = Math.PI / 4;
     scene.add(ring2);
 
+        /* ─────────────────────────────────
+       CINEMATIC ATMOSPHERIC ENERGY
+    ───────────────────────────────── */
+
+    const glowGeometry = new THREE.SphereGeometry(3.8, 64, 64);
+
+    const glowMaterial = new THREE.MeshBasicMaterial({
+      color: 0xE8935A,
+      transparent: true,
+      opacity: 0.035,
+      side: THREE.DoubleSide,
+    });
+
+    const cinematicGlow = new THREE.Mesh(glowGeometry, glowMaterial);
+
+    scene.add(cinematicGlow);
+
+    /* Secondary blue atmosphere */
+
+    const blueGlowGeometry = new THREE.SphereGeometry(5.5, 64, 64);
+
+    const blueGlowMaterial = new THREE.MeshBasicMaterial({
+      color: 0x4466ff,
+      transparent: true,
+      opacity: 0.025,
+      side: THREE.DoubleSide,
+    });
+
+    const blueGlow = new THREE.Mesh(
+      blueGlowGeometry,
+      blueGlowMaterial
+    );
+
+    scene.add(blueGlow);
+
+
     /* ── Resize handler ── */
     window.addEventListener('resize', () => {
       const w = window.innerWidth, h = window.innerHeight;
@@ -339,22 +394,80 @@
       requestAnimationFrame(animate);
       const t = clock.getElapsedTime();
 
-      /* Globe slow auto-rotation */
-      globe.rotation.y = t * 0.06;
-      wire.rotation.y  = t * 0.04;
+            /* =====================================================
+         CINEMATIC GLOBE MOTION
+      ===================================================== */
 
-      /* Mouse parallax on camera */
-      const targetX = state.mouse.nx * 0.3;
-      const targetY = state.mouse.ny * 0.2;
-      camera.position.x += (targetX - camera.position.x) * 0.04;
-      camera.position.y += (targetY - camera.position.y) * 0.04;
+      /* Smooth floating rotation */
+      globe.rotation.y = t * 0.12;
+      globe.rotation.x = Math.sin(t * 0.18) * 0.08;
+
+      /* Wireframe offset motion */
+      wire.rotation.y = t * 0.16;
+      wire.rotation.x = Math.cos(t * 0.12) * 0.05;
+
+      /* Floating cinematic movement */
+      globe.position.y = Math.sin(t * 0.5) * 0.08;
+      wire.position.y = globe.position.y;
+
+      /* Dynamic breathing scale */
+      const breathe = 1 + Math.sin(t * 0.8) * 0.015;
+      globe.scale.setScalar(breathe);
+
+      /* Atmospheric pulse */
+      atmMat.opacity = 0.04 + Math.sin(t * 1.4) * 0.015;
+
+           /* =====================================================
+         CINEMATIC CAMERA SYSTEM
+      ===================================================== */
+
+      const targetX = state.mouse.nx * 0.65;
+      const targetY = state.mouse.ny * 0.45;
+
+      /* Smooth cinematic drift */
+      camera.position.x += (targetX - camera.position.x) * 0.025;
+      camera.position.y += (targetY - camera.position.y) * 0.025;
+
+      /* Floating depth movement */
+      camera.position.z = 5 + Math.sin(t * 0.3) * 0.15;
+
+      /* Slight orbital motion */
+      camera.rotation.z = Math.sin(t * 0.1) * 0.01;
+
+      /* Focus */
       camera.lookAt(scene.position);
 
-      /* Scroll: push globe back and fade as user scrolls */
+            /* =====================================================
+         CINEMATIC SCROLL TRANSITION
+      ===================================================== */
+
       const sp = state.scroll.progress;
-      globe.position.z = -sp * 1.5;
-      globe.scale.setScalar(1 - sp * 0.18);
-      globeMat.opacity = 1 - sp * 0.6;
+
+      /* Globe cinematic movement */
+      globe.position.z = -sp * 2.8;
+
+      globe.position.x =
+        Math.sin(sp * Math.PI * 1.5) * 0.8;
+
+      globe.position.y =
+        Math.sin(sp * Math.PI * 2) * 0.25;
+
+      /* Dynamic scaling */
+      const scrollScale =
+        1 - sp * 0.22;
+
+      globe.scale.setScalar(
+        breathe * scrollScale
+      );
+
+      /* Fade atmosphere gradually */
+      globeMat.opacity = 1 - sp * 0.75;
+
+      wireMat.opacity = 0.06 - sp * 0.04;
+
+      /* Camera cinematic drift */
+      camera.position.z =
+        5 + sp * 1.2 + Math.sin(t * 0.3) * 0.15;
 
       /* Orbit rings gentle rotation */
       ring1.rotation.z = t * 0.12;
@@ -362,6 +475,23 @@
 
       /* Particles slow drift */
       partMat.opacity = 0.55 - sp * 0.35;
+
+            /* =====================================================
+         CINEMATIC ATMOSPHERIC ANIMATION
+      ===================================================== */
+
+      cinematicGlow.rotation.y += 0.0008;
+      cinematicGlow.rotation.x = Math.sin(t * 0.15) * 0.08;
+
+      blueGlow.rotation.y -= 0.0005;
+      blueGlow.rotation.z = Math.cos(t * 0.12) * 0.05;
+
+      /* Breathing opacity */
+      glowMaterial.opacity =
+        0.03 + Math.sin(t * 0.9) * 0.01;
+
+      blueGlowMaterial.opacity =
+        0.02 + Math.cos(t * 0.7) * 0.008;
 
       renderer.render(scene, camera);
     })();

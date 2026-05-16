@@ -75,7 +75,8 @@
       els.forEach(el => {
         const speed  = parseFloat(el.dataset.speed || 0.2);
         const offset = scrollY * speed;
-        el.style.transform = `translateY(${offset}px)`;
+                el.style.transform =
+          `translate3d(0, ${offset}px, 0)`;
       });
     }
 
@@ -320,3 +321,74 @@
   })();
 
 })();
+
+  /* ============================================================
+     11. MAGNETIC BUTTON EFFECT
+  ============================================================ */
+
+  (function setupMagneticButtons() {
+
+    const magneticButtons =
+      document.querySelectorAll('.btn-primary, .btn-ghost');
+
+    if (!magneticButtons.length) return;
+
+    magneticButtons.forEach(button => {
+
+      button.addEventListener('mousemove', e => {
+
+        const rect = button.getBoundingClientRect();
+
+        const x =
+          e.clientX - rect.left - rect.width / 2;
+
+        const y =
+          e.clientY - rect.top - rect.height / 2;
+
+        button.style.transform =
+          `translate(${x * 0.12}px, ${y * 0.12}px)`;
+
+      });
+
+      button.addEventListener('mouseleave', () => {
+
+        button.style.transform =
+          'translate(0px, 0px)';
+
+        button.style.transition =
+          'transform 0.5s cubic-bezier(0.16,1,0.3,1)';
+
+      });
+
+    });
+
+  })();
+
+
+    /* ============================================================
+     12. HOLOGRAPHIC LIGHT TRACKING
+  ============================================================ */
+
+  (function setupCardGlowTracking() {
+
+    const cards = document.querySelectorAll(
+      '.card-feature, .card-dest, .card-stat, .timeline-item'
+    );
+
+    cards.forEach(card => {
+
+      card.addEventListener('mousemove', e => {
+
+        const rect = card.getBoundingClientRect();
+
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        card.style.setProperty('--mx', `${x}px`);
+        card.style.setProperty('--my', `${y}px`);
+
+      });
+
+    });
+
+  })();

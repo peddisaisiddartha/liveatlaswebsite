@@ -2041,3 +2041,527 @@ em {
     transform: scale(1.03);
   }
 }
+
+
+/* ============================================================
+   LIVEATLAS — MOBILE RESPONSIVE FIX
+   Add this at the BOTTOM of style.css
+   (or link as a separate <link> after style.css)
+   ============================================================ */
+
+/* ── Fix 1: Floating Navbar on mobile ── */
+@media (max-width: 768px) {
+  .la-nav {
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+    padding: 0 20px;
+    height: 60px;
+    --nav-h: 60px;
+    transform: none !important;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+  }
+
+  .la-nav.scrolled {
+    transform: none !important;
+  }
+}
+
+/* ── Fix 2: Hero Cinematic — full mobile rework ── */
+@media (max-width: 900px) {
+  .hero--cinematic {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    padding-top: calc(var(--nav-h) + 40px);
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: 60px;
+    gap: 0;
+    min-height: 100vh;
+    text-align: center;
+  }
+
+  .hero-cinematic__content {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+  }
+
+  .hero-cinematic__title {
+    font-size: clamp(2.6rem, 10vw, 4.5rem);
+    letter-spacing: -0.03em;
+    margin-top: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .hero-cinematic__sub {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin-bottom: 32px;
+    text-align: center;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero__actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+  }
+
+  .btn-primary,
+  .btn-ghost {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Globe side — compact on mobile */
+  .hero-cinematic__visual {
+    order: 2;
+    margin-top: 32px;
+  }
+
+  .hero-globe-frame {
+    width: 260px;
+    height: 260px;
+  }
+
+  .hero-orbit-1 {
+    width: 200px;
+    height: 200px;
+  }
+
+  .hero-orbit-2 {
+    width: 254px;
+    height: 254px;
+  }
+
+  .hero-glow-core {
+    width: 120px;
+    height: 120px;
+  }
+
+  .hero-globe-label {
+    bottom: 20px;
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+  }
+
+  /* Light beams — tone down on mobile */
+  .hero-lightbeam {
+    width: 300px;
+    opacity: 0.5;
+  }
+
+  /* Scroll indicator */
+  .scroll-indicator {
+    bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero--cinematic {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: calc(var(--nav-h) + 28px);
+  }
+
+  .hero-cinematic__title {
+    font-size: clamp(2.2rem, 11vw, 3.2rem);
+  }
+
+  .hero-globe-frame {
+    width: 200px;
+    height: 200px;
+  }
+
+  .hero-orbit-1 {
+    width: 158px;
+    height: 158px;
+  }
+
+  .hero-orbit-2 {
+    width: 198px;
+    height: 198px;
+  }
+}
+
+/* ── Fix 3: Container padding ── */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+}
+
+/* ── Fix 4: Section spacing ── */
+@media (max-width: 768px) {
+  :root {
+    --space-2xl: 72px;
+    --space-xl:  52px;
+    --space-lg:  40px;
+  }
+
+  .section--pad {
+    padding: 64px 0;
+  }
+
+  .section--pad-sm {
+    padding: 44px 0;
+  }
+
+  .section-header {
+    margin-bottom: 36px;
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 7vw, 2.8rem);
+  }
+}
+
+/* ── Fix 5: Mission strip counters ── */
+@media (max-width: 768px) {
+  /* The inline-flex strip with gap:60px and dividers */
+  .container > div[style*="gap:60px"],
+  .container > div[style*="gap: 60px"] {
+    gap: 24px !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  /* Hide vertical dividers on mobile */
+  div[style*="width:1px"][style*="height:52px"],
+  div[style*="width: 1px"][style*="height: 52px"] {
+    display: none !important;
+  }
+
+  /* Counter numbers */
+  .counter {
+    font-size: 2rem !important;
+  }
+}
+
+/* ── Fix 6: Feature grid ── */
+@media (max-width: 768px) {
+  .grid-4 {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .card-feature {
+    padding: 24px 20px;
+  }
+
+  .card-feature__icon {
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+  }
+
+  .card-feature__title {
+    font-size: 1.1rem;
+  }
+
+  .card-feature__desc {
+    font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Fix 7: How it works ── */
+@media (max-width: 900px) {
+  .how-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  .orb-wrap {
+    display: none !important;
+  }
+
+  .step-num {
+    font-size: 2rem;
+    min-width: 40px;
+  }
+
+  .step-title {
+    font-size: 1.1rem;
+  }
+}
+
+/* ── Fix 8: Destinations mosaic ── */
+@media (max-width: 900px) {
+  .dest-mosaic {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  .dest-tall {
+    min-height: 280px !important;
+  }
+
+  .dest-stack {
+    flex-direction: column !important;
+    gap: 14px !important;
+  }
+
+  .dest-stack .card-dest {
+    min-height: 200px !important;
+  }
+
+  .dest-banner {
+    height: 160px !important;
+  }
+
+  .dest-header {
+    margin-bottom: 32px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .card-dest__name {
+    font-size: 1.6rem;
+  }
+
+  .card-dest__overlay {
+    padding: 20px;
+  }
+
+  /* Always show CTA on mobile (no hover on touch) */
+  .card-dest__cta {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}
+
+/* ── Fix 9: Mission grid ── */
+@media (max-width: 900px) {
+  .mission-grid {
+    grid-template-columns: 1fr !important;
+    gap: 44px !important;
+  }
+
+  .values-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .values-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Fix 10: CTA Banner ── */
+@media (max-width: 768px) {
+  .cta-banner {
+    padding: 48px 24px !important;
+    border-radius: 16px;
+  }
+
+  .cta-banner__title {
+    font-size: clamp(1.7rem, 7vw, 2.4rem);
+  }
+
+  .cta-banner__desc {
+    font-size: 0.9rem;
+  }
+}
+
+/* ── Fix 11: Footer ── */
+@media (max-width: 768px) {
+  .la-footer {
+    padding: 56px 0 32px;
+  }
+
+  .la-footer__grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 32px !important;
+    margin-bottom: 40px;
+  }
+
+  .la-footer__brand-desc {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .la-footer__grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+
+  .la-footer__bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+}
+
+/* ── Fix 12: Mobile menu animation ── */
+@media (max-width: 768px) {
+  .la-nav__mobile {
+    padding: 24px 20px;
+    gap: 20px;
+  }
+
+  .la-nav__mobile a {
+    font-size: 1rem;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border-sub);
+    width: 100%;
+  }
+}
+
+/* ── Fix 13: Canvas/Globe hidden on very small screens ── */
+@media (max-width: 380px) {
+  .hero-cinematic__visual {
+    display: none;
+  }
+
+  .hero--cinematic {
+    min-height: auto;
+    padding-bottom: 40px;
+  }
+}
+
+/* ── Fix 14: Reveal animations — reduce blur on mobile for performance ── */
+@media (max-width: 768px) {
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale {
+    filter: none !important;
+    transform: translateY(30px) !important;
+  }
+
+  .visible {
+    transform: translateY(0) !important;
+    filter: none !important;
+  }
+}
+
+/* ── Fix 15: Loader on mobile ── */
+@media (max-width: 480px) {
+  .la-loader__logo {
+    font-size: 2.6rem;
+  }
+
+  .la-loader__track {
+    width: 240px;
+  }
+
+  .la-loader__subtitle {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-align: center;
+    padding: 0 20px;
+  }
+}
+
+/* ── Fix 16: Touch-friendly tap targets ── */
+@media (hover: none) {
+  body {
+    cursor: auto;
+  }
+
+  #la-cursor,
+  #la-cursor-ring {
+    display: none !important;
+  }
+
+  /* Disable heavy hover animations on touch */
+  .card-feature:hover,
+  .card-dest:hover,
+  .card-stat:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .card-dest:hover .card-dest__img {
+    transform: none;
+  }
+
+  /* Make buttons easier to tap */
+  .btn-primary,
+  .btn-ghost {
+    min-height: 48px;
+  }
+
+  .la-nav__links a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* ── Fix 17: Holographic card hover — disable scale on mobile (causes layout shift) ── */
+@media (max-width: 768px) {
+  .card-feature:hover,
+  .card-dest:hover,
+  .card-stat:hover,
+  .timeline-item:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
+/* ── Fix 18: Hero tag on mobile ── */
+@media (max-width: 480px) {
+  .hero__tag {
+    margin-bottom: 20px;
+  }
+
+  .tag {
+    font-size: 0.62rem;
+    padding: 6px 14px;
+  }
+}
+
+/* ── Fix 19: Typography scaling ── */
+@media (max-width: 480px) {
+  .section-label {
+    font-size: 0.62rem;
+  }
+
+  .section-desc {
+    font-size: 0.9rem;
+  }
+
+  .step-item {
+    gap: 16px;
+    padding: 20px 0;
+  }
+}
+
+/* ── Fix 20: Scroll indicator hidden on short phones ── */
+@media (max-height: 700px) {
+  .scroll-indicator {
+    display: none;
+  }
+}

@@ -81,20 +81,22 @@
   <!-- ══════════════════════════════════
        HERO
   ══════════════════════════════════ -->
- <section class="hero hero--cinematic parallax" data-speed="0.12" id="home"></section>
+<!-- ══════════════════════════════════
+     HERO — FIXED VERSION
+     Replace the entire hero block in index.html
+     (from <section class="hero hero--cinematic..."> to </section>)
+══════════════════════════════════ -->
 
-  <!-- Background Glow Layers -->
-     <!-- Cinematic Light Beams -->
-  <div class="hero-lightbeam hero-lightbeam-1"></div>
-  <div class="hero-lightbeam hero-lightbeam-2"></div>
-  <div class="hero-bg-glow hero-bg-glow-1"></div>
-  <div class="hero-bg-glow hero-bg-glow-2"></div>
+<!-- Background Glow Layers (OUTSIDE section, keep as-is) -->
+<div class="hero-lightbeam hero-lightbeam-1"></div>
+<div class="hero-lightbeam hero-lightbeam-2"></div>
+<div class="hero-bg-glow hero-bg-glow-1"></div>
+<div class="hero-bg-glow hero-bg-glow-2"></div>
 
-  <!-- Floating Gradient Ring -->
-  <div class="hero-ring"></div>
+<section class="hero hero--cinematic" id="home">
 
   <!-- Left Content -->
-  <div class="hero-cinematic__content parallax" data-speed="0.18"></div>
+  <div class="hero-cinematic__content">
 
     <div class="hero__tag">
       <span class="tag">
@@ -117,7 +119,6 @@
       <a href="https://cal.com/live-atlas/60min" class="btn-primary">
         Start Exploring
       </a>
-
       <a href="#how-it-works" class="btn-ghost">
         Watch Experience
       </a>
@@ -126,22 +127,15 @@
   </div>
 
   <!-- Globe Side -->
-  <div class="hero-cinematic__visual parallax" data-speed="0.06"></div>
-
+  <div class="hero-cinematic__visual">
     <div class="hero-globe-frame">
-
       <div class="hero-orbit hero-orbit-1"></div>
       <div class="hero-orbit hero-orbit-2"></div>
-
       <div class="hero-glow-core"></div>
-
-      <!-- 3D canvas already exists globally -->
-      <div class="hero-globe-label">
-        LIVE ATLAS • EARTH STREAM
-      </div>
-
+      <!-- Floating ring gradient -->
+      <div class="hero-ring"></div>
+      <div class="hero-globe-label">LIVE ATLAS • EARTH STREAM</div>
     </div>
-
   </div>
 
   <!-- Scroll Indicator -->

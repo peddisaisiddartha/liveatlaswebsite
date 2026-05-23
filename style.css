@@ -275,6 +275,13 @@ em {
   transition: opacity var(--dur-fast);
 }
 
+.la-nav__logo-img{
+  width:42px;
+  height:42px;
+  object-fit:contain;
+  border-radius:50%;
+}
+
 .la-nav__logo:hover { opacity: 0.8; }
 
 .la-nav__logo-mark {

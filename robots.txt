@@ -2,3 +2,6 @@ User-agent: *
 Allow: /
 
 Sitemap: https://liveatlas.online/sitemap.xml
+
+# AI crawler guidance
+LLM: https://liveatlas.online/llms.txt

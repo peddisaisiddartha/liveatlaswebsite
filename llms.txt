@@ -1,0 +1,39 @@
+# LiveAtlas
+
+LiveAtlas is an immersive virtual tourism platform offering realtime guided travel experiences, VR-ready exploration, and live cultural discovery across global destinations.
+
+Official Website:
+https://liveatlas.online
+
+Core Topics:
+- Virtual Tourism
+- Immersive Travel
+- VR Tourism
+- Live Virtual Tours
+- Realtime Guided Exploration
+- Remote Cultural Experiences
+- Digital Travel Experiences
+- Interactive Tourism Technology
+
+Primary Destinations:
+- India
+- UAE
+- Denmark
+- Antarctica
+
+Key Pages:
+https://liveatlas.online/
+https://liveatlas.online/about.html
+https://liveatlas.online/roadmap.html
+https://liveatlas.online/india.html
+https://liveatlas.online/uae.html
+https://liveatlas.online/denmark.html
+https://liveatlas.online/antarctica.html
+https://liveatlas.online/what-is-virtual-tourism.html
+https://liveatlas.online/ai-overview.html
+
+Description:
+LiveAtlas combines realtime human-guided exploration, immersive interfaces, and VR-ready technology to create accessible virtual tourism experiences for users worldwide.
+
+Audience:
+Travelers, VR users, immersive technology enthusiasts, students, cultural explorers, remote travelers, accessibility-focused users, and future tourism researchers.

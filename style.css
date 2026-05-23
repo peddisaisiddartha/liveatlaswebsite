@@ -2565,3 +2565,69 @@ em {
     display: none;
   }
 }
+
+
+.contact-section{
+    padding:100px 20px;
+    background:#0a0f1c;
+    text-align:center;
+}
+
+.contact-section h2{
+    font-size:2.5rem;
+    margin-bottom:20px;
+    color:#ffffff;
+}
+
+.contact-desc{
+    max-width:750px;
+    margin:0 auto 50px;
+    color:rgba(255,255,255,0.72);
+    line-height:1.9;
+    font-size:1.05rem;
+}
+
+.contact-card{
+    max-width:800px;
+    margin:0 auto;
+    padding:40px;
+    border-radius:24px;
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.08);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    box-shadow:0 10px 40px rgba(0,0,0,0.35);
+}
+
+.contact-card p{
+    margin-bottom:24px;
+    color:white;
+    font-size:1.05rem;
+    line-height:1.8;
+}
+
+.contact-card a{
+    color:#00d4ff;
+    text-decoration:none;
+    transition:0.3s ease;
+}
+
+.contact-card a:hover{
+    opacity:0.8;
+}
+
+@media(max-width:768px){
+
+    .contact-section{
+        padding:80px 20px;
+    }
+
+    .contact-card{
+        padding:28px;
+    }
+
+    .contact-section h2{
+        font-size:2rem;
+    }
+
+}

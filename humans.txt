@@ -1,0 +1,30 @@
+/* TEAM */
+LiveAtlas Core Development Team
+
+/* PROJECT */
+LiveAtlas
+Immersive Virtual Tourism Platform
+
+/* DESCRIPTION */
+LiveAtlas is a realtime immersive virtual tourism platform focused on VR-ready exploration, live cultural discovery, and guided remote travel experiences.
+
+Core focus areas:
+- Virtual Tourism
+- Immersive Travel
+- VR Tourism
+- Realtime Guided Exploration
+- Interactive Digital Tourism
+- Remote Cultural Experiences
+
+/* TECHNOLOGY */
+- WebRTC
+- Realtime Streaming
+- VR-ready Infrastructure
+- Semantic SEO
+- AI Discoverability Architecture
+
+/* WEBSITE */
+https://liveatlas.online
+
+/* CONTACT */
+liveatlasco@gmail.com

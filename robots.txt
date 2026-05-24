@@ -5,3 +5,4 @@ Sitemap: https://liveatlas.online/sitemap.xml
 
 # AI crawler guidance
 LLM: https://liveatlas.online/llms.txt
+Humans: https://liveatlas.online/humans.txt

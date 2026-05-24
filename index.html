@@ -569,6 +569,96 @@
 
 </section>
 
+
+<!-- ══════════════════════════════════
+     IMMERSIVE FAQ
+══════════════════════════════════ -->
+<section class="section section--pad">
+
+  <div class="container" style="max-width:900px;">
+
+    <div class="section-label reveal">
+      Curiosity
+    </div>
+
+    <h2 class="section-title reveal delay-1" style="margin-bottom:20px;">
+      Questions People Never Asked About <em>Travel</em> Before
+    </h2>
+
+    <p class="reveal delay-2"
+       style="color:var(--muted);line-height:1.9;margin-bottom:60px;font-size:1.05rem;">
+      LiveAtlas explores a future where travel is no longer limited by borders,
+      money, mobility, or geography.
+    </p>
+
+    <div class="la-faq">
+
+      <!-- FAQ ITEM -->
+      <div class="la-faq__item">
+        <button class="la-faq__question">
+          Can virtual tourism actually feel emotionally real?
+          <span>+</span>
+        </button>
+
+        <div class="la-faq__answer">
+          Sometimes the most powerful part of travel is not movement — it is atmosphere, perspective, emotion, and human connection. LiveAtlas explores how immersive realtime experiences can emotionally connect people to distant places.
+        </div>
+      </div>
+
+      <!-- FAQ ITEM -->
+      <div class="la-faq__item">
+        <button class="la-faq__question">
+          What if I want to explore hidden streets instead of tourist spots?
+          <span>+</span>
+        </button>
+
+        <div class="la-faq__answer">
+          LiveAtlas is designed around human-guided exploration — meaning curiosity can shape the journey itself, not just predefined tourist routes.
+        </div>
+      </div>
+
+      <!-- FAQ ITEM -->
+      <div class="la-faq__item">
+        <button class="la-faq__question">
+          Can I interact with locals during the experience?
+          <span>+</span>
+        </button>
+
+        <div class="la-faq__answer">
+          Realtime interaction is one of the core ideas behind immersive exploration. The goal is not passive watching, but authentic human connection across cultures and places.
+        </div>
+      </div>
+
+      <!-- FAQ ITEM -->
+      <div class="la-faq__item">
+        <button class="la-faq__question">
+          Can VR eventually make remote exploration feel almost physical?
+          <span>+</span>
+        </button>
+
+        <div class="la-faq__answer">
+          As immersive technologies evolve, virtual tourism may move beyond screens into deeply immersive sensory experiences that feel increasingly present and lifelike.
+        </div>
+      </div>
+
+      <!-- FAQ ITEM -->
+      <div class="la-faq__item">
+        <button class="la-faq__question">
+          Can I experience Antarctica without physically going there?
+          <span>+</span>
+        </button>
+
+        <div class="la-faq__answer">
+          One long-term vision of immersive tourism is allowing people to experience remote, dangerous, expensive, or environmentally sensitive destinations from anywhere in the world.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
   <footer class="la-footer">
     <div class="container">
       <div class="la-footer__grid">
@@ -787,6 +877,33 @@
   <!-- Scripts last -->
   <script src="app.js"></script>
   <script src="script.js"></script>
+
+
+  <script>
+
+const faqItems = document.querySelectorAll('.la-faq__item');
+
+faqItems.forEach(item => {
+
+  const question = item.querySelector('.la-faq__question');
+
+  question.addEventListener('click', () => {
+
+    const isActive = item.classList.contains('active');
+
+    faqItems.forEach(faq => {
+      faq.classList.remove('active');
+    });
+
+    if(!isActive){
+      item.classList.add('active');
+    }
+
+  });
+
+});
+
+</script>
 
 </body>
 </html>

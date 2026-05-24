@@ -2638,3 +2638,90 @@ em {
     }
 
 }
+
+
+/* ══════════════════════════════════
+   CINEMATIC FAQ
+══════════════════════════════════ */
+
+.la-faq{
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+}
+
+.la-faq__item{
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:24px;
+  overflow:hidden;
+  backdrop-filter:blur(14px);
+  transition:
+    border-color .35s ease,
+    transform .35s ease,
+    background .35s ease;
+}
+
+.la-faq__item:hover{
+  border-color:rgba(255,255,255,0.16);
+  background:rgba(255,255,255,0.045);
+  transform:translateY(-2px);
+}
+
+.la-faq__question{
+  width:100%;
+  background:none;
+  border:none;
+  outline:none;
+  color:var(--cream);
+  padding:28px 30px;
+  font-size:1.05rem;
+  font-weight:500;
+  text-align:left;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  cursor:pointer;
+  line-height:1.6;
+}
+
+.la-faq__question span{
+  font-size:1.5rem;
+  color:var(--gold);
+  transition:transform .35s ease;
+}
+
+.la-faq__item.active .la-faq__question span{
+  transform:rotate(45deg);
+}
+
+.la-faq__answer{
+  max-height:0;
+  overflow:hidden;
+  transition:
+    max-height .45s ease,
+    padding .35s ease;
+  color:var(--muted);
+  line-height:1.9;
+  font-size:1rem;
+  padding:0 30px;
+}
+
+.la-faq__item.active .la-faq__answer{
+  max-height:400px;
+  padding:0 30px 30px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+  .la-faq__question{
+    padding:24px;
+    font-size:1rem;
+  }
+
+  .la-faq__answer{
+    font-size:.95rem;
+  }
+
+}

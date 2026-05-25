@@ -118,6 +118,34 @@
     <!-- Content -->
     <section class="destination-content">
         <div class="container">
+            <!-- LIVE WEATHER CARD -->
+                <div class="la-weather-card">
+
+                <div class="la-weather-card__label">
+                LIVE ANTARCTICA CONDITIONS
+                </div>
+
+                <div class="la-weather-card__temp"
+                id="weather-temp">
+                Loading...
+                </div>
+
+                <div class="la-weather-card__condition"
+                id="weather-condition">
+                Fetching realtime weather...
+                </div>
+
+                <div class="la-weather-card__time"
+                    id="antarctica-time">
+                    Loading local time...
+                </div>
+
+                <div class="la-weather-card__sun"
+                id="antarctica-sun">
+                Loading sunrise & sunset...
+                </div>
+
+                </div>
             <h2 class="section-title">Why Visit Antarctica?</h2>
             <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; font-size: 1.2rem; color: var(--gray-text);">
                 Experience the pristine beauty of the world's most remote continent - massive icebergs, 
@@ -217,12 +245,7 @@
                 </div>
                 <div class="footer-section">
                     <h4>Connect</h4>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook">📘</a>
-                        <a href="#" aria-label="Instagram">📷</a>
-                        <a href="#" aria-label="Twitter">🐦</a>
-                        <a href="#" aria-label="LinkedIn">💼</a>
-                    </div>
+                    <p>Follow us on social media for the latest updates and exclusive content!</p>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -233,5 +256,135 @@
 
     <script src="app.js"></script>
     <script src="script.js"></script>
+
+    <script>
+
+async function loadAntarcticaWeather(){
+
+  try{
+
+    const response = await fetch(
+      'https://api.open-meteo.com/v1/forecast?latitude=-75.250973&longitude=-0.071389&current=temperature_2m,weather_code'
+    );
+
+    const data = await response.json();
+
+    const temp = data.current.temperature_2m;
+    const code = data.current.weather_code;
+
+    let condition = "Unknown Conditions";
+
+    if(code === 0){
+      condition = "Clear Sky";
+    }
+    else if(code <= 3){
+      condition = "Partly Cloudy";
+    }
+    else if(code <= 48){
+      condition = "Foggy Conditions";
+    }
+    else if(code <= 67){
+      condition = "Rain / Freezing Rain";
+    }
+    else if(code <= 77){
+      condition = "Snowfall";
+    }
+    else if(code <= 99){
+      condition = "Storm Conditions";
+    }
+
+    document.getElementById('weather-temp').innerText =
+      `${temp}°C`;
+
+    document.getElementById('weather-condition').innerText =
+      condition;
+
+  }
+
+  catch(error){
+
+    document.getElementById('weather-temp').innerText =
+      '--';
+
+    document.getElementById('weather-condition').innerText =
+      'Unable to load realtime weather';
+
+    console.error(error);
+
+  }
+
+}
+
+loadAntarcticaWeather();
+
+function updateAntarcticaTime(){
+
+  const options = {
+    timeZone: 'Antarctica/Troll',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  };
+
+  const antarcticaTime =
+    new Date().toLocaleTimeString(
+      'en-US',
+      options
+    );
+
+  document.getElementById('antarctica-time').innerText =
+    `LOCAL ANTARCTICA TIME — ${antarcticaTime}`;
+
+}
+
+updateAntarcticaTime();
+
+setInterval(updateAntarcticaTime, 1000);
+
+async function loadAntarcticaSunData(){
+
+  try{
+
+    const response = await fetch(
+      'https://api.open-meteo.com/v1/forecast?latitude=-75.250973&longitude=-0.071389&daily=sunrise,sunset&timezone=auto'
+    );
+
+    const data = await response.json();
+
+    const sunriseRaw = data.daily.sunrise[0];
+    const sunsetRaw = data.daily.sunset[0];
+
+    const sunrise = new Date(sunriseRaw)
+      .toLocaleTimeString('en-US', {
+        hour:'2-digit',
+        minute:'2-digit'
+      });
+
+    const sunset = new Date(sunsetRaw)
+      .toLocaleTimeString('en-US', {
+        hour:'2-digit',
+        minute:'2-digit'
+      });
+
+    document.getElementById('antarctica-sun').innerText =
+      `SUNRISE — ${sunrise}   •   SUNSET — ${sunset}`;
+
+  }
+
+  catch(error){
+
+    document.getElementById('antarctica-sun').innerText =
+      'Unable to load sunrise & sunset';
+
+    console.error(error);
+
+  }
+
+}
+
+loadAntarcticaSunData();
+
+</script>
+
 </body>
 </html>

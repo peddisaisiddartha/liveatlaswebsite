@@ -1,237 +1,759 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        Live Virtual UAE Tours | Explore Dubai & Abu Dhabi — LiveAtlas
-    </title>
-    <meta name="description"
-    content="Experience the UAE through immersive live virtual tourism with LiveAtlas. Explore Dubai's skyline, Abu Dhabi's architecture, and the region's rich culture and traditions from anywhere in the world." />
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="logo.png">
-    <style>
-        .destination-hero {
-            height: 70vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), 
-                        url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=1600') center/cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            margin-top: 70px;
-        }
-        
-        .destination-content {
-            padding: 6rem 0;
-        }
-        
-        .highlights-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-        
-        .highlight-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-        }
-        
-        .highlight-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary-color);
-            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
-        }
-        
-        .highlight-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .experiences {
-            background: #1a1a2e;
-            padding: 4rem 2rem;
-            border-radius: 20px;
-            margin: 3rem 0;
-        }
-        
-        .experience-item {
-            display: flex;
-            gap: 2rem;
-            margin-bottom: 2rem;
-            align-items: center;
-        }
-        
-        .experience-item img {
-            width: 200px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-        
-        .book-section {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: var(--gradient-1);
-            border-radius: 20px;
-            margin: 3rem 0;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+Live Virtual UAE Tours | Explore Dubai & Abu Dhabi — LiveAtlas
+</title>
+
+<meta
+name="description"
+content="Experience the UAE through immersive live virtual tourism with LiveAtlas. Explore Dubai's skyline, Abu Dhabi's architecture, and the region's rich culture and traditions from anywhere in the world."
+>
+
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" href="logo.png">
+
+<style>
+
+.uae-hero{
+position:relative;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+padding-top:120px;
+}
+
+.uae-hero::before{
+content:"";
+position:absolute;
+inset:0;
+
+background:
+linear-gradient(
+rgba(5,8,15,.45),
+rgba(5,8,15,.82)
+),
+url("https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=2200");
+
+background-size:cover;
+background-position:center;
+}
+
+.uae-hero-content{
+position:relative;
+z-index:10;
+max-width:1100px;
+text-align:center;
+padding:0 24px;
+}
+
+.uae-hero-title{
+font-family:var(--font-display);
+font-size:clamp(4rem,9vw,8rem);
+line-height:.95;
+margin-bottom:20px;
+}
+
+.uae-hero-title span{
+display:block;
+color:var(--accent);
+font-style:italic;
+}
+
+.uae-subtitle{
+max-width:760px;
+margin:auto;
+color:var(--muted);
+font-size:1.1rem;
+line-height:1.9;
+}
+
+.live-feed-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px;
+margin-top:70px;
+}
+
+.live-feed-card{
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.08);
+border-radius:18px;
+padding:20px;
+backdrop-filter:blur(16px);
+text-align:left;
+}
+
+.live-dot{
+width:10px;
+height:10px;
+background:#00ff88;
+border-radius:50%;
+display:inline-block;
+margin-right:8px;
+}
+
+.live-label{
+font-size:.75rem;
+letter-spacing:.15em;
+text-transform:uppercase;
+opacity:.8;
+margin-bottom:12px;
+}
+
+.live-feed-card h4{
+margin:0;
+font-size:1rem;
+}
+
+.uae-stat-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:24px;
+margin-top:80px;
+}
+
+.uae-stat{
+text-align:center;
+padding:24px;
+border-radius:20px;
+background:rgba(255,255,255,.03);
+border:1px solid var(--border);
+}
+
+.uae-stat h3{
+font-size:2rem;
+font-family:var(--font-display);
+color:var(--accent);
+margin-bottom:8px;
+}
+
+.icon-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:24px;
+}
+
+.icon-card{
+background:var(--panel);
+border:1px solid var(--border);
+border-radius:24px;
+overflow:hidden;
+transition:.4s;
+}
+
+.icon-card:hover{
+transform:translateY(-10px);
+}
+
+.icon-card img{
+width:100%;
+height:280px;
+object-fit:cover;
+}
+
+.icon-card-content{
+padding:24px;
+}
+
+.icon-card h3{
+font-family:var(--font-display);
+font-size:1.6rem;
+margin-bottom:12px;
+}
+
+@media(max-width:1000px){
+
+.live-feed-grid,
+.uae-stat-grid,
+.icon-grid{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+
 </head>
+
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <img src="logo.png" alt="LiveAtlas Logo">
-                <span>LiveAtlas</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="index.html#destinations">Destinations</a></li>
-                <li><a href="roadmap.html">Roadmap</a></li>
-                <li><a href="https://cal.com/live-atlas/60min" class="book-btn">Book Now</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Hero -->
-    <section class="destination-hero">
-        <div>
-            <h1 class="glitch" data-text="Virtual UAE Tours">
-                Immersive Live Virtual Tours Across the UAE
-            </h1>
-            <p style="font-size: 1.5rem; margin-top: 1rem;">Where Modern Luxury Meets Arabian Heritage</p>
-        </div>
-    </section>
+<div id="la-loader">
 
-    <!-- Content -->
-    <section class="destination-content">
-        <div class="container">
-            <h2 class="section-title">Why Visit UAE?</h2>
-            <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; font-size: 1.2rem; color: var(--gray-text);">
-                From the world's tallest building to golden desert dunes, futuristic cities to traditional souks, 
-                the UAE offers a perfect blend of innovation and tradition.
-            </p>
+<div class="la-loader__logo">
+LiveAtlas
+</div>
 
-            <div class="highlights-grid">
-                <div class="highlight-card">
-                    <div class="highlight-icon">🏙️</div>
-                    <h3>Burj Khalifa</h3>
-                    <p>Experience the world's tallest building and explore modern Dubai's architectural marvels.</p>
-                </div>
-                <div class="highlight-card">
-                    <div class="highlight-icon">🏜️</div>
-                    <h3>Desert Safari</h3>
-                    <p>Virtual desert adventures including dune bashing, camel rides, and Bedouin camp experiences.</p>
-                </div>
-                <div class="highlight-card">
-                    <div class="highlight-icon">🛍️</div>
-                    <h3>Gold Souk</h3>
-                    <p>Shop for gold, spices, and textiles in Dubai's traditional markets with expert guides.</p>
-                </div>
-                <div class="highlight-card">
-                    <div class="highlight-icon">🕌</div>
-                    <h3>Sheikh Zayed Mosque</h3>
-                    <p>Tour Abu Dhabi's magnificent grand mosque, one of the world's largest and most beautiful.</p>
-                </div>
-                <div class="highlight-card">
-                    <div class="highlight-icon">🏰</div>
-                    <h3>Cultural Heritage</h3>
-                    <p>Explore Al Fahidi Historical District and learn about Emirati culture and traditions.</p>
-                </div>
-                <div class="highlight-card">
-                    <div class="highlight-icon">🎨</div>
-                    <h3>Art & Museums</h3>
-                    <p>Visit Louvre Abu Dhabi and Dubai's Museum of the Future with knowledgeable art guides.</p>
-                </div>
-            </div>
+<div class="la-loader__subtitle">
+Live From The Emirates
+</div>
 
-            <div class="experiences">
-                <h2 style="text-align: center; margin-bottom: 3rem; color: var(--primary-color);">Live Tour Experiences</h2>
-                
-                <div class="experience-item">
-                    <img src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?w=400" alt="Dubai Skyline">
-                    <div>
-                        <h3>Modern Dubai Tour</h3>
-                        <p>Explore Dubai Marina, Palm Jumeirah, and the iconic Burj Khalifa in a futuristic city tour.</p>
-                        <p style="color: var(--primary-color); font-weight: bold;">Duration: 2.5 hours</p>
-                    </div>
-                </div>
+<div class="la-loader__track">
+<div class="la-loader__bar"></div>
+</div>
 
-                <div class="experience-item">
-                    <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?w=400" alt="Desert">
-                    <div>
-                        <h3>Desert & Culture Experience</h3>
-                        <p>Experience Arabian desert life, traditional camps, and authentic Emirati hospitality.</p>
-                        <p style="color: var(--primary-color); font-weight: bold;">Duration: 3 hours</p>
-                    </div>
-                </div>
+</div>
 
-                <div class="experience-item">
-                    <img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?w=400" alt="Gold Souk">
-                    <div>
-                        <h3>Traditional Souk Shopping</h3>
-                        <p>Navigate the vibrant Gold, Spice, and Textile souks with expert shoppers who know the best deals.</p>
-                        <p style="color: var(--primary-color); font-weight: bold;">Duration: 2 hours</p>
-                    </div>
-                </div>
-            </div>
+<nav class="la-nav">
 
-            <div class="book-section">
-                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Ready to Explore UAE?</h2>
-                <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">
-                    Book your virtual tour now and discover the magic of the Emirates
-                </p>
-                <a href="https://cal.com/live-atlas/60min" class="cta-primary large">Book UAE Tour</a>
-            </div>
-        </div>
-    </section>
+<a href="index.html" class="la-nav__logo">
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>LiveAtlas</h3>
-                    <p>Bringing the world to your home through immersive virtual experiences</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="roadmap.html">Roadmap</a></li>
-                        <li><a href="index.html#destinations">Destinations</a></li>
-                        <li><a href="https://cal.com/live-atlas/60min">Book Now</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Connect</h4>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook">📘</a>
-                        <a href="#" aria-label="Instagram">📷</a>
-                        <a href="#" aria-label="Twitter">🐦</a>
-                        <a href="#" aria-label="LinkedIn">💼</a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 LiveAtlas. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+<img
+src="logo.png"
+alt="LiveAtlas"
+class="la-nav__logo-img"
+>
 
-    <script src="app.js"></script>
-    <script src="script.js"></script>
+<span>LiveAtlas</span>
+
+</a>
+
+<div class="la-nav__links">
+
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="index.html#destinations">Destinations</a>
+<a href="roadmap.html">Roadmap</a>
+
+<a
+href="https://cal.com/live-atlas/60min"
+class="la-nav__cta"
+>
+Book Tour
+</a>
+
+</div>
+
+<div class="la-nav__hamburger">
+<span></span>
+<span></span>
+<span></span>
+</div>
+
+</nav>
+
+<div class="la-nav__mobile">
+
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="index.html#destinations">Destinations</a>
+<a href="roadmap.html">Roadmap</a>
+<a href="https://cal.com/live-atlas/60min">Book Tour</a>
+
+</div>
+
+<section class="uae-hero">
+
+<div class="uae-hero-content">
+
+<div class="tag">
+<span class="tag__dot"></span>
+LIVE FROM THE EMIRATES
+</div>
+
+<h1 class="uae-hero-title">
+Dubai Never Sleeps.
+<span>Abu Dhabi Builds Tomorrow.</span>
+</h1>
+
+<p class="uae-subtitle">
+
+Join local hosts in real time as they walk through
+iconic skylines, living markets, cultural landmarks,
+innovation hubs and unforgettable destinations across
+the United Arab Emirates.
+
+</p>
+
+<div class="hero__actions">
+
+<a
+href="https://cal.com/live-atlas/60min"
+class="btn-primary"
+>
+Join A Live UAE Experience
+</a>
+
+<a
+href="#live-now"
+class="btn-ghost"
+>
+See What's Live
+</a>
+
+</div>
+
+<div id="live-now" class="live-feed-grid">
+
+<div class="live-feed-card">
+<div class="live-label">
+<span class="live-dot"></span>
+LIVE NOW
+</div>
+<h4>Dubai Marina Walk</h4>
+</div>
+
+<div class="live-feed-card">
+<div class="live-label">
+<span class="live-dot"></span>
+LIVE NOW
+</div>
+<h4>BAPS Hindu Mandir</h4>
+</div>
+
+<div class="live-feed-card">
+<div class="live-label">
+<span class="live-dot"></span>
+LIVE NOW
+</div>
+<h4>Sheikh Zayed Mosque</h4>
+</div>
+
+<div class="live-feed-card">
+<div class="live-label">
+<span class="live-dot"></span>
+LIVE NOW
+</div>
+<h4>Museum Of The Future</h4>
+</div>
+
+</div>
+
+<div class="uae-stat-grid">
+
+<div class="uae-stat">
+<h3>7</h3>
+<p>Emirates</p>
+</div>
+
+<div class="uae-stat">
+<h3>828m</h3>
+<p>Burj Khalifa</p>
+</div>
+
+<div class="uae-stat">
+<h3>200+</h3>
+<p>Nationalities</p>
+</div>
+
+<div class="uae-stat">
+<h3>90%</h3>
+<p>Urban Population</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section section--pad">
+
+<div class="container">
+
+<div class="section-header section-header--center">
+
+<div class="section-label">
+Icons Of The Emirates
+</div>
+
+<h2 class="section-title">
+Where Heritage Meets The Future
+</h2>
+
+<p class="section-desc">
+
+From record-breaking architecture to spiritual landmarks,
+the UAE combines centuries of tradition with tomorrow's innovation.
+
+</p>
+
+</div>
+
+<div class="icon-grid">
+
+
+    <div class="icon-card">
+
+<img
+src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?w=1400"
+alt="Burj Khalifa"
+>
+
+<div class="icon-card-content">
+
+<h3>Burj Khalifa</h3>
+
+<p>
+
+The tallest structure on Earth and the symbol of Dubai's
+global ambition, innovation and architectural excellence.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="icon-card">
+
+<img
+src="https://images.unsplash.com/photo-1708774942452-c7e31d9114ef?w=1400"
+alt="BAPS Hindu Mandir"
+>
+
+<div class="icon-card-content">
+
+<h3>BAPS Hindu Mandir</h3>
+
+<p>
+
+A historic cultural and spiritual landmark bringing together
+communities from around the world in the heart of Abu Dhabi.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="icon-card">
+
+<img
+src="https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=1400"
+alt="Sheikh Zayed Mosque"
+>
+
+<div class="icon-card-content">
+
+<h3>Sheikh Zayed Grand Mosque</h3>
+
+<p>
+
+One of the world's most beautiful mosques,
+celebrated for its scale, craftsmanship and serenity.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="icon-card">
+
+<img
+src="https://images.unsplash.com/photo-1603796846097-bee99e4a601f?w=1400"
+alt="Museum Of The Future"
+>
+
+<div class="icon-card-content">
+
+<h3>Museum Of The Future</h3>
+
+<p>
+
+Step into tomorrow through one of the most recognizable
+innovation landmarks on the planet.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="icon-card">
+
+<img
+src="https://images.unsplash.com/photo-1518684079-3c830dcef090?w=1400"
+alt="Desert Experience"
+>
+
+<div class="icon-card-content">
+
+<h3>Desert Experience</h3>
+
+<p>
+
+Explore golden dunes, Bedouin traditions and authentic
+Emirati hospitality through live guided experiences.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="icon-card">
+
+<img
+src="https://images.unsplash.com/photo-1518684079-3c830dcef090?w=1400"
+alt="Palm Jumeirah"
+>
+
+<div class="icon-card-content">
+
+<h3>Palm Jumeirah</h3>
+
+<p>
+
+An engineering marvel that transformed Dubai's coastline
+into one of the world's most iconic destinations.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section section--pad">
+
+<div class="container">
+
+<div class="section-header section-header--center">
+
+<div class="section-label">
+Live Experiences
+</div>
+
+<h2 class="section-title">
+Explore The UAE In Real Time
+</h2>
+
+<p class="section-desc">
+
+Every experience is guided live by local hosts,
+allowing you to interact, ask questions and
+discover the Emirates beyond traditional tourism.
+
+</p>
+
+</div>
+
+<div class="experience-grid">
+
+<div class="experience-card">
+
+<img
+src="https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?w=1200"
+alt="Dubai Skyline"
+>
+
+<div class="experience-card-content">
+
+<h3>Dubai Mega City Tour</h3>
+
+<p>
+
+Walk through Downtown Dubai, Dubai Marina,
+Burj Khalifa and the city's futuristic skyline.
+
+</p>
+
+<div class="experience-duration">
+Duration: 2.5 Hours
+</div>
+
+</div>
+
+</div>
+
+<div class="experience-card">
+
+<img
+src="https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=1200"
+alt="Abu Dhabi"
+>
+
+<div class="experience-card-content">
+
+<h3>Abu Dhabi Architecture Journey</h3>
+
+<p>
+
+Experience the Grand Mosque, cultural districts
+and the capital's modern urban vision.
+
+</p>
+
+<div class="experience-duration">
+Duration: 3 Hours
+</div>
+
+</div>
+
+</div>
+
+<div class="experience-card">
+
+<img
+src="https://images.unsplash.com/photo-1518684079-3c830dcef090?w=1200"
+alt="Desert Safari"
+>
+
+<div class="experience-card-content">
+
+<h3>Desert Heritage Experience</h3>
+
+<p>
+
+Discover traditional Emirati life, desert culture
+and breathtaking landscapes beyond the cities.
+
+</p>
+
+<div class="experience-duration">
+Duration: 2 Hours
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section section--pad">
+
+<div class="container">
+
+<div class="cta-banner">
+
+<div class="section-label">
+ENTER THE EMIRATES
+</div>
+
+<h2 class="cta-banner__title">
+This Isn't A Recording.
+This Is The UAE, Live.
+</h2>
+
+<p class="cta-banner__desc">
+
+Join immersive real-time experiences hosted by people
+who live there. Explore architecture, culture,
+innovation and heritage as it happens.
+
+</p>
+
+<a
+href="https://cal.com/live-atlas/60min"
+class="btn-primary"
+>
+Join A Live UAE Experience
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<footer class="la-footer">
+
+<div class="container">
+
+<div class="la-footer__grid">
+
+<div>
+
+<div class="la-footer__brand-name">
+LiveAtlas
+</div>
+
+<p class="la-footer__brand-desc">
+
+Bringing the world to your home through immersive
+live virtual tourism experiences.
+
+</p>
+
+</div>
+
+<div>
+
+<div class="la-footer__col-title">
+Explore
+</div>
+
+<div class="la-footer__col-links">
+
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="roadmap.html">Roadmap</a>
+<a href="index.html#destinations">Destinations</a>
+
+</div>
+
+</div>
+
+<div>
+
+<div class="la-footer__col-title">
+Destinations
+</div>
+
+<div class="la-footer__col-links">
+
+<a href="india.html">India</a>
+<a href="uae.html">UAE</a>
+<a href="denmark.html">Denmark</a>
+<a href="antarctica.html">Antarctica</a>
+
+</div>
+
+</div>
+
+<div>
+
+<div class="la-footer__col-title">
+Book
+</div>
+
+<div class="la-footer__col-links">
+
+<a href="https://cal.com/live-atlas/60min">
+Schedule Tour
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="la-footer__bottom">
+
+<div class="la-footer__copy">
+© 2026 LiveAtlas. All rights reserved.
+</div>
+
+<div class="la-footer__love">
+Built for immersive global exploration.
+</div>
+
+</div>
+
+</div>
+
+</footer>
+
+<script src="app.js"></script>
+<script src="script.js"></script>
+
 </body>
 </html>

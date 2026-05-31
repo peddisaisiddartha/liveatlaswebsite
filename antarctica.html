@@ -1,390 +1,783 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        Live Virtual Antarctica Tours | Immersive Polar Exploration — LiveAtlas
-    </title>
-    <meta name="description"
-    content="Experience the wonders of Antarctica through immersive live virtual tourism with LiveAtlas. Explore icebergs, wildlife, and pristine landscapes from anywhere in the world." />
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="logo.png">
-    <style>
-        .destination-hero {
-            height: 70vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), 
-                        url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600') center/cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            margin-top: 70px;
-        }
-        
-        .destination-content {
-            padding: 6rem 0;
-        }
-        
-        .highlights-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-        
-        .highlight-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-        }
-        
-        .highlight-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary-color);
-            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
-        }
-        
-        .highlight-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .experiences {
-            background: #1a1a2e;
-            padding: 4rem 2rem;
-            border-radius: 20px;
-            margin: 3rem 0;
-        }
-        
-        .experience-item {
-            display: flex;
-            gap: 2rem;
-            margin-bottom: 2rem;
-            align-items: center;
-        }
-        
-        .experience-item img {
-            width: 200px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-        
-        .book-section {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: var(--gradient-1);
-            border-radius: 20px;
-            margin: 3rem 0;
-        }
-    </style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+Live Virtual Antarctica Tours | Immersive Polar Exploration — LiveAtlas
+</title>
+
+<meta
+name="description"
+content="Experience the wonders of Antarctica through immersive live virtual tourism with LiveAtlas. Explore icebergs, wildlife, research stations and the last great wilderness on Earth."
+>
+
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" href="logo.png">
+
+<style>
+
+.antarctica-hero{
+position:relative;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+padding-top:120px;
+}
+
+.antarctica-hero::before{
+content:"";
+position:absolute;
+inset:0;
+
+background:
+linear-gradient(
+rgba(3,6,12,.45),
+rgba(3,6,12,.88)
+),
+url("https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=2400");
+
+background-size:cover;
+background-position:center;
+}
+
+.antarctica-content{
+position:relative;
+z-index:10;
+max-width:1100px;
+text-align:center;
+padding:0 24px;
+}
+
+.antarctica-title{
+font-family:var(--font-display);
+font-size:clamp(4rem,10vw,8rem);
+line-height:.95;
+margin-bottom:20px;
+}
+
+.antarctica-title span{
+display:block;
+color:#9fd7ff;
+font-style:italic;
+}
+
+.antarctica-sub{
+max-width:780px;
+margin:auto;
+font-size:1.15rem;
+line-height:1.9;
+color:var(--muted);
+}
+
+.expedition-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+margin-top:70px;
+}
+
+.expedition-card{
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.08);
+border-radius:20px;
+padding:22px;
+backdrop-filter:blur(18px);
+text-align:left;
+}
+
+.expedition-card h4{
+margin-top:12px;
+}
+
+.live-dot{
+width:10px;
+height:10px;
+background:#00ff88;
+border-radius:50%;
+display:inline-block;
+}
+
+.antarctica-stat-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:24px;
+margin-top:70px;
+}
+
+.antarctica-stat{
+padding:24px;
+border-radius:20px;
+background:rgba(255,255,255,.03);
+border:1px solid var(--border);
+text-align:center;
+}
+
+.antarctica-stat h3{
+font-family:var(--font-display);
+font-size:2rem;
+color:#9fd7ff;
+margin-bottom:8px;
+}
+
+.antarctica-card-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:24px;
+}
+
+.antarctica-card{
+background:var(--panel);
+border:1px solid var(--border);
+border-radius:24px;
+overflow:hidden;
+transition:.4s;
+}
+
+.antarctica-card:hover{
+transform:translateY(-10px);
+}
+
+.antarctica-card img{
+width:100%;
+height:280px;
+object-fit:cover;
+}
+
+.antarctica-card-content{
+padding:24px;
+}
+
+.antarctica-card h3{
+font-family:var(--font-display);
+font-size:1.5rem;
+margin-bottom:12px;
+}
+
+@media(max-width:1000px){
+
+.expedition-grid,
+.antarctica-stat-grid,
+.antarctica-card-grid{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+
 </head>
+
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <img src="logo.png" alt="LiveAtlas Logo">
-                <span>LiveAtlas</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="index.html#destinations">Destinations</a></li>
-                <li><a href="roadmap.html">Roadmap</a></li>
-                <li><a href="https://cal.com/live-atlas/60min" class="book-btn">Book Now</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Hero -->
-    <section class="destination-hero">
-        <div>
-            <h1 class="glitch" data-text="Virtual Antarctica Tours">
-                Immersive Live Virtual Tours Across Antarctica
-            </h1>
-            <p style="font-size: 1.5rem; margin-top: 1rem;">The Last Great Wilderness on Earth</p>
-        </div>
-    </section>
+<div id="la-loader">
 
-    <!-- Content -->
-    <section class="destination-content">
-        <div class="container">
-            <!-- LIVE WEATHER CARD -->
-                <div class="la-weather-card">
+<div class="la-loader__logo">
+LiveAtlas
+</div>
 
-                <div class="la-weather-card__label">
-                LIVE ANTARCTICA CONDITIONS
-                </div>
+<div class="la-loader__subtitle">
+Live From Antarctica
+</div>
 
-                <div class="la-weather-card__temp"
-                id="weather-temp">
-                Loading...
-                </div>
+<div class="la-loader__track">
+<div class="la-loader__bar"></div>
+</div>
 
-                <div class="la-weather-card__condition"
-                id="weather-condition">
-                Fetching realtime weather...
-                </div>
+</div>
 
-                <div class="la-weather-card__time"
-                    id="antarctica-time">
-                    Loading local time...
-                </div>
+<nav class="la-nav">
 
-                <div class="la-weather-card__sun"
-                id="antarctica-sun">
-                Loading sunrise & sunset...
-                </div>
+<a href="index.html" class="la-nav__logo">
 
-                </div>
-            <h2 class="section-title">Why Visit Antarctica?</h2>
-            <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; font-size: 1.2rem; color: var(--gray-text);">
-                Experience the pristine beauty of the world's most remote continent - massive icebergs, 
-                incredible wildlife, and landscapes that few humans will ever see in person.
-            </p>
+<img
+src="logo.png"
+alt="LiveAtlas"
+class="la-nav__logo-img"
+>
 
-            <div class="highlights-grid">
-                <div class="highlight-card">
-                    <div class="highlight-icon">🐧</div>
-                    <h3>Penguin Colonies</h3>
-                    <p>Witness thousands of Emperor, Adelie, and Gentoo penguins in their natural habitat.</p>
-                </div>
-                <div class="highlight-card">
-                    <div class="highlight-icon">🧊</div>
-                    <h3>Massive Icebergs</h3>
-                    <p>Marvel at colossal ice formations, some larger than entire cities, in crystal blue waters.</p>
-                </div>
-                <div class="highlight-card">
-                    <div class="highlight-icon">🐋</div>
-                    <h3>Marine Wildlife</h3>
-                    <p>Spot humpback whales, seals, orcas, and other incredible marine life in polar waters.</p>
-                </div>
-                <div class="highlight-card">
-                    <div class="highlight-icon">🏔️</div>
-                    <h3>Research Stations</h3>
-                    <p>Visit international scientific research bases and learn about climate science firsthand.</p>
-                </div>
-                <div class="highlight-card">
-                    <div class="highlight-icon">⛰️</div>
-                    <h3>Glaciers & Mountains</h3>
-                    <p>Explore dramatic ice shelves, glaciers, and the Antarctic Peninsula's mountain ranges.</p>
-                </div>
-                <div class="highlight-card">
-                    <div class="highlight-icon">🌅</div>
-                    <h3>Midnight Sun</h3>
-                    <p>Experience 24-hour daylight during Antarctic summer and stunning polar light phenomena.</p>
-                </div>
-            </div>
+<span>LiveAtlas</span>
 
-            <div class="experiences">
-                <h2 style="text-align: center; margin-bottom: 3rem; color: var(--primary-color);">Live Tour Experiences</h2>
-                
-                <div class="experience-item">
-                    <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400" alt="Antarctica Landscape">
-                    <div>
-                        <h3>Antarctic Peninsula Expedition</h3>
-                        <p>Explore the most accessible part of Antarctica with stunning ice formations and abundant wildlife.</p>
-                        <p style="color: var(--primary-color); font-weight: bold;">Duration: 3 hours</p>
-                    </div>
-                </div>
+</a>
 
-                <div class="experience-item">
-                    <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400" alt="Penguins">
-                    <div>
-                        <h3>Wildlife Safari</h3>
-                        <p>Get up close with penguin colonies, seals, and witness whales breaching in icy waters.</p>
-                        <p style="color: var(--primary-color); font-weight: bold;">Duration: 2.5 hours</p>
-                    </div>
-                </div>
+<div class="la-nav__links">
 
-                <div class="experience-item">
-                    <img src="https://images.unsplash.com/photo-1483664852095-d6cc6870702d?w=400" alt="Ice Caves">
-                    <div>
-                        <h3>Research Station Tour</h3>
-                        <p>Visit working scientific bases and learn about cutting-edge climate research and polar science.</p>
-                        <p style="color: var(--primary-color); font-weight: bold;">Duration: 2 hours</p>
-                    </div>
-                </div>
-            </div>
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="index.html#destinations">Destinations</a>
+<a href="roadmap.html">Roadmap</a>
 
-            <div class="book-section">
-                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Ready to Explore Antarctica?</h2>
-                <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">
-                    Book your virtual expedition now and witness Earth's frozen frontier
-                </p>
-                <a href="https://cal.com/live-atlas/60min" class="cta-primary large">Book Antarctica Tour</a>
-            </div>
-        </div>
-    </section>
+<a
+href="https://cal.com/live-atlas/60min"
+class="la-nav__cta"
+>
+Book Expedition
+</a>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>LiveAtlas</h3>
-                    <p>Bringing the world to your home through immersive virtual experiences</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="roadmap.html">Roadmap</a></li>
-                        <li><a href="index.html#destinations">Destinations</a></li>
-                        <li><a href="https://cal.com/live-atlas/60min">Book Now</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Connect</h4>
-                    <p>Follow us on social media for the latest updates and exclusive content!</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 LiveAtlas. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+</div>
 
-    <script src="app.js"></script>
-    <script src="script.js"></script>
+<div class="la-nav__hamburger">
+<span></span>
+<span></span>
+<span></span>
+</div>
 
-    <script>
+</nav>
 
-async function loadAntarcticaWeather(){
+<div class="la-nav__mobile">
 
-  try{
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="index.html#destinations">Destinations</a>
+<a href="roadmap.html">Roadmap</a>
+<a href="https://cal.com/live-atlas/60min">Book Expedition</a>
 
-    const response = await fetch(
-      'https://api.open-meteo.com/v1/forecast?latitude=-75.250973&longitude=-0.071389&current=temperature_2m,weather_code'
-    );
+</div>
 
-    const data = await response.json();
+<section class="antarctica-hero">
 
-    const temp = data.current.temperature_2m;
-    const code = data.current.weather_code;
+<div class="antarctica-content">
 
-    let condition = "Unknown Conditions";
+<div class="tag">
+<span class="tag__dot"></span>
+LIVE FROM EARTH'S LAST FRONTIER
+</div>
 
-    if(code === 0){
-      condition = "Clear Sky";
-    }
-    else if(code <= 3){
-      condition = "Partly Cloudy";
-    }
-    else if(code <= 48){
-      condition = "Foggy Conditions";
-    }
-    else if(code <= 67){
-      condition = "Rain / Freezing Rain";
-    }
-    else if(code <= 77){
-      condition = "Snowfall";
-    }
-    else if(code <= 99){
-      condition = "Storm Conditions";
-    }
+<h1 class="antarctica-title">
+Where Humanity Ends.
+<span>Exploration Begins.</span>
+</h1>
 
-    document.getElementById('weather-temp').innerText =
-      `${temp}°C`;
+<p class="antarctica-sub">
 
-    document.getElementById('weather-condition').innerText =
-      condition;
+Join live polar expeditions across the most remote,
+untouched and extraordinary continent on Earth.
+Witness wildlife, glaciers, research stations and
+the forces shaping our planet in real time.
 
-  }
+</p>
 
-  catch(error){
+<div class="hero__actions">
 
-    document.getElementById('weather-temp').innerText =
-      '--';
+<a
+href="https://cal.com/live-atlas/60min"
+class="btn-primary"
+>
+Join A Live Expedition
+</a>
 
-    document.getElementById('weather-condition').innerText =
-      'Unable to load realtime weather';
+<a
+href="#expedition-feed"
+class="btn-ghost"
+>
+View Live Feed
+</a>
 
-    console.error(error);
+</div>
 
-  }
+<div id="expedition-feed" class="expedition-grid">
 
-}
+<div class="expedition-card">
+<span class="live-dot"></span>
+<h4>LIVE • Penguin Colony</h4>
+</div>
 
-loadAntarcticaWeather();
+<div class="expedition-card">
+<span class="live-dot"></span>
+<h4>LIVE • Iceberg Observation</h4>
+</div>
 
-function updateAntarcticaTime(){
+<div class="expedition-card">
+<span class="live-dot"></span>
+<h4>LIVE • Research Station</h4>
+</div>
 
-  const options = {
-    timeZone: 'Antarctica/Troll',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
-  };
+<div class="expedition-card">
+<span class="live-dot"></span>
+<h4>LIVE • Glacier Front</h4>
+</div>
 
-  const antarcticaTime =
-    new Date().toLocaleTimeString(
-      'en-US',
-      options
-    );
+<div class="expedition-card">
+<span class="live-dot"></span>
+<h4>LIVE • Whale Tracking</h4>
+</div>
 
-  document.getElementById('antarctica-time').innerText =
-    `LOCAL ANTARCTICA TIME — ${antarcticaTime}`;
+<div class="expedition-card">
+<span class="live-dot"></span>
+<h4>LIVE • Polar Camp</h4>
+</div>
 
-}
+</div>
 
-updateAntarcticaTime();
+<div class="antarctica-stat-grid">
 
-setInterval(updateAntarcticaTime, 1000);
+<div class="antarctica-stat">
+<h3>14M km²</h3>
+<p>Continent Size</p>
+</div>
 
-async function loadAntarcticaSunData(){
+<div class="antarctica-stat">
+<h3>90%</h3>
+<p>Earth's Ice</p>
+</div>
 
-  try{
+<div class="antarctica-stat">
+<h3>70%</h3>
+<p>Fresh Water</p>
+</div>
 
-    const response = await fetch(
-      'https://api.open-meteo.com/v1/forecast?latitude=-75.250973&longitude=-0.071389&daily=sunrise,sunset&timezone=auto'
-    );
+<div class="antarctica-stat">
+<h3>0</h3>
+<p>Permanent Residents</p>
+</div>
 
-    const data = await response.json();
+</div>
 
-    const sunriseRaw = data.daily.sunrise[0];
-    const sunsetRaw = data.daily.sunset[0];
+</div>
 
-    const sunrise = new Date(sunriseRaw)
-      .toLocaleTimeString('en-US', {
-        hour:'2-digit',
-        minute:'2-digit'
-      });
+</section>
 
-    const sunset = new Date(sunsetRaw)
-      .toLocaleTimeString('en-US', {
-        hour:'2-digit',
-        minute:'2-digit'
-      });
+<section class="section section--pad">
 
-    document.getElementById('antarctica-sun').innerText =
-      `SUNRISE — ${sunrise}   •   SUNSET — ${sunset}`;
+<div class="container">
 
-  }
+<div class="la-weather-card">
 
-  catch(error){
+<div class="la-weather-card__label">
+LIVE ANTARCTICA CONDITIONS
+</div>
 
-    document.getElementById('antarctica-sun').innerText =
-      'Unable to load sunrise & sunset';
+<div
+class="la-weather-card__temp"
+id="weather-temp">
+Loading...
+</div>
 
-    console.error(error);
+<div
+class="la-weather-card__condition"
+id="weather-condition">
+Fetching realtime weather...
+</div>
 
-  }
+<div
+class="la-weather-card__time"
+id="antarctica-time">
+Loading local time...
+</div>
 
-}
+<div
+class="la-weather-card__sun"
+id="antarctica-sun">
+Loading sunrise & sunset...
+</div>
 
-loadAntarcticaSunData();
+</div>
 
-</script>
+<div class="section-header section-header--center">
+
+<div class="section-label">
+Antarctic Wonders
+</div>
+
+<h2 class="section-title">
+The Most Remote Place On Earth
+</h2>
+
+<p class="section-desc">
+
+Few humans will ever stand here.
+Now you can experience Antarctica live.
+
+</p>
+
+</div>
+
+<div class="antarctica-card-grid">
+
+
+    <div class="antarctica-card">
+
+<img
+src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1400"
+alt="Emperor Penguins"
+>
+
+<div class="antarctica-card-content">
+
+<h3>Emperor Penguins</h3>
+
+<p>
+
+Witness thousands of penguins thriving in one of the most
+extreme environments on Earth.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="antarctica-card">
+
+<img
+src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1400"
+alt="Giant Icebergs"
+>
+
+<div class="antarctica-card-content">
+
+<h3>Giant Icebergs</h3>
+
+<p>
+
+Floating mountains of ice larger than entire cities,
+constantly reshaped by nature.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="antarctica-card">
+
+<img
+src="https://images.unsplash.com/photo-1483664852095-d6cc6870702d?w=1400"
+alt="Research Stations"
+>
+
+<div class="antarctica-card-content">
+
+<h3>Research Stations</h3>
+
+<p>
+
+Meet scientists working at the edge of human civilization,
+studying climate, oceans and the future of our planet.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="antarctica-card">
+
+<img
+src="https://images.unsplash.com/photo-1568430462989-44163eb1752f?w=1400"
+alt="Humpback Whales"
+>
+
+<div class="antarctica-card-content">
+
+<h3>Humpback Whales</h3>
+
+<p>
+
+Observe some of Earth's largest animals feeding and migrating
+through Antarctic waters.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="antarctica-card">
+
+<img
+src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1400"
+alt="Antarctic Mountains"
+>
+
+<div class="antarctica-card-content">
+
+<h3>Antarctic Mountains</h3>
+
+<p>
+
+Towering peaks rising from endless ice fields in one of the
+most isolated landscapes on the planet.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="antarctica-card">
+
+<img
+src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1400"
+alt="Midnight Sun"
+>
+
+<div class="antarctica-card-content">
+
+<h3>Midnight Sun</h3>
+
+<p>
+
+Experience a world where the sun barely sets and daylight
+can last for months.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section section--pad">
+
+<div class="container">
+
+<div class="section-header section-header--center">
+
+<div class="section-label">
+Live Expeditions
+</div>
+
+<h2 class="section-title">
+Join The Mission
+</h2>
+
+<p class="section-desc">
+
+These are not sightseeing tours.
+They are immersive journeys into one of the least explored
+regions on Earth.
+
+</p>
+
+</div>
+
+<div class="experience-grid">
+
+<div class="experience-card">
+
+<img
+src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200"
+alt="Antarctic Peninsula"
+>
+
+<div class="experience-card-content">
+
+<h3>Antarctic Peninsula Expedition</h3>
+
+<p>
+
+Navigate ice-filled waters, towering glaciers and some of the
+continent's most accessible wilderness.
+
+</p>
+
+<div class="experience-duration">
+Duration: 3 Hours
+</div>
+
+</div>
+
+</div>
+
+<div class="experience-card">
+
+<img
+src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1200"
+alt="Penguin Colony"
+>
+
+<div class="experience-card-content">
+
+<h3>Penguin Colony Encounter</h3>
+
+<p>
+
+Observe thriving penguin communities and learn how they
+survive in the harsh Antarctic climate.
+
+</p>
+
+<div class="experience-duration">
+Duration: 2.5 Hours
+</div>
+
+</div>
+
+</div>
+
+<div class="experience-card">
+
+<img
+src="https://images.unsplash.com/photo-1483664852095-d6cc6870702d?w=1200"
+alt="Science Mission"
+>
+
+<div class="experience-card-content">
+
+<h3>Polar Science Mission</h3>
+
+<p>
+
+Step inside research facilities and discover how Antarctica
+helps scientists understand Earth's future.
+
+</p>
+
+<div class="experience-duration">
+Duration: 2 Hours
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section section--pad">
+
+<div class="container">
+
+<div class="cta-banner">
+
+<div class="section-label">
+EARTH'S LAST FRONTIER
+</div>
+
+<h2 class="cta-banner__title">
+Only A Few Thousand People Visit Antarctica Each Year.
+You Can Experience It Today.
+</h2>
+
+<p class="cta-banner__desc">
+
+Join a live expedition across glaciers, wildlife habitats,
+research stations and the most extraordinary landscapes
+on our planet.
+
+</p>
+
+<a
+href="https://cal.com/live-atlas/60min"
+class="btn-primary"
+>
+Join A Live Antarctic Expedition
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<footer class="la-footer">
+
+<div class="container">
+
+<div class="la-footer__grid">
+
+<div>
+
+<div class="la-footer__brand-name">
+LiveAtlas
+</div>
+
+<p class="la-footer__brand-desc">
+
+Bringing the world to your home through immersive
+live virtual tourism experiences.
+
+</p>
+
+</div>
+
+<div>
+
+<div class="la-footer__col-title">
+Explore
+</div>
+
+<div class="la-footer__col-links">
+
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="roadmap.html">Roadmap</a>
+<a href="index.html#destinations">Destinations</a>
+
+</div>
+
+</div>
+
+<div>
+
+<div class="la-footer__col-title">
+Destinations
+</div>
+
+<div class="la-footer__col-links">
+
+<a href="india.html">India</a>
+<a href="uae.html">UAE</a>
+<a href="denmark.html">Denmark</a>
+<a href="antarctica.html">Antarctica</a>
+
+</div>
+
+</div>
+
+<div>
+
+<div class="la-footer__col-title">
+Book
+</div>
+
+<div class="la-footer__col-links">
+
+<a href="https://cal.com/live-atlas/60min">
+Schedule Expedition
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="la-footer__bottom">
+
+<div class="la-footer__copy">
+© 2026 LiveAtlas. All rights reserved.
+</div>
+
+<div class="la-footer__love">
+Built for immersive global exploration.
+</div>
+
+</div>
+
+</div>
+
+</footer>
+
+<!-- KEEP ALL OF YOUR EXISTING ANTARCTICA WEATHER/TIME/SUNRISE JS HERE -->
+<!-- Copy the entire weather script block from the old Antarctica page -->
+
+<script src="app.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>

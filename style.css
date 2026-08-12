@@ -6,8 +6,7 @@
    ============================================================ */
 
 /* ── Google Fonts ── */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Outfit:wght@300;400;500;600;700&display=swap');
 /* ============================================================
    1. DESIGN TOKENS — CSS VARIABLES
    ============================================================ */
@@ -29,7 +28,7 @@
   --white:       #FFFFFF;
 
   /* Typography */
-  --font-display: 'Playfair Display', Georgia, serif;
+  --font-display: 'DM Sans', sans-serif;
   --font-body:    'Outfit', sans-serif;
 
   /* Spacing Scale */
@@ -187,29 +186,33 @@ body.cursor-hover #la-cursor-ring {
 .type-display {
   font-family: var(--font-display);
   font-size: clamp(3.5rem, 9vw, 8.5rem);
-  font-weight: 400;
-  line-height: 1.0;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
   color: var(--cream);
+  text-wrap: balance;
 }
 
 /* Headline — section titles */
 .type-headline {
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 5vw, 4rem);
-  font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
   color: var(--cream);
+  text-wrap: balance;
 }
 
 /* Subheadline */
 .type-sub {
   font-family: var(--font-display);
   font-size: clamp(1.3rem, 2.5vw, 1.8rem);
-  font-weight: 400;
-  line-height: 1.3;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
   color: var(--cream);
+  text-wrap: balance;
 }
 
 /* Body */
@@ -233,7 +236,8 @@ body.cursor-hover #la-cursor-ring {
 
 /* Italic accent in headlines */
 em {
-  font-style: italic;
+  font-style: normal;
+  font-weight: 600;
   color: var(--accent);
 }
 
@@ -268,10 +272,10 @@ em {
   align-items: center;
   gap: 12px;
   font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 500;
+  font-size: 1.35rem;
+  font-weight: 600;
   color: var(--cream);
-  letter-spacing: 0.01em;
+  letter-spacing: -0.025em;
   transition: opacity var(--dur-fast);
 }
 
@@ -556,10 +560,11 @@ em {
 .section-title {
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 4.5vw, 3.8rem);
-  font-weight: 400;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
   color: var(--cream);
+  text-wrap: balance;
 }
 
 .section-desc {
@@ -642,9 +647,11 @@ em {
 .card-feature__title {
   font-family: var(--font-display);
   font-size: 1.4rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--cream);
   margin-bottom: 12px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
 .card-feature__desc {
@@ -705,10 +712,12 @@ em {
 .card-dest__name {
   font-family: var(--font-display);
   font-size: 2rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--cream);
   margin-bottom: 6px;
-  line-height: 1.1;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
 }
 
 .card-dest__tagline {
@@ -754,9 +763,10 @@ em {
 .card-stat__num {
   font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 500;
+  font-weight: 600;
   color: var(--accent);
   line-height: 1;
+  letter-spacing: -0.035em;
   margin-bottom: 10px;
 }
 
@@ -1194,10 +1204,12 @@ em {
 .cta-banner__title {
   font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 3.4rem);
-  font-weight: 400;
+  font-weight: 600;
   color: var(--cream);
   margin: 20px 0 18px;
-  line-height: 1.1;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
 }
 
 .cta-banner__desc {
@@ -1259,9 +1271,9 @@ em {
 .la-loader__name {
   font-family: var(--font-display);
   font-size: 1.8rem;
-  font-weight: 400;
+  font-weight: 600;
   color: var(--cream);
-  letter-spacing: 0.08em;
+  letter-spacing: -0.025em;
   animation: fadeIn 0.5s both;
 }
 
@@ -1355,26 +1367,33 @@ em {
 
 .hero-cinematic__title {
   font-family: var(--font-display);
-  font-size: clamp(4rem, 8vw, 8rem);
-  line-height: 0.95;
-  letter-spacing: -0.04em;
+  font-size: clamp(3.8rem, 7.5vw, 7.2rem);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.055em;
   color: var(--cream);
   margin-top: 24px;
   margin-bottom: 30px;
+  text-wrap: balance;
 }
 
 .hero-cinematic__title span {
   display: block;
   color: var(--accent);
-  font-style: italic;
+  font-style: normal;
+  font-weight: 600;
 }
 
 .hero-cinematic__sub {
   max-width: 560px;
-  font-size: 1.05rem;
-  line-height: 1.9;
-  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 1.02rem;
+  font-weight: 400;
+  line-height: 1.75;
+  letter-spacing: -0.005em;
+  color: rgba(240, 235, 225, 0.72);
   margin-bottom: 46px;
+  text-wrap: balance;
 }
 
 /* Right Side Globe */
